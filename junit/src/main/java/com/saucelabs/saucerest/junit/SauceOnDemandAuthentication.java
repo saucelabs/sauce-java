@@ -18,8 +18,14 @@ import java.util.Properties;
  */
 public class SauceOnDemandAuthentication extends TestWatcher {
 
+    /**
+     * The username to use when connecting to Sauce OnDemand.  Defaults to empty string.
+     */
     private String username = "";
 
+    /**
+     * The access key to use when connecting to Sauce OnDemand. Defaults to empty string.
+     */
     private String accessKey = "";
 
     private static final String SAUCE_USER_NAME = "SAUCE_USER_NAME";

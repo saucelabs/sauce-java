@@ -15,7 +15,15 @@ import java.io.IOException;
  */
 public class SauceOnDemandTestWatcher extends TestWatcher {
 
-    private final SessionIdProvider sessionIdProvider;
+    /**
+     * The underlying {@link SauceOnDemandSessionIdProvider} instance which contains the Selenium session id.  This is typically
+     * the unit test being executed.
+     */
+    private final SauceOnDemandSessionIdProvider sessionIdProvider;
+
+    /**
+     * The instance of the Sauce OnDemand Java REST API client.
+     */
     private final SauceREST sauceREST;
 
 
@@ -23,7 +31,7 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
      *
      * @param sessionIdProvider
      */
-    public SauceOnDemandTestWatcher(SessionIdProvider sessionIdProvider) {
+    public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider) {
         this(sessionIdProvider, new SauceOnDemandAuthentication());
     }
 
@@ -32,7 +40,7 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
      * @param sessionIdProvider
      * @param authentication
      */
-    public SauceOnDemandTestWatcher(SessionIdProvider sessionIdProvider, SauceOnDemandAuthentication authentication) {
+    public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, SauceOnDemandAuthentication authentication) {
         this(sessionIdProvider,
                 authentication.getUsername(),
                 authentication.getAccessKey());
@@ -44,14 +52,16 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
      * @param username
      * @param accessKey
      */
-    public SauceOnDemandTestWatcher(SessionIdProvider sessionIdProvider, final String username, final String accessKey) {
+    public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, final String username, final String accessKey) {
         this.sessionIdProvider = sessionIdProvider;
         sauceREST = new SauceREST(username, accessKey);
     }
 
     /**
+     * Invoked if the unit test passes without error or failure.  Invokes the Sauce REST API to mark the Sauce Job
+     * as 'passed'.
      *
-     * @param description
+     * @param description not used
      */
     protected void succeeded(Description description) {
         try {
@@ -62,9 +72,10 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
     }
 
     /**
-     *
-     * @param e
-     * @param description
+     * Invoked if the unit test either throws an error or fails.  Invokes the Sauce REST API to mark the Sauce Job
+     * as 'failed'.
+     * @param e not used
+     * @param description not used
      */
     protected void failed(Throwable e, Description description) {
         try {
