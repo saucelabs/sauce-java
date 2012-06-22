@@ -1,0 +1,18 @@
+<suite name="ExampleBartProject" verbose="5" parallel="methods" thread-count="5">
+  <parameter name="ondemand" value="true"/>
+  <parameter name="username" value="PUT YOUR SAUCE LABS USERNAME HERE"/>
+  <parameter name="key" value="PUT YOU SAUCE LABS ACCESS KEY HERE"/>
+  <parameter name="os" value="Windows 2003"/>
+  <parameter name="browser" value="firefox"/>
+  <parameter name="browserVersion" value="3.6."/>
+  <test name="Bart" >
+    <!-- <groups>
+      <run>
+        <include name="bart"/>
+      </run>
+    </groups> -->
+    <classes>
+       <class name="BartTest" />
+    </classes>
+  </test>
+</suite>

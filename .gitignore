@@ -4,3 +4,11 @@
 *.jar
 *.war
 *.ear
+
+.DS_Store
+.idea
+junit/sauce_junit.iml
+
+testng/sauce_testng.iml
+
+junit/atlassian-ide-plugin.xml

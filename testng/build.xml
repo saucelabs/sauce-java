@@ -1,0 +1,70 @@
+<project name="ExampleBartProject" default="compile" basedir=".">
+  <description>'Simple' Sauce Labs on TestNG project</description>
+  
+  <!-- set global properties for this build -->
+  <property name="src.dir" location="src"/>
+  <property name="build.dir" location="build"/>
+  <property name="lib.dir" location="lib"/>
+  <property name="testng.xml.dir" location="xml"/>
+  <property name="testng.report.dir" location="reports"/>
+
+  <taskdef resource="testngtasks" classpath="lib/testng-5.14.jar"/>
+
+  <path id="classpath.build">
+    <fileset dir="${lib.dir}">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+  
+  <path id="classpath.run">
+    <fileset dir="${lib.dir}">
+      <include name="*.jar"/>
+    </fileset>
+    <pathelement path="${build.dir}"/>
+  </path>
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${testng.report.dir}"/>
+  </target>
+
+  <target name="compile" depends="init"
+        description="compile the source">
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac srcdir="${src.dir}" destdir="${build.dir}">
+      <classpath>
+          <path refid="classpath.build"/>
+      </classpath>
+      <compilerarg value="-Xlint"/>
+    </javac>
+  </target>
+
+  <target name="tests" depends="compile"
+        description="run the test suite">
+    <property name="myclasspath" refid="classpath.run"/>
+    <echo message="Classpath = ${myclasspath}"/>
+    <testng outputDir="${testng.report.dir}"
+            classpathref="classpath.run">
+      <xmlfileset file="${testng.xml.dir}/BartTest.xml"/>
+    </testng>
+  </target>
+
+  <target name="cloud" depends="compile"
+        description="run the test suite">
+    <property name="myclasspath" refid="classpath.run"/>
+    <echo message="Classpath = ${myclasspath}"/>
+    <testng outputDir="${testng.report.dir}"
+            classpathref="classpath.run">
+      <xmlfileset file="${testng.xml.dir}/BartOnDemand.xml"/>
+    </testng>
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete the ${build}directory trees -->
+    <delete dir="${build.dir}"/>
+  </target>
+</project>

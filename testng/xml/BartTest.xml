@@ -1,0 +1,12 @@
+<suite name="ExampleBartProject" verbose="1" >
+  <test name="Bart" >
+    <!-- <groups>
+      <run>
+        <include name="bart"/>
+      </run>
+    </groups> -->
+    <classes>
+       <class name="BartTest" />
+    </classes>
+  </test>
+</suite>
