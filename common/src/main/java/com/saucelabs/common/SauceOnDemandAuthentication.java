@@ -1,6 +1,5 @@
-package com.saucelabs.saucerest.junit;
+package com.saucelabs.common;
 
-import org.junit.rules.TestWatcher;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,14 +8,14 @@ import java.util.Properties;
 
 /**
  *
- * {@link TestWatcher} subclass which will store the Sauce OnDemand authentication (retrieved from
+ * Stores the Sauce OnDemand authentication (retrieved from
  * either System properties/environment variables or by parsing the ~/.sauce-ondemand file).
  * The authentication information information will also be made available by the getter methods, so
  * that it can be used when constructing Sauce OnDemand request URLs.
  *
  * @author Ross Rowe
  */
-public class SauceOnDemandAuthentication extends TestWatcher {
+public class SauceOnDemandAuthentication {
 
     /**
      * The username to use when connecting to Sauce OnDemand.  Defaults to empty string.

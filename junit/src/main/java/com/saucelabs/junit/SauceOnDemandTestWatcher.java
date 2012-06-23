@@ -1,5 +1,6 @@
-package com.saucelabs.saucerest.junit;
+package com.saucelabs.junit;
 
+import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.saucerest.SauceREST;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;

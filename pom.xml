@@ -3,10 +3,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.saucelabs</groupId>
-    <artifactId>sauce_testng</artifactId>
+    <artifactId>sauce_java</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>sauce_testng</name>
-
+    <name>sauce_java</name>
+    <packaging>pom</packaging>
+	<modules>
+	        <module>common</module>
+	        <module>junit</module>
+			<module>testng</module>
+	    </modules>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -19,12 +24,10 @@
         <url>http://www.saucelabs.com/</url>
     </organization>
     <developers>
-
         <developer>
             <organization>Sauce Labs</organization>
             <organizationUrl>http://www.saucelabs.com/</organizationUrl>
         </developer>
-
     </developers>
     <scm>
         <connection>scm:git:git://github.com/saucelabs/sauce_junit.git</connection>
@@ -37,40 +40,19 @@
             <url>dav:https://repository-saucelabs.forge.cloudbees.com/release</url>
         </repository>
     </distributionManagement>
-    <dependencies>
-        <dependency>
-            <groupId>com.saucelabs</groupId>
-            <artifactId>sauce_java_common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>5.14</version>
-        </dependency>
-        <dependency>
-            <groupId>com.saucelabs</groupId>
-            <artifactId>saucerest</artifactId>
-            <version>LATEST</version>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-api</artifactId>
-            <version>LATEST</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-remote-control</artifactId>
-            <version>LATEST</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>LATEST</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <build>
+	        <pluginManagement>
+	            <plugins>
+	                <plugin>
+	                    <groupId>org.apache.maven.plugins</groupId>
+	                    <artifactId>maven-compiler-plugin</artifactId>
+	                    <configuration>
+	                        <source>1.6</source>
+	                        <target>1.6</target>
+	                    </configuration>
+	                </plugin>
+	            </plugins>
+	        </pluginManagement>
+	    </build>
 
 </project>

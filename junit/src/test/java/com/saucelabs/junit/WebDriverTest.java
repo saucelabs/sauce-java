@@ -1,8 +1,6 @@
 package com.saucelabs.junit;
 
-import com.saucelabs.saucerest.junit.SauceOnDemandAuthentication;
-import com.saucelabs.saucerest.junit.SauceOnDemandSessionIdProvider;
-import com.saucelabs.saucerest.junit.SauceOnDemandTestWatcher;
+import com.saucelabs.common.SauceOnDemandAuthentication;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;

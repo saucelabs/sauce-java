@@ -45,6 +45,11 @@
         </dependency>
         <dependency>
             <groupId>com.saucelabs</groupId>
+            <artifactId>sauce_java_common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.saucelabs</groupId>
             <artifactId>saucerest</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

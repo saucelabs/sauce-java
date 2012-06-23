@@ -1,4 +1,4 @@
-package com.saucelabs.saucerest.junit;
+package com.saucelabs.junit;
 
 /**
  *
