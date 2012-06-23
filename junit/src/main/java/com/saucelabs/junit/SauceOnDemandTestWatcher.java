@@ -1,6 +1,7 @@
 package com.saucelabs.junit;
 
 import com.saucelabs.common.SauceOnDemandAuthentication;
+import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 import com.saucelabs.saucerest.SauceREST;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
@@ -17,7 +18,7 @@ import java.io.IOException;
 public class SauceOnDemandTestWatcher extends TestWatcher {
 
     /**
-     * The underlying {@link SauceOnDemandSessionIdProvider} instance which contains the Selenium session id.  This is typically
+     * The underlying {@link com.saucelabs.common.SauceOnDemandSessionIdProvider} instance which contains the Selenium session id.  This is typically
      * the unit test being executed.
      */
     private final SauceOnDemandSessionIdProvider sessionIdProvider;

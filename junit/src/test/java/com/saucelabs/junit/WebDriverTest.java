@@ -1,6 +1,7 @@
 package com.saucelabs.junit;
 
 import com.saucelabs.common.SauceOnDemandAuthentication;
+import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
