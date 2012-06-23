@@ -6,5 +6,10 @@ package com.saucelabs.common;
  * @author Ross Rowe - updated documentation
  */
 public interface SauceOnDemandSessionIdProvider {
+
+    /**
+     *
+     * @return
+     */
     String getSessionId();
 }

@@ -45,6 +45,11 @@ public class SauceOnDemandAuthentication {
         }
     }
 
+    public SauceOnDemandAuthentication(String username, String accessKey) {
+        this.username = username;
+        this.accessKey = accessKey;
+    }
+
     private void loadCredentialsFromFile(File propertyFile) {
         Properties props = new Properties();
         FileInputStream in = null;

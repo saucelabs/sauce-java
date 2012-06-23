@@ -24,23 +24,42 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
      * The instance of the Sauce OnDemand Java REST API client.
      */
     private SauceREST sauceREST;
-    private SauceOnDemandAuthentication sauceOnDemandAuthentication;
 
     public SauceOnDemandTestListener() {
-        this.sauceOnDemandAuthentication = new SauceOnDemandAuthentication();
     }
 
     @Override
     public void onStart(ITestContext testContext) {
         super.onStart(testContext);
+    }
+
+    @Override
+    public void onTestStart(ITestResult result) {
+        super.onTestStart(result);
+
+        if (result.getInstance() instanceof SauceOnDemandSessionIdProvider) {
+            this.sessionIdProvider = (SauceOnDemandSessionIdProvider) result.getInstance();
+        }
+        SauceOnDemandAuthentication sauceOnDemandAuthentication;
+        if (result.getInstance() instanceof SauceOnDemandAuthenticationProvider) {
+            //use the authentication information provided by the test class
+            SauceOnDemandAuthenticationProvider provider = (SauceOnDemandAuthenticationProvider) result.getInstance();
+            sauceOnDemandAuthentication = provider.getAuthentication();
+        } else {
+            //otherwise use the default authentication
+            sauceOnDemandAuthentication = new SauceOnDemandAuthentication();
+        }
         sauceREST = new SauceREST(sauceOnDemandAuthentication.getUsername(), sauceOnDemandAuthentication.getAccessKey());
+
     }
 
     @Override
     public void onTestFailure(ITestResult tr) {
         super.onTestFailure(tr);
         try {
-            sauceREST.jobFailed(sessionIdProvider.getSessionId());
+            if (sessionIdProvider != null) {
+                sauceREST.jobFailed(sessionIdProvider.getSessionId());
+            }
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }
@@ -50,7 +69,9 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     public void onTestSuccess(ITestResult tr) {
         super.onTestSuccess(tr);
         try {
-            sauceREST.jobPassed(sessionIdProvider.getSessionId());
+            if (sessionIdProvider != null) {
+                sauceREST.jobPassed(sessionIdProvider.getSessionId());
+            }
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }

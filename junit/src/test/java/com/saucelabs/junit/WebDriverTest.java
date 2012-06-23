@@ -21,8 +21,7 @@ import static junit.framework.Assert.assertEquals;
  */
 public class WebDriverTest implements SauceOnDemandSessionIdProvider {
 
-    public @Rule
-    SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication();
+    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication();
 
     public @Rule
     SauceOnDemandTestWatcher resultReportingTestWatcher = new SauceOnDemandTestWatcher(this, authentication);
