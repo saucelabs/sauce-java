@@ -10,6 +10,8 @@ import org.testng.TestListenerAdapter;
 import java.io.IOException;
 
 /**
+ * TODO include method to download log/video?
+ *
  * @author Ross Rowe
  */
 public class SauceOnDemandTestListener extends TestListenerAdapter {
@@ -33,12 +35,18 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
         super.onStart(testContext);
     }
 
+    /**
+     *
+     * @param result
+     */
     @Override
     public void onTestStart(ITestResult result) {
         super.onTestStart(result);
 
         if (result.getInstance() instanceof SauceOnDemandSessionIdProvider) {
             this.sessionIdProvider = (SauceOnDemandSessionIdProvider) result.getInstance();
+            //log the session id to the system out
+            System.out.println(String.format("SauceOnDemandSessionID=%1 job-name=%2", sessionIdProvider, result.getMethod().getMethodName()));
         }
         SauceOnDemandAuthentication sauceOnDemandAuthentication;
         if (result.getInstance() instanceof SauceOnDemandAuthenticationProvider) {
@@ -50,9 +58,12 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
             sauceOnDemandAuthentication = new SauceOnDemandAuthentication();
         }
         sauceREST = new SauceREST(sauceOnDemandAuthentication.getUsername(), sauceOnDemandAuthentication.getAccessKey());
-
     }
 
+    /**
+     *
+     * @param tr
+     */
     @Override
     public void onTestFailure(ITestResult tr) {
         super.onTestFailure(tr);
@@ -65,6 +76,10 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
         }
     }
 
+    /**
+     *
+     * @param tr
+     */
     @Override
     public void onTestSuccess(ITestResult tr) {
         super.onTestSuccess(tr);
