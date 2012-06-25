@@ -3,14 +3,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.saucelabs</groupId>
-    <artifactId>sauce_java</artifactId>
+    <artifactId>quickstart-archetype</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>sauce_java</name>
+    <name>quickstart-archetype</name>
     <packaging>pom</packaging>
     <modules>
-        <module>common</module>
-        <module>junit</module>
-        <module>testng</module>
+        <module>quickstart-seleniumrc-junit</module>
+        <module>quickstart-seleniumrc-testng</module>
+        <module>quickstart-webdriver-junit</module>
+        <module>quickstart-webdriver-testng</module>
     </modules>
     <licenses>
         <license>
@@ -29,17 +30,7 @@
             <organizationUrl>http://www.saucelabs.com/</organizationUrl>
         </developer>
     </developers>
-    <scm>
-        <connection>scm:git:git://github.com/saucelabs/sauce_java.git</connection>
-        <developerConnection>scm:git:git@github.com:saucelabs/sauce_java.git</developerConnection>
-        <url>git@github.com:saucelabs/sauce_java.git</url>
-    </scm>
-    <distributionManagement>
-        <repository>
-            <id>cloudbees-private-release-repository</id>
-            <url>dav:https://repository-saucelabs.forge.cloudbees.com/release</url>
-        </repository>
-    </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>com.saucelabs</groupId>
@@ -91,5 +82,4 @@
             </plugins>
         </pluginManagement>
     </build>
-
 </project>
