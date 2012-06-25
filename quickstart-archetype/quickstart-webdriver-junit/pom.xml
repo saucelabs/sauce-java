@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.saucelabs</groupId>
-  <artifactId>quickstart-junit</artifactId>
+  <artifactId>quickstart-webdriver-junit</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 </project>

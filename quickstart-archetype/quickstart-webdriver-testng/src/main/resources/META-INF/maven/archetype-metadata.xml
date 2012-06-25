@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor name="quickstart-webdriver-testng">
+    <fileSets>
+        <fileSet filtered="true" packaged="true">
+            <directory>src/test/java</directory>
+            <includes>
+                <include>**/*.java</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+    <requiredProperties>
+        <requiredProperty key="sauceUserName"/>
+        <requiredProperty key="sauceAccessKey"/>
+    </requiredProperties>
+</archetype-descriptor>
