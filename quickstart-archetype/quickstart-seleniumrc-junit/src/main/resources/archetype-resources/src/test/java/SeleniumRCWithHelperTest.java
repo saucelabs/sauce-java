@@ -1,5 +1,6 @@
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.junit.SauceOnDemandTestWatcher;
 import com.thoughtworks.selenium.CommandProcessor;
 import org.junit.After;
 import org.junit.Before;
@@ -11,6 +12,7 @@ import com.thoughtworks.selenium.DefaultSelenium;
 import java.lang.IllegalAccessException;
 import java.lang.NoSuchFieldException;
 import java.lang.Object;
+import java.lang.reflect.Field;
 import java.net.URL;
 
 import static junit.framework.Assert.assertEquals;
@@ -68,7 +70,7 @@ public class SeleniumRCWithHelperTest implements SauceOnDemandSessionIdProvider 
         try {
             Field commandProcessorField = DefaultSelenium.class.getDeclaredField("commandProcessor");
             commandProcessorField.setAccessible(true);
-            CommandProcessor commandProcessor = (CommandProcessor) commandProcessorField.get(selenum);
+            CommandProcessor commandProcessor = (CommandProcessor) commandProcessorField.get(selenium);
             Field f = commandProcessor.getClass().getDeclaredField("sessionId");
             f.setAccessible(true);
             Object id = f.get(commandProcessor);

@@ -19,7 +19,7 @@ import static junit.framework.Assert.assertEquals;
 
 public class WebDriverTest {
 
-    private WebDriver driver;
+    private DefaultSelenium selenium;
 
     /**
      * If the tests can rely on the username/key to be supplied by environment variables or the existence
@@ -43,23 +43,29 @@ public class WebDriverTest {
                       Method method) throws Exception {
 
 
-        DesiredCapabilities capabillities = new DesiredCapabilities();
-        capabillities.setBrowserName(browser);
-        capabillities.setCapability("version", browserVersion);
-        capabillities.setCapability("platform", Platform.valueOf(os));
-        capabillities.setCapability("name", method.getName());
-        this.driver = new RemoteWebDriver(
-                new URL("http://" + username + ":" + key + "@ondemand.saucelabs.com:80/wd/hub"),
-                capabillities);
+        this.selenium = new DefaultSelenium(
+                "ondemand.saucelabs.com",
+                80,
+                "{\"username\": \"${sauceUserName}\"," +
+                        "\"access-key\": \"${sauceAccessKey}\"," +
+                        "\"os\": \"" + os + "\"," +
+                        "\"browser\": \"" + browser + "\"," +
+                        "\"browser-version\": \"" + browserVersion + "\"," +
+                        "\"name\": \"Testing Selenium 1 with Java on Sauce\"}",
+                "http://saucelabs.com/");
+        selenium.start();
+        this.selenium = selenium;
+
     }
 
     @Test
     public void basic() throws Exception {
-        driver.get("http://www.amazon.com/");
-        assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());
+        this.selenium.open("http://www.amazon.com");
+        assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", this.selenium.getTitle());
     }
 
+    @AfterMethod
     public void tearDown() throws Exception {
-        driver.quit();
+        this.selenium.stop();
     }
 }

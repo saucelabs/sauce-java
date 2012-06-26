@@ -1,5 +1,8 @@
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.testng.SauceOnDemandTestListener;
+import com.saucelabs.testng.SauceOnDemandAuthenticationProvider;
+import com.thoughtworks.selenium.DefaultSelenium;
 import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
@@ -17,11 +20,11 @@ import static junit.framework.Assert.assertEquals;
  * @author Ross Rowe
  */
 @Listeners({SauceOnDemandTestListener.class})
-public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider {
+public class SeleniumRCWithHelperTest implements SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider {
 
     public SauceOnDemandAuthentication authentication;
 
-    private WebDriver driver;
+    private DefaultSelenium selenium;
 
     /**
      * If the tests can rely on the username/key to be supplied by environment variables or the existence
@@ -50,14 +53,18 @@ public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider, 
            authentication = new SauceOnDemandAuthentication();
         }
 
-        DesiredCapabilities capabillities = new DesiredCapabilities();
-        capabillities.setBrowserName(browser);
-        capabillities.setCapability("version", browserVersion);
-        capabillities.setCapability("platform", Platform.valueOf(os));
-        capabillities.setCapability("name", method.getName());
-        this.driver = new RemoteWebDriver(
-                new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
-                capabillities);
+        this.selenium = new DefaultSelenium(
+                "ondemand.saucelabs.com",
+                80,
+                "{\"username\": \"${sauceUserName}\"," +
+                        "\"access-key\": \"${sauceAccessKey}\"," +
+                        "\"os\": \"" + os + "\"," +
+                        "\"browser\": \"" + browser + "\"," +
+                        "\"browser-version\": \"" + browserVersion + "\"," +
+                        "\"name\": \"Testing Selenium 1 with Java on Sauce\"}",
+                "http://saucelabs.com/");
+        selenium.start();
+        this.selenium = selenium;
     }
 
     /**
@@ -66,17 +73,19 @@ public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider, 
      */
     @Override
     public String getSessionId() {
-        return ((RemoteWebDriver)driver).getSessionId().toString();
+        SessionId sessionId = ((RemoteWebDriver)driver).getSessionId();
+        return (sessionId == null) ? null : sessionId.toString();
     }
 
     @Test
     public void basic() throws Exception {
-        driver.get("http://www.amazon.com/");
-        assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());
+        this.selenium.open("http://www.amazon.com");
+        assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", this.selenium.getTitle());
     }
 
+    @AfterMethod
     public void tearDown() throws Exception {
-        driver.quit();
+        this.selenium.stop();
     }
 
     /**
