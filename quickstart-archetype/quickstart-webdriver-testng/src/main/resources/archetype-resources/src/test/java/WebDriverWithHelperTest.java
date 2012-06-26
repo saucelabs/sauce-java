@@ -1,16 +1,20 @@
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.testng.SauceOnDemandTestListener;
+import com.saucelabs.testng.SauceOnDemandAuthenticationProvider;
 import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.SessionId;
 import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
 import java.net.URL;
 
-import static junit.framework.Assert.assertEquals;
+import static org.testng.Assert.assertEquals;
+
 
 /**
  *
@@ -66,7 +70,8 @@ public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider, 
      */
     @Override
     public String getSessionId() {
-        return ((RemoteWebDriver)driver).getSessionId().toString();
+        SessionId sessionId = ((RemoteWebDriver)driver).getSessionId();
+        return (sessionId == null) ? null : sessionId.toString();
     }
 
     @Test
@@ -75,6 +80,7 @@ public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider, 
         assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());
     }
 
+    @AfterMethod
     public void tearDown() throws Exception {
         driver.quit();
     }

@@ -3,7 +3,6 @@ package com.saucelabs.testng;
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 import com.saucelabs.saucerest.SauceREST;
-import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
@@ -27,16 +26,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
      */
     private SauceREST sauceREST;
 
-    public SauceOnDemandTestListener() {
-    }
-
-    @Override
-    public void onStart(ITestContext testContext) {
-        super.onStart(testContext);
-    }
-
     /**
-     *
      * @param result
      */
     @Override
@@ -46,7 +36,9 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
         if (result.getInstance() instanceof SauceOnDemandSessionIdProvider) {
             this.sessionIdProvider = (SauceOnDemandSessionIdProvider) result.getInstance();
             //log the session id to the system out
-            System.out.println(String.format("SauceOnDemandSessionID=%1 job-name=%2", sessionIdProvider, result.getMethod().getMethodName()));
+            if (sessionIdProvider.getSessionId() != null) {
+                System.out.println(String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", sessionIdProvider.getSessionId(), result.getMethod().getMethodName()));
+            }
         }
         SauceOnDemandAuthentication sauceOnDemandAuthentication;
         if (result.getInstance() instanceof SauceOnDemandAuthenticationProvider) {
@@ -57,37 +49,43 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
             //otherwise use the default authentication
             sauceOnDemandAuthentication = new SauceOnDemandAuthentication();
         }
-        sauceREST = new SauceREST(sauceOnDemandAuthentication.getUsername(), sauceOnDemandAuthentication.getAccessKey());
+        this.sauceREST = new SauceREST(sauceOnDemandAuthentication.getUsername(), sauceOnDemandAuthentication.getAccessKey());
     }
 
     /**
-     *
      * @param tr
      */
     @Override
     public void onTestFailure(ITestResult tr) {
         super.onTestFailure(tr);
         try {
-            if (sessionIdProvider != null) {
-                sauceREST.jobFailed(sessionIdProvider.getSessionId());
+            if (this.sauceREST != null && sessionIdProvider != null) {
+                String sessionId = sessionIdProvider.getSessionId();
+                if (sessionId != null) {
+                    sauceREST.jobFailed(sessionId);
+                }
             }
         } catch (IOException ioe) {
+            ioe.printStackTrace();
             throw new RuntimeException(ioe);
         }
     }
 
     /**
-     *
      * @param tr
      */
     @Override
     public void onTestSuccess(ITestResult tr) {
         super.onTestSuccess(tr);
         try {
-            if (sessionIdProvider != null) {
-                sauceREST.jobPassed(sessionIdProvider.getSessionId());
+            if (this.sauceREST != null && sessionIdProvider != null) {
+                String sessionId = sessionIdProvider.getSessionId();
+                if (sessionId != null) {
+                    sauceREST.jobPassed(sessionIdProvider.getSessionId());
+                }
             }
         } catch (IOException ioe) {
+            ioe.printStackTrace();
             throw new RuntimeException(ioe);
         }
     }

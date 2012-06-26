@@ -29,7 +29,6 @@ public class WebDriverTest {
         DesiredCapabilities capabillities = DesiredCapabilities.firefox();
         capabillities.setCapability("version", "5");
         capabillities.setCapability("platform", Platform.XP);
-        capabillities.setCapability("name",  testName.getMethodName());
         this.driver = new RemoteWebDriver(
                 new URL("http://${sauceUserName}:${sauceAccessKey}@ondemand.saucelabs.com:80/wd/hub"),
                 capabillities);

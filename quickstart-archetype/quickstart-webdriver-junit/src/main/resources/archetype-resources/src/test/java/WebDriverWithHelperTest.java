@@ -1,5 +1,6 @@
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.junit.SauceOnDemandTestWatcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -9,6 +10,7 @@ import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.SessionId;
 
 import java.net.URL;
 
@@ -59,7 +61,8 @@ public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider {
 
     @Override
     public String getSessionId() {
-        return ((RemoteWebDriver)driver).getSessionId().toString();
+        SessionId sessionId = ((RemoteWebDriver)driver).getSessionId();
+        return (sessionId == null) ? null : sessionId.toString();
     }
 
     @Test

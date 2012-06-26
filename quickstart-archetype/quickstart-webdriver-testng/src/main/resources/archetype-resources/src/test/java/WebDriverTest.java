@@ -59,6 +59,7 @@ public class WebDriverTest {
         assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());
     }
 
+    @AfterMethod
     public void tearDown() throws Exception {
         driver.quit();
     }
