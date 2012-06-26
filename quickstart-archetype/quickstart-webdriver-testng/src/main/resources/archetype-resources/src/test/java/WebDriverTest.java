@@ -10,8 +10,7 @@ import org.testng.annotations.*;
 import java.lang.reflect.Method;
 import java.net.URL;
 
-import static junit.framework.Assert.assertEquals;
-
+import static org.testng.Assert.assertEquals;
 /**
  *
  * @author Ross Rowe

@@ -1,5 +1,6 @@
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.thoughtworks.selenium.DefaultSelenium;
 import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
@@ -10,14 +11,15 @@ import org.testng.annotations.*;
 import java.lang.reflect.Method;
 import java.net.URL;
 
-import static junit.framework.Assert.assertEquals;
+import static org.testng.Assert.assertEquals;
+
 
 /**
  *
  * @author Ross Rowe
  */
 
-public class WebDriverTest {
+public class SeleniumRCTest {
 
     private DefaultSelenium selenium;
 
@@ -37,9 +39,9 @@ public class WebDriverTest {
     @BeforeMethod
     public void setUp(@Optional("${sauceUserName}") String username,
                       @Optional("${sauceAccessKey}") String key,
-                      @Optional("XP") String os,
+                      @Optional("Windows 2003") String os,
                       @Optional("firefox") String browser,
-                      @Optional("4") String browserVersion,
+                      @Optional("7") String browserVersion,
                       Method method) throws Exception {
 
 

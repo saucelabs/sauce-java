@@ -3,6 +3,7 @@ import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 import com.saucelabs.testng.SauceOnDemandTestListener;
 import com.saucelabs.testng.SauceOnDemandAuthenticationProvider;
 import com.thoughtworks.selenium.DefaultSelenium;
+import com.thoughtworks.selenium.CommandProcessor;
 import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
@@ -10,10 +11,12 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URL;
 
-import static junit.framework.Assert.assertEquals;
+import static org.testng.Assert.assertEquals;
+
 
 /**
  *
@@ -42,9 +45,9 @@ public class SeleniumRCWithHelperTest implements SauceOnDemandSessionIdProvider,
     @BeforeMethod
     public void setUp(@Optional("${sauceUserName}") String username,
                       @Optional("${sauceAccessKey}") String key,
-                      @Optional("XP") String os,
+                      @Optional("Windows 2003") String os,
                       @Optional("firefox") String browser,
-                      @Optional("4") String browserVersion,
+                      @Optional("7") String browserVersion,
                       Method method) throws Exception {
 
         if (StringUtils.isNotEmpty(username) && StringUtils.isNotEmpty(key)) {
@@ -64,17 +67,27 @@ public class SeleniumRCWithHelperTest implements SauceOnDemandSessionIdProvider,
                         "\"name\": \"Testing Selenium 1 with Java on Sauce\"}",
                 "http://saucelabs.com/");
         selenium.start();
-        this.selenium = selenium;
     }
 
-    /**
-     * {@inheritDoc}
-     * @return
-     */
     @Override
     public String getSessionId() {
-        SessionId sessionId = ((RemoteWebDriver)driver).getSessionId();
-        return (sessionId == null) ? null : sessionId.toString();
+        try {
+            Field commandProcessorField = DefaultSelenium.class.getDeclaredField("commandProcessor");
+            commandProcessorField.setAccessible(true);
+            CommandProcessor commandProcessor = (CommandProcessor) commandProcessorField.get(selenium);
+            Field f = commandProcessor.getClass().getDeclaredField("sessionId");
+            f.setAccessible(true);
+            Object id = f.get(commandProcessor);
+            if (id != null) {
+                return id.toString();
+            }
+        } catch (NoSuchFieldException e) {
+
+        } catch (IllegalAccessException e) {
+
+        }
+        return null;
+
     }
 
     @Test
