@@ -1,3 +1,4 @@
+import com.saucelabs.saucerest.SauceREST;
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 import org.testng.annotations.*;
@@ -7,13 +8,11 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.util.HashMap;
 
-import static com.saucelabs.ondemand.DownloadArtifacts.DownloadLog;
-import static com.saucelabs.ondemand.DownloadArtifacts.DownloadVideo;
-
 public class BartTest {
     private ThreadLocal< Selenium > seleniumControl = new ThreadLocal< Selenium >();
     private String sessionId;
     private HashMap<String, String> runInfo = new HashMap<String, String>();
+    private SauceREST sauceRest;
 
     // Get the ThreadLocal selenium browser
     private Selenium selenium() {
@@ -60,6 +59,7 @@ public class BartTest {
         }
         s.start();
         seleniumControl.set(s);
+        this.sauceRest = new SauceREST(username, key);
 
         runInfo.put("sessionId", selenium().getEval("selenium.sessionId"));
     }
@@ -91,8 +91,8 @@ public class BartTest {
     public void teardown(@Optional("false") String ondemand) throws MalformedURLException, IOException, InterruptedException {
         selenium().stop();
         if (ondemand.equals("true")) {
-            DownloadVideo(runInfo, "reports");
-            DownloadLog(runInfo, "reports");
+           sauceRest.downloadVideo(runInfo.get("sessionId"), "reports");
+           sauceRest.downloadVideo(runInfo.get("sessionId"), "reports");
         }
     }
 }

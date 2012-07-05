@@ -26,3 +26,9 @@ quickstart-archetype/quickstart-seleniumrc-junit/quickstart-seleniumrc-junit.iml
 quickstart-archetype/quickstart-seleniumrc-testng/quickstart-seleniumrc-testng.iml
 
 quickstart-archetype/quickstart-archetype.iml
+
+quickstart-archetype/quickstart-webdriver-junit/quickstart-webdriver-junit.iml
+
+atlassian-ide-plugin.xml
+
+quickstart-archetype/quickstart-webdriver-testng/quickstart-webdriver-testng.iml

@@ -1,0 +1,12 @@
+<suite name="WebDriverTest" verbose="5" parallel="methods" thread-count="5">
+    <parameter name="username" value="rossco_9_9"/>
+    <parameter name="key" value="PUT YOU SAUCE LABS ACCESS KEY HERE"/>
+    <parameter name="os" value="Windows 2003"/>
+    <parameter name="browser" value="firefox"/>
+    <parameter name="browserVersion" value="3.6."/>
+    <test name="WebDriver" >
+        <classes>
+            <class name="com.saucelabs.testng.WebDriverTest" />
+        </classes>
+    </test>
+</suite>

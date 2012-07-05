@@ -11,6 +11,7 @@ import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.SessionId;
 import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
@@ -46,9 +47,9 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider, SauceOnDem
     @BeforeMethod
     public void setUp(@Optional("") String username,
                       @Optional("") String key,
-                      @Optional("XP") String os,
-                      @Optional("firefox") String browser,
-                      @Optional("4") String browserVersion,
+                      @Optional("") String os,
+                      @Optional("") String browser,
+                      @Optional("") String browserVersion,
                       Method method) throws Exception {
 
         if (StringUtils.isNotEmpty(username) && StringUtils.isNotEmpty(key)) {
@@ -73,7 +74,8 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider, SauceOnDem
      */
     @Override
     public String getSessionId() {
-        return ((RemoteWebDriver)driver).getSessionId().toString();
+        SessionId sessionId = ((RemoteWebDriver) driver).getSessionId();
+        return (sessionId == null) ? null : sessionId.toString();
     }
 
     @Test

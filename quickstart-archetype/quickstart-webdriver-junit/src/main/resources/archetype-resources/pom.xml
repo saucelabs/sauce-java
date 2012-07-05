@@ -7,6 +7,8 @@
     <version>${version}</version>
     <packaging>jar</packaging>
     <name>sauce_quickstart</name>
+    <description>A sample Maven project that demonstrates how to integrate Sauce OnDemand with WebDriver tests
+        that run using JUnit</description>
 
     <dependencies>
         <dependency>
@@ -18,13 +20,13 @@
         <dependency>
             <groupId>com.saucelabs</groupId>
             <artifactId>sauce_junit</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>LATEST</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.saucelabs</groupId>
             <artifactId>saucerest</artifactId>
-            <version>1.0.0</version>
+            <version>LATEST</version>
             <scope>test</scope>
         </dependency>
         <dependency>
