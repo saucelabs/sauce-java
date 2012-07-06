@@ -32,7 +32,6 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider {
 
     @Before
     public void setUp() throws Exception {
-
         DesiredCapabilities capabillities = DesiredCapabilities.firefox();
         capabillities.setCapability("version", "5");
         capabillities.setCapability("platform", Platform.XP);
@@ -57,5 +56,4 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider {
     public void tearDown() throws Exception {
         driver.quit();
     }
-
 }

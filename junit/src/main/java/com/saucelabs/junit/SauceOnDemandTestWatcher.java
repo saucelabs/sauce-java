@@ -30,7 +30,6 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
 
 
     /**
-     *
      * @param sessionIdProvider
      */
     public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider) {
@@ -38,7 +37,6 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
     }
 
     /**
-     *
      * @param sessionIdProvider
      * @param authentication
      */
@@ -49,7 +47,6 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
     }
 
     /**
-     *
      * @param sessionIdProvider
      * @param username
      * @param accessKey
@@ -76,7 +73,8 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
     /**
      * Invoked if the unit test either throws an error or fails.  Invokes the Sauce REST API to mark the Sauce Job
      * as 'failed'.
-     * @param e not used
+     *
+     * @param e           not used
      * @param description not used
      */
     protected void failed(Throwable e, Description description) {
@@ -85,5 +83,16 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }
+    }
+
+    @Override
+    protected void starting(Description description) {
+        super.starting(description);
+
+        //log the session id to the system out
+        if (sessionIdProvider.getSessionId() != null) {
+            System.out.println(String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", sessionIdProvider.getSessionId(), description.getDisplayName()));
+        }
+
     }
 }

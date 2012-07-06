@@ -24,12 +24,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.saucelabs</groupId>
-            <artifactId>saucerest</artifactId>
-            <version>LATEST</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>LATEST</version>
