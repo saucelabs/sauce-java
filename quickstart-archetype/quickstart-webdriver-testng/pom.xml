@@ -3,6 +3,6 @@
   <groupId>com.saucelabs</groupId>
   <artifactId>quickstart-webdriver-testng</artifactId>
   <name>quickstart-webdriver-testng</name>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 </project>

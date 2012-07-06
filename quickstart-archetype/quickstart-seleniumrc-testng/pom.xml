@@ -3,6 +3,6 @@
   <groupId>com.saucelabs</groupId>
   <artifactId>quickstart-seleniumrc-testng</artifactId>
   <name>quickstart-seleniumrc-testng</name>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 </project>
