@@ -48,6 +48,8 @@ public class SeleniumRCWithHelperTest implements SauceOnDemandSessionIdProvider 
 
     private DefaultSelenium selenium;
 
+    private String sessionId;
+
     @Before
     public void setUp() throws Exception {
 
@@ -63,10 +65,15 @@ public class SeleniumRCWithHelperTest implements SauceOnDemandSessionIdProvider 
                 "http://saucelabs.com/");
         selenium.start();
         this.selenium = selenium;
+        this.sessionId = getSessionIdFromSelenium();
     }
 
     @Override
     public String getSessionId() {
+        return sessionId;
+    }
+
+    public String getSessionIdFromSelenium() {
         try {
             Field commandProcessorField = DefaultSelenium.class.getDeclaredField("commandProcessor");
             commandProcessorField.setAccessible(true);

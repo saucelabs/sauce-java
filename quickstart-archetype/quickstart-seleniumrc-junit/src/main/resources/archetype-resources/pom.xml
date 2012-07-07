@@ -20,7 +20,7 @@
         <dependency>
             <groupId>com.saucelabs</groupId>
             <artifactId>sauce_junit</artifactId>
-            <version>LATEST</version>
+            <version>[1.0.0,)</version>
             <scope>test</scope>
         </dependency>
         <dependency>

@@ -47,6 +47,8 @@ public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider {
 
     private WebDriver driver;
 
+    private String sessionId;
+
     @Before
     public void setUp() throws Exception {
 
@@ -57,12 +59,12 @@ public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider {
         this.driver = new RemoteWebDriver(
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
                 capabillities);
+        this.sessionId = ((RemoteWebDriver)driver).getSessionId().toString();
     }
 
     @Override
     public String getSessionId() {
-        SessionId sessionId = ((RemoteWebDriver)driver).getSessionId();
-        return (sessionId == null) ? null : sessionId.toString();
+        return sessionId;
     }
 
     @Test
