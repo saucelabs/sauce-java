@@ -35,7 +35,7 @@ public class WebDriverTest {
     }
 
     @Test
-    public void basic() throws Exception {
+    public void webDriver() throws Exception {
         driver.get("http://www.amazon.com/");
         assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());
     }

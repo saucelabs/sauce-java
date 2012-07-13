@@ -40,7 +40,7 @@ public class SeleniumRCTest {
     }
 
     @Test
-    public void basic() throws Exception {
+    public void selenumRC() throws Exception {
         this.selenium.open("http://www.amazon.com");
         assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", this.selenium.getTitle());
     }

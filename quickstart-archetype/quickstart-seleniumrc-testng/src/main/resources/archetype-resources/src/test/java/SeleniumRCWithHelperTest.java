@@ -91,7 +91,7 @@ public class SeleniumRCWithHelperTest implements SauceOnDemandSessionIdProvider,
     }
 
     @Test
-    public void basic() throws Exception {
+    public void seleniumRCWithHelper() throws Exception {
         this.selenium.open("http://www.amazon.com");
         assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", this.selenium.getTitle());
     }
