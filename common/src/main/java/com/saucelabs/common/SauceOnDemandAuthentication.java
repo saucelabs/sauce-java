@@ -3,6 +3,7 @@ package com.saucelabs.common;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -105,5 +106,22 @@ public class SauceOnDemandAuthentication {
 
     public void setAccessKey(String accessKey) {
         this.accessKey = accessKey;
+    }
+
+    /**
+     * Persists this credential to the disk.
+     *
+     * @throws IOException If the file I/O fails.
+     */
+    public void saveTo(File propertyFile) throws IOException {
+        Properties props = new Properties();
+        props.put("username", username);
+        props.put("key", accessKey);
+        FileOutputStream out = new FileOutputStream(propertyFile);
+        try {
+            props.store(out, "Sauce OnDemand access credential");
+        } finally {
+            out.close();
+        }
     }
 }
