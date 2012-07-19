@@ -4,7 +4,7 @@
     <parent>
         <artifactId>sauce_java</artifactId>
         <groupId>com.saucelabs</groupId>
-        <version>1.0.5-SNAPSHOT</version>
+        <version>1.0.5</version>
     </parent>
     <artifactId>quickstart-archetype</artifactId>
     <name>quickstart-archetype</name>

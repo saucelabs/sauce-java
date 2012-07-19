@@ -4,7 +4,7 @@
     <parent>
         <artifactId>sauce_java</artifactId>
         <groupId>com.saucelabs</groupId>
-        <version>1.0.5-SNAPSHOT</version>
+        <version>1.0.5</version>
     </parent>
     <artifactId>sauce_testng</artifactId>
     <name>sauce_testng</name>
@@ -12,7 +12,7 @@
         <dependency>
             <groupId>com.saucelabs</groupId>
             <artifactId>sauce_java_common</artifactId>
-            <version>1.0.5-SNAPSHOT</version>
+            <version>1.0.5</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
