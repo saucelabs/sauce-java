@@ -1,7 +1,7 @@
 package com.saucelabs.common;
 
 /**
- * Marker interface that should be implemented by classes using the TestNG or JUnit helper classes.
+ * Interface that should be implemented by classes using the TestNG or JUnit helper classes.
  * @author see {@link github} for original
  * @author Ross Rowe - updated documentation
  */

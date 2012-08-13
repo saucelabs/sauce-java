@@ -21,7 +21,6 @@ import static org.testng.Assert.assertEquals;
 
 
 /**
- *
  * @author Ross Rowe
  */
 @Listeners({SauceOnDemandTestListener.class})
@@ -35,6 +34,7 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider, SauceOnDem
      * If the tests can rely on the username/key to be supplied by environment variables or the existence
      * of a ~/.sauce-ondemand file, then we don't need to specify them as parameters, just create a new instance
      * of {@link SauceOnDemandAuthentication} using the no-arg constructor.
+     *
      * @param username
      * @param key
      * @param os
@@ -53,23 +53,30 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider, SauceOnDem
                       Method method) throws Exception {
 
         if (StringUtils.isNotEmpty(username) && StringUtils.isNotEmpty(key)) {
-           authentication = new SauceOnDemandAuthentication(username, key);
+            authentication = new SauceOnDemandAuthentication(username, key);
         } else {
-           authentication = new SauceOnDemandAuthentication();
+            authentication = new SauceOnDemandAuthentication();
         }
 
         DesiredCapabilities capabillities = new DesiredCapabilities();
-        capabillities.setBrowserName(browser);
-        capabillities.setCapability("version", browserVersion);
-        capabillities.setCapability("platform", Platform.valueOf(os));
+        if (StringUtils.isNotBlank(browser) && StringUtils.isNotBlank(browserVersion) && StringUtils.isNotBlank(os)) {
+            capabillities.setBrowserName(browser);
+            capabillities.setCapability("version", browserVersion);
+            capabillities.setCapability("platform", Platform.valueOf(os));
+
+        } else {
+            capabillities = DesiredCapabilities.firefox();
+        }
         capabillities.setCapability("name", method.getName());
         this.driver = new RemoteWebDriver(
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
                 capabillities);
+
     }
 
     /**
      * {@inheritDoc}
+     *
      * @return
      */
     @Override
@@ -90,6 +97,7 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider, SauceOnDem
 
     /**
      * {@inheritDoc}
+     *
      * @return
      */
     @Override

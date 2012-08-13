@@ -66,12 +66,16 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
         try {
             if (sessionIdProvider.getSessionId() != null) {
                 //log the session id to the system out
-                System.out.println(String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", sessionIdProvider.getSessionId(), description.getDisplayName()));
+                printSessionId(description);
                 sauceREST.jobPassed(sessionIdProvider.getSessionId());
             }
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }
+    }
+
+    private void printSessionId(Description description) {
+        System.out.println(String.format("SauceOnDemandSessionID=%1$s job-name=%2$s.%3$s", sessionIdProvider.getSessionId(), description.getClassName(), description.getMethodName()));
     }
 
     /**
@@ -84,13 +88,15 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
     protected void failed(Throwable e, Description description) {
         try {
             if (sessionIdProvider != null && sessionIdProvider.getSessionId() != null) {
-                System.out.println(String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", sessionIdProvider.getSessionId(), description.getDisplayName()));
+                printSessionId(description);
                 sauceREST.jobFailed(sessionIdProvider.getSessionId());
             }
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }
     }
+
+
 
 
 }
