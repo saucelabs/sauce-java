@@ -7,6 +7,8 @@ import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * {@link TestWatcher} subclass that will mark a Sauce OnDemand job as passed or failed depending on the result
@@ -16,6 +18,8 @@ import java.io.IOException;
  * @author Ross Rowe - modifications to use {@link SauceOnDemandAuthentication}
  */
 public class SauceOnDemandTestWatcher extends TestWatcher {
+
+    private static final Logger logger = Logger.getLogger(SauceOnDemandTestWatcher.class.getName());
 
     /**
      * The underlying {@link com.saucelabs.common.SauceOnDemandSessionIdProvider} instance which contains the Selenium session id.  This is typically
@@ -75,7 +79,9 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
     }
 
     private void printSessionId(Description description) {
-        System.out.println(String.format("SauceOnDemandSessionID=%1$s job-name=%2$s.%3$s", sessionIdProvider.getSessionId(), description.getClassName(), description.getMethodName()));
+        String message = String.format("SauceOnDemandSessionID=%1$s job-name=%2$s.%3$s", sessionIdProvider.getSessionId(), description.getClassName(), description.getMethodName());
+        System.out.println(message);
+        logger.log(Level.INFO,  message);
     }
 
     /**
