@@ -19,8 +19,6 @@ import java.util.logging.Logger;
  */
 public class SauceOnDemandTestWatcher extends TestWatcher {
 
-    private static final Logger logger = Logger.getLogger(SauceOnDemandTestWatcher.class.getName());
-
     /**
      * The underlying {@link com.saucelabs.common.SauceOnDemandSessionIdProvider} instance which contains the Selenium session id.  This is typically
      * the unit test being executed.
@@ -81,7 +79,6 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
     private void printSessionId(Description description) {
         String message = String.format("SauceOnDemandSessionID=%1$s job-name=%2$s.%3$s", sessionIdProvider.getSessionId(), description.getClassName(), description.getMethodName());
         System.out.println(message);
-        logger.log(Level.INFO,  message);
     }
 
     /**
