@@ -19,9 +19,9 @@ import static junit.framework.Assert.assertEquals;
 
 /**
  * Simple {@link org.openqa.selenium.remote.RemoteWebDriver} test that demonstrates how to run your Selenium tests with <a href="http://saucelabs.com/ondemand">Sauce OnDemand</a>.
- *
+ * <p/>
  * This test also includes the <a href="">Sauce JUnit</a> helper classes, which will use the Sauce REST API to mark the Sauce Job as passed/failed.
- *
+ * <p/>
  * In order to use the {@link SauceOnDemandTestWatcher}, the test must implement the {@link SauceOnDemandSessionIdProvider} interface.
  *
  * @author Ross Rowe
@@ -32,19 +32,22 @@ public class SeleniumRCWithHelperTest implements SauceOnDemandSessionIdProvider 
      * Constructs a {@link SauceOnDemandAuthentication} instance using the supplied user name/access key.  To use the authentication
      * supplied by environment variables or from an external file, use the no-arg {@link SauceOnDemandAuthentication} constructor.
      */
-    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication("${sauceUserName}", "${sauceAccessKey}");
+    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication(System.getProperty("sauce.userName"), System.getProperty("sauce.accessKey"));
 
     /**
      * JUnit Rule which will mark the Sauce Job as passed/failed when the test succeeds or fails.
      */
-    public @Rule
+    public
+    @Rule
     SauceOnDemandTestWatcher resultReportingTestWatcher = new SauceOnDemandTestWatcher(this, authentication);
 
     /**
      * JUnit Rule which will record the test name of the current test.  This is referenced when creating the {@link org.openqa.selenium.remote.DesiredCapabilities},
      * so that the Sauce Job is created with the test name.
      */
-    public @Rule TestName testName= new TestName();
+    public
+    @Rule
+    TestName testName = new TestName();
 
     private DefaultSelenium selenium;
 
@@ -58,11 +61,11 @@ public class SeleniumRCWithHelperTest implements SauceOnDemandSessionIdProvider 
                 80,
                 "{\"username\": \"" + authentication.getUsername() + "\"," +
                         "\"access-key\": \"" + authentication.getAccessKey() + "\"," +
-                        "\"os\": \"mac\"," +
-                        "\"browser\": \"iphone\"," +
-                        "\"browser-version\": \"5.0\"," +
+                        "\"os\": \"Windows 2003\"," +
+                        "\"browser\": \"firefox\"," +
+                        "\"browser-version\": \"7\"," +
                         "\"name\": \"Testing Selenium 1 with Java on Sauce\"}",
-                "http://saucelabs.com/");
+                "http://www.amazon.com");
         selenium.start();
         this.selenium = selenium;
         this.sessionId = getSessionIdFromSelenium();

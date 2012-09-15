@@ -15,6 +15,7 @@ import static junit.framework.Assert.assertEquals;
 /**
  * Simple {@link DefaultSelenium} test that demonstrates how to run your Selenium tests with <a href="http://saucelabs.com/ondemand">Sauce OnDemand</a>.
  * *
+ *
  * @author Ross Rowe
  */
 public class SeleniumRCTest {
@@ -27,13 +28,13 @@ public class SeleniumRCTest {
         DefaultSelenium selenium = new DefaultSelenium(
                 "ondemand.saucelabs.com",
                 80,
-                "{\"username\": \"" + System.getProperty("sauce.userName") + "," +
+                "{\"username\": \"" + System.getProperty("sauce.userName") + "\"," +
                         "\"access-key\": \"" + System.getProperty("sauce.accessKey") + "\"," +
-                        "\"os\": \"mac\"," +
-                        "\"browser\": \"iphone\"," +
-                        "\"browser-version\": \"5.0\"," +
+                        "\"os\": \"Windows 2003\"," +
+                        "\"browser\": \"firefox\"," +
+                        "\"browser-version\": \"7\"," +
                         "\"name\": \"Testing Selenium 1 with Java on Sauce\"}",
-                "http://saucelabs.com/");
+                "http://www.amazon.com");
         selenium.start();
         this.selenium = selenium;
 

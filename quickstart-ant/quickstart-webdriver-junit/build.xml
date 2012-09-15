@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="quickstart-webdriver-junit" default="release" basedir=".">
-   
+
     <property file="build.properties"/>
     <path id="classpath">
         <fileset dir="${lib.dir}">
@@ -14,16 +14,24 @@
 
     <target name="clean" description="Removes the directories created by previous runs of the build script">
         <delete dir="${test.classes.dir}"/>
+        <delete dir="${reports.xml.dir}"/>
+        <delete dir="${reports.html.dir}"/>
     </target>
 
     <target name="init" depends="clean" description="Creates the directories required by the build script">
         <mkdir dir="${test.classes.dir}"/>
+        <mkdir dir="${reports.dir}"/>
+        <mkdir dir="${reports.xml.dir}"/>
+        <mkdir dir="${reports.html.dir}"/>
     </target>
-  
+
     <target name="test.junit" depends="compile-test" description="Runs the Unit tests">
         <junit fork="yes" printsummary="on" failureProperty="test.failure" haltonerror="false">
             <classpath location="${test.classes.dir}"/>
             <classpath refid="classpath"/>
+            <syspropertyset>
+                <propertyref builtin="commandline"/>
+            </syspropertyset>
             <formatter type="xml" usefile="true"/>
             <batchtest todir="${reports.xml.dir}" fork="yes">
                 <fileset dir="${test.src.dir}">

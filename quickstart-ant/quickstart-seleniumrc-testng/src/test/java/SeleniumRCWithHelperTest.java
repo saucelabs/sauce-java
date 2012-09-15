@@ -43,11 +43,11 @@ public class SeleniumRCWithHelperTest implements SauceOnDemandSessionIdProvider,
      */
     @Parameters({"username", "key", "os", "browser", "browserVersion"})
     @BeforeMethod
-    public void setUp(@Optional("${sauceUserName}") String username,
-                      @Optional("${sauceAccessKey}") String key,
-                      @Optional("mac") String os,
-                      @Optional("iphone") String browser,
-                      @Optional("5.0") String browserVersion,
+    public void setUp(@Optional() String username,
+                      @Optional() String key,
+                      @Optional("Windows 2003") String os,
+                      @Optional("firefox") String browser,
+                      @Optional("7") String browserVersion,
                       Method method) throws Exception {
 
         if (StringUtils.isNotEmpty(username) && StringUtils.isNotEmpty(key)) {
@@ -59,13 +59,13 @@ public class SeleniumRCWithHelperTest implements SauceOnDemandSessionIdProvider,
         this.selenium = new DefaultSelenium(
                 "ondemand.saucelabs.com",
                 80,
-                "{\"username\": \"" + System.getProperty("sauce.userName") + "," +
-                        "\"access-key\": \"" + System.getProperty("sauce.accessKey") + "\"," +
+                "{\"username\": \"" + authentication.getUsername() + "," +
+                        "\"access-key\": \"" + authentication.getAccessKey() + "\"," +
                         "\"os\": \"" + os + "\"," +
                         "\"browser\": \"" + browser + "\"," +
                         "\"browser-version\": \"" + browserVersion + "\"," +
                         "\"name\": \"Testing Selenium 1 with Java on Sauce\"}",
-                "http://saucelabs.com/");
+                "http://www.amazon.com");
         selenium.start();
     }
 

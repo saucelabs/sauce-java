@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="quickstart-webdriver-testng" default="release" basedir=".">
-   
+
     <property file="build.properties"/>
     <path id="classpath">
         <fileset dir="${lib.dir}">
@@ -14,21 +14,26 @@
 
     <target name="clean" description="Removes the directories created by previous runs of the build script">
         <delete dir="${test.classes.dir}"/>
+        <delete dir="${reports.xml.dir}"/>
+        <delete dir="${reports.html.dir}"/>
     </target>
 
     <target name="init" depends="clean" description="Creates the directories required by the build script">
         <mkdir dir="${test.classes.dir}"/>
+        <mkdir dir="${reports.dir}"/>
+        <mkdir dir="${reports.xml.dir}"/>
+        <mkdir dir="${reports.html.dir}"/>
     </target>
-  
+
     <taskdef resource="testngtasks" classpath="${lib.dir}/testng-6.1.1.jar"/>
 
-       <target name="test.testng" depends="compile-test" description="Runs the Unit tests">
-           <testng outputdir="reports.xml.dir" classpathref="run.cp">
-               <sysproperty key="username" value="${sauce.userName}"/>
-               <sysproperty key="key" value="${sauce.accessKey}"/>
-               <classfileset dir="${test.classes.dir}" includes="**/*.class" />
-           </testng>
-       </target>
+    <target name="test.testng" depends="compile-test" description="Runs the Unit tests">
+        <testng outputdir="${reports.xml.dir}" classpathref="classpath">
+            <sysproperty key="username" value="${sauce.userName}"/>
+            <sysproperty key="key" value="${sauce.accessKey}"/>
+            <classfileset dir="${test.classes.dir}" includes="**/*.class"/>
+        </testng>
+    </target>
 
     <target name="compile-test" description="Compiles the test files">
         <javac destdir="${test.classes.dir}" debug="${javac.debug}" srcdir="${test.src.dir}" classpathref="classpath"/>

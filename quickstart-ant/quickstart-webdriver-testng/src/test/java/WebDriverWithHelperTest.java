@@ -41,9 +41,9 @@ public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider, 
      */
     @Parameters({"username", "key", "os", "browser", "browserVersion"})
     @BeforeMethod
-    public void setUp(@Optional("${sauceUserName}") String username,
-                      @Optional("${sauceAccessKey}") String key,
-                      @Optional("mac") String os,
+    public void setUp(@Optional() String username,
+                      @Optional() String key,
+                      @Optional("MAC") String os,
                       @Optional("iphone") String browser,
                       @Optional("5.0") String browserVersion,
                       Method method) throws Exception {
