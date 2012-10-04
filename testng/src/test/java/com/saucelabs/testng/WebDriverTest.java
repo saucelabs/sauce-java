@@ -62,7 +62,7 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider, SauceOnDem
         if (StringUtils.isNotBlank(browser) && StringUtils.isNotBlank(browserVersion) && StringUtils.isNotBlank(os)) {
             capabillities.setBrowserName(browser);
             capabillities.setCapability("version", browserVersion);
-            capabillities.setCapability("platform", Platform.valueOf(os));
+            capabillities.setCapability("platform", Platform.extractFromSysProperty(os));
 
         } else {
             capabillities = DesiredCapabilities.firefox();
@@ -86,11 +86,12 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider, SauceOnDem
     }
 
     @Test
-    public void basic() throws Exception {
+    public void webDriver() throws Exception {
         driver.get("http://www.amazon.com/");
         assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());
     }
 
+    @AfterMethod
     public void tearDown() throws Exception {
         driver.quit();
     }
