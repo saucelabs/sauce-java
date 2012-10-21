@@ -3,7 +3,7 @@
     <parent>
         <artifactId>quickstart-archetype</artifactId>
         <groupId>com.saucelabs</groupId>
-        <version>1.0.9-SNAPSHOT</version>
+        <version>1.0.9</version>
     </parent>
   <artifactId>quickstart-webdriver-junit</artifactId>
   <name>quickstart-webdriver-junit</name>
