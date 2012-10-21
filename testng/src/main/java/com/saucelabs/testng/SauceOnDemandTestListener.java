@@ -3,18 +3,20 @@ package com.saucelabs.testng;
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 import com.saucelabs.saucerest.SauceREST;
+import com.saucelabs.common.Utils;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- *
  * Test Listener that providers helper logic for TestNG tests.  Upon startup, the class
  * will store any SELENIUM_* environment variables (typically set by a Sauce OnDemand CI
  * plugin) as system parameters, so that they can be retrieved by tests as parameters.
- *
+ * <p/>
  * TODO how to specify whether to download log/video?
  *
  * @author Ross Rowe
@@ -40,21 +42,22 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
      * Check to see if environment variables that define the Selenium browser to be used have been set (typically by
      * a Sauce OnDemand CI plugin).  If so, then populate the appropriate system parameter, so that tests can use
      * these values.
+     *
      * @param testContext
      */
     @Override
     public void onStart(ITestContext testContext) {
         super.onStart(testContext);
         String browser = System.getenv(SELENIUM_BROWSER);
-        if (browser != null && !browser.equals(""))  {
+        if (browser != null && !browser.equals("")) {
             System.setProperty("browser", browser);
         }
         String platform = System.getenv(SELENIUM_PLATFORM);
-        if (platform != null && !platform.equals(""))  {
+        if (platform != null && !platform.equals("")) {
             System.setProperty("os", platform);
         }
         String version = System.getenv(SELENIUM_VERSION);
-        if (version != null && !version.equals(""))  {
+        if (version != null && !version.equals("")) {
             System.setProperty("version", version);
         }
     }
@@ -99,7 +102,10 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
             if (this.sauceREST != null && sessionIdProvider != null) {
                 String sessionId = sessionIdProvider.getSessionId();
                 if (sessionId != null) {
-                    sauceREST.jobFailed(sessionId);
+                    Map<String, Object> updates = new HashMap<String, Object>();
+                    updates.put("passed", false);
+                    Utils.addBuildNumberToUpdate(updates);
+                    sauceREST.updateJobInfo(sessionId, updates);
                 }
             }
         } catch (IOException ioe) {
@@ -107,6 +113,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
             throw new RuntimeException(ioe);
         }
     }
+
 
     /**
      * @param tr
@@ -122,7 +129,10 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
             if (this.sauceREST != null && sessionIdProvider != null) {
                 String sessionId = sessionIdProvider.getSessionId();
                 if (sessionId != null) {
-                    sauceREST.jobPassed(sessionIdProvider.getSessionId());
+                    Map<String, Object> updates = new HashMap<String, Object>();
+                    updates.put("passed", false);
+                    Utils.addBuildNumberToUpdate(updates);
+                    sauceREST.updateJobInfo(sessionId, updates);
                 }
             }
         } catch (IOException ioe) {

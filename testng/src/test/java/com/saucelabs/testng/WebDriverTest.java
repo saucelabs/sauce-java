@@ -59,7 +59,16 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider, SauceOnDem
         }
 
         DesiredCapabilities capabillities = new DesiredCapabilities();
-        if (StringUtils.isNotBlank(browser) && StringUtils.isNotBlank(browserVersion) && StringUtils.isNotBlank(os)) {
+        String browserEnv = System.getenv("SELENIUM_BROWSER");
+        String versionEnv = System.getenv("SELENIUM_VERSION");
+        String platformEnv = System.getenv("SELENIUM_PLATFORM");
+
+        if (StringUtils.isNotBlank(browserEnv) && StringUtils.isNotBlank(versionEnv) && StringUtils.isNotBlank(platformEnv)) {
+            capabillities.setBrowserName(browserEnv);
+            capabillities.setCapability("version", versionEnv);
+            capabillities.setCapability("platform", Platform.extractFromSysProperty(platformEnv));
+
+        } else if (StringUtils.isNotBlank(browser) && StringUtils.isNotBlank(browserVersion) && StringUtils.isNotBlank(os)) {
             capabillities.setBrowserName(browser);
             capabillities.setCapability("version", browserVersion);
             capabillities.setCapability("platform", Platform.extractFromSysProperty(os));

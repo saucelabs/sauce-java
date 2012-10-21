@@ -2,11 +2,14 @@ package com.saucelabs.junit;
 
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.common.Utils;
 import com.saucelabs.saucerest.SauceREST;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,7 +72,10 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
             if (sessionIdProvider.getSessionId() != null) {
                 //log the session id to the system out
                 printSessionId(description);
-                sauceREST.jobPassed(sessionIdProvider.getSessionId());
+                Map<String, Object> updates = new HashMap<String, Object>();
+                updates.put("passed", true);
+                Utils.addBuildNumberToUpdate(updates);
+                sauceREST.updateJobInfo(sessionIdProvider.getSessionId(), updates);
             }
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
@@ -92,14 +98,15 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
         try {
             if (sessionIdProvider != null && sessionIdProvider.getSessionId() != null) {
                 printSessionId(description);
-                sauceREST.jobFailed(sessionIdProvider.getSessionId());
+                Map<String, Object> updates = new HashMap<String, Object>();
+                updates.put("passed", false);
+                Utils.addBuildNumberToUpdate(updates);
+                sauceREST.updateJobInfo(sessionIdProvider.getSessionId(), updates);
             }
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
         }
     }
-
-
 
 
 }

@@ -1,6 +1,6 @@
 <suite name="ParallelTests" verbose="5" parallel="tests" thread-count="10">
     <parameter name="username" value="rossco_9_9"/>
-    <parameter name="key" value="44f0744c-1689-4418-af63-560303cbb37b"/>
+    <parameter name="key" value="YOUR_SAUCE_KEY"/>
     <!--<parameter name="os" value="Windows 2003"/>-->
     <!--<parameter name="browser" value="firefox"/>-->
     <!--<parameter name="browserVersion" value="3.6."/>-->

@@ -20,7 +20,7 @@
         <dependency>
             <groupId>com.saucelabs</groupId>
             <artifactId>sauce_java_common</artifactId>
-            <version>1.0.9-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
