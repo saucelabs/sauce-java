@@ -1,5 +1,6 @@
 package com.saucelabs.junit;
 
+import com.saucelabs.common.SauceOnDemandAuthentication;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +24,8 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(Parallelized.class)
 public class WebDriverParallelTest {
+
+    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication();
 
     private String browser;
     private String os;
@@ -52,7 +55,7 @@ public class WebDriverParallelTest {
         capabillities.setCapability(CapabilityType.VERSION, version);
         capabillities.setCapability(CapabilityType.PLATFORM, os);
         this.driver = new RemoteWebDriver(
-                new URL("http://${sauceUserName}:${sauceAccessKey}@ondemand.saucelabs.com:80/wd/hub"),
+                new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
                 capabillities);
     }
 
