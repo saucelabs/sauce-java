@@ -53,7 +53,7 @@ public class WebDriverParallelTest {
         DesiredCapabilities capabillities = new DesiredCapabilities();
         capabillities.setCapability(CapabilityType.BROWSER_NAME, browser);
         capabillities.setCapability(CapabilityType.VERSION, version);
-        capabillities.setCapability(CapabilityType.PLATFORM, os);
+        capabillities.setCapability(CapabilityType.PLATFORM, Platform.valueOf(os));
         this.driver = new RemoteWebDriver(
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
                 capabillities);
@@ -61,8 +61,15 @@ public class WebDriverParallelTest {
 
     @Test
     public void webDriver() throws Exception {
+        printSessionId("webDriver");
         driver.get("http://www.amazon.com/");
         assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());
+    }
+
+    private void printSessionId(String testName) {
+
+        String message = String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", (((RemoteWebDriver) driver).getSessionId()).toString(), testName);
+        System.out.println(message);
     }
 
     @After
