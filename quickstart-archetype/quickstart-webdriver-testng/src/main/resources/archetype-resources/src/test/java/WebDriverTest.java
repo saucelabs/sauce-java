@@ -45,7 +45,7 @@ public class WebDriverTest {
         DesiredCapabilities capabillities = new DesiredCapabilities();
         capabillities.setBrowserName(browser);
         capabillities.setCapability("version", browserVersion);
-        capabillities.setCapability("platform", Platform.valueOf(os));
+        capabillities.setCapability("platform", os);
         capabillities.setCapability("name", method.getName());
         this.driver = new RemoteWebDriver(
                 new URL("http://" + username + ":" + key + "@ondemand.saucelabs.com:80/wd/hub"),
@@ -55,7 +55,7 @@ public class WebDriverTest {
     @Test
     public void webDriver() throws Exception {
         driver.get("http://www.amazon.com/");
-        assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());
+        assertEquals("Amazon", driver.getTitle());
     }
 
     @AfterMethod

@@ -57,7 +57,7 @@ public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider, 
         DesiredCapabilities capabillities = new DesiredCapabilities();
         capabillities.setBrowserName(browser);
         capabillities.setCapability("version", browserVersion);
-        capabillities.setCapability("platform", Platform.valueOf(os));
+        capabillities.setCapability("platform", os);
         capabillities.setCapability("name", method.getName());
         this.driver = new RemoteWebDriver(
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
@@ -77,7 +77,7 @@ public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider, 
     @Test
     public void webDriverWithHelper() throws Exception {
         driver.get("http://www.amazon.com/");
-        assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());
+        assertEquals("Amazon", driver.getTitle());
     }
 
     @AfterMethod

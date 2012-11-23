@@ -11,6 +11,7 @@
         <module>junit</module>
         <module>testng</module>
         <module>quickstart-archetype</module>
+		<module>sauce-connect-plugin</module>
     </modules>
     <licenses>
         <license>

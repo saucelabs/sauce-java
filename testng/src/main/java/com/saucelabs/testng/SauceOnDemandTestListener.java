@@ -130,7 +130,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
                 String sessionId = sessionIdProvider.getSessionId();
                 if (sessionId != null) {
                     Map<String, Object> updates = new HashMap<String, Object>();
-                    updates.put("passed", false);
+                    updates.put("passed", true);
                     Utils.addBuildNumberToUpdate(updates);
                     sauceREST.updateJobInfo(sessionId, updates);
                 }
