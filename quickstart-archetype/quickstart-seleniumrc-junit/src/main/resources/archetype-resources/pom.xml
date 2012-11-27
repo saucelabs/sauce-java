@@ -54,7 +54,7 @@
     <repositories>
         <repository>
             <id>saucelabs-repository</id>
-            <url>https://repository-saucelabs.forge.cloudbees.com/release</url>
+            <url>http://repository-saucelabs.forge.cloudbees.com/release</url>
             <releases>
                 <enabled>true</enabled>
             </releases>

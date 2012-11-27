@@ -97,7 +97,7 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider, SauceOnDem
     @Test
     public void webDriver() throws Exception {
         driver.get("http://www.amazon.com/");
-        assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());
+        assertEquals(driver.getTitle(), "Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more");
     }
 
     @AfterMethod

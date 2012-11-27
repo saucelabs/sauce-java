@@ -77,7 +77,7 @@ public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider, 
     @Test
     public void webDriverWithHelper() throws Exception {
         driver.get("http://www.amazon.com/");
-        assertEquals("Amazon", driver.getTitle());
+        assertEquals(driver.getTitle(), "Amazon");
     }
 
     @AfterMethod

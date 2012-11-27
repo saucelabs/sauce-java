@@ -14,9 +14,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import static junit.framework.Assert.assertNotNull;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertTrue;
+import static org.testng.Assert.*;
+
 
 /**
  * @author Ross Rowe
@@ -49,7 +48,7 @@ public class WebDriverDemoShootoutTest {
         driver.findElement(By.name("login")).sendKeys(userName);
         driver.findElement(By.name("password")).sendKeys(password);
         driver.findElement(By.cssSelector("input.login")).click();
-        assertNotNull("Text not found", driver.findElement(By.id("message")));
+        assertNotNull(driver.findElement(By.id("message")), "Text not found");
     }
 
     private String getUniqueId() {
@@ -80,7 +79,7 @@ public class WebDriverDemoShootoutTest {
 
     private void doLogout() {
         driver.get("http://tutorialapp.saucelabs.com/logout");
-        assertEquals("Message not found", "Logged out successfully.", driver.findElement(By.id("message")).getText());
+        assertEquals(driver.findElement(By.id("message")).getText(), "Logged out successfully.", "Message not found");
     }
 
     private Map<String, String> createRandomUser() {
@@ -104,14 +103,14 @@ public class WebDriverDemoShootoutTest {
         driver.findElement(By.name("login")).sendKeys(username);
         driver.findElement(By.name("password")).sendKeys(password);
         driver.findElement(By.cssSelector("input.login")).click();
-        assertEquals("Message not found", "Logged in successfully.", driver.findElement(By.id("message")).getText());
+        assertEquals(driver.findElement(By.id("message")).getText(), "Logged in successfully.", "Message not found");
     }
 
     @Test
     public void testRegister() throws Exception {
         Map<String, String> userDetails = createRandomUser();
         doRegister(userDetails, false);
-        assertTrue("Message not found", driver.findElement(By.cssSelector(".username")).getText().contains("You are logged in as "));
+        assertTrue(driver.findElement(By.cssSelector(".username")).getText().contains("You are logged in as "), "Message not found");
     }
 
     @Test
@@ -119,7 +118,7 @@ public class WebDriverDemoShootoutTest {
         Map<String, String> userDetails = createRandomUser();
         userDetails.put("username", "");
         doRegister(userDetails, false);
-        assertEquals("Message not found", "Please enter a value", driver.findElement(By.cssSelector(".error")).getText());
+        assertEquals(driver.findElement(By.cssSelector(".error")).getText(), "Please enter a value", "Message not found");
 
     }
 
@@ -128,7 +127,7 @@ public class WebDriverDemoShootoutTest {
         Map<String, String> userDetails = createRandomUser();
         userDetails.put("name", "");
         doRegister(userDetails, false);
-        assertEquals("Message not found", "Please enter a value", driver.findElement(By.cssSelector(".error")).getText());
+        assertEquals(driver.findElement(By.cssSelector(".error")).getText(), "Please enter a value", "Message not found");
     }
 
     @Test
@@ -136,7 +135,7 @@ public class WebDriverDemoShootoutTest {
         Map<String, String> userDetails = createRandomUser();
         userDetails.put("confirm_password", getUniqueId());
         doRegister(userDetails, false);
-        assertEquals("Message not found", "Fields do not match", driver.findElement(By.cssSelector(".error")).getText());
+        assertEquals(driver.findElement(By.cssSelector(".error")).getText(), "Please enter a value", "Message not found");
     }
 
     @Test
@@ -144,14 +143,14 @@ public class WebDriverDemoShootoutTest {
         Map<String, String> userDetails = createRandomUser();
         userDetails.put("email", "test");
         doRegister(userDetails, false);
-        assertEquals("Message not found", "An email address must contain a single @", driver.findElement(By.cssSelector(".error")).getText());
+        assertEquals(driver.findElement(By.cssSelector(".error")).getText(), "An email address must contain a single @", "Message not found" );
         driver.findElement(By.id("email")).clear();
         driver.findElement(By.id("email")).sendKeys("@bob.com");
         driver.findElement(By.id("form.submitted")).click();
-        assertEquals("Message not found", "The username portion of the email address is invalid (the portion before the @: )", driver.findElement(By.cssSelector(".error")).getText());
+        assertEquals(driver.findElement(By.cssSelector(".error")).getText(), "The username portion of the email address is invalid (the portion before the @: )", "Message not found");
         driver.findElement(By.id("email")).clear();
         driver.findElement(By.id("email")).sendKeys("test@bob");
         driver.findElement(By.id("form.submitted")).click();
-        assertEquals("Message not found", "The domain portion of the email address is invalid (the portion after the @: bob)", driver.findElement(By.cssSelector(".error")).getText());
+        assertEquals(driver.findElement(By.cssSelector(".error")).getText(), "The domain portion of the email address is invalid (the portion after the @: bob)", "Message not found");
     }
 }
