@@ -2,6 +2,7 @@ package com.saucelabs.junit;
 
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import junit.framework.TestResult;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -14,19 +15,24 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.URL;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Ross Rowe
  */
 public class WebDriverTest implements SauceOnDemandSessionIdProvider {
 
-    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication();
+    public SauceOnDemandAuthentication authentication = new
+            SauceOnDemandAuthentication("sbukhari", "08a5e7d7-50b5-47a2-a1e7-b2ba8f221522");
 
-    public @Rule
-    SauceOnDemandTestWatcher resultReportingTestWatcher = new SauceOnDemandTestWatcher(this, authentication);
+    public
+    @Rule
+    SauceOnDemandTestWatcher resultReportingTestWatcher = new
+            SauceOnDemandTestWatcher(this, authentication);
 
-    public @Rule TestName testName= new TestName();
+    public
+    @Rule
+    TestName testName = new TestName();
 
     private WebDriver driver;
     private String sessionId;
@@ -36,16 +42,14 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider {
         DesiredCapabilities capabillities = DesiredCapabilities.firefox();
         capabillities.setCapability("version", "5");
         capabillities.setCapability("platform", Platform.XP);
-        capabillities.setCapability("name", "xxTest : "+testName.getMethodName());
+        capabillities.setCapability("name", "xxTest :"
+                + testName.getMethodName());
         this.driver = new RemoteWebDriver(
-                new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
+                new URL("http://" + authentication.getUsername() + ":" +
+                        authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
                 capabillities);
-        this.sessionId = ((RemoteWebDriver)driver).getSessionId().toString();
-    }
+        this.sessionId = ((RemoteWebDriver) driver).getSessionId().toString();
 
-    @Override
-    public String getSessionId() {
-        return sessionId;
     }
 
     @Test
@@ -56,6 +60,14 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider {
 
     @After
     public void tearDown() throws Exception {
+        TestResult result = new TestResult();
         driver.quit();
     }
+
+    @Override
+    public String getSessionId() {
+        return sessionId;
+
+    }
+
 }

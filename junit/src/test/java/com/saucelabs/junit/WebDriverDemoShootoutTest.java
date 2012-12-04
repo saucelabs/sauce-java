@@ -1,8 +1,10 @@
 package com.saucelabs.junit;
 
 import com.saucelabs.common.SauceOnDemandAuthentication;
+import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Platform;
@@ -14,18 +16,23 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * @author Ross Rowe
  */
-public class WebDriverDemoShootoutTest {
+public class WebDriverDemoShootoutTest implements SauceOnDemandSessionIdProvider {
 
     public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication();
 
+    public
+    @Rule
+    SauceOnDemandTestWatcher resultReportingTestWatcher = new
+            SauceOnDemandTestWatcher(this, authentication);
+
     private WebDriver driver;
+
+    private String sessionId;
 
     @Before
     public void setUp() throws Exception {
@@ -36,6 +43,7 @@ public class WebDriverDemoShootoutTest {
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
                 capabillities);
         driver.get("http://tutorialapp.saucelabs.com");
+        this.sessionId = ((RemoteWebDriver) driver).getSessionId().toString();
     }
 
     @After
@@ -154,6 +162,12 @@ public class WebDriverDemoShootoutTest {
         driver.findElement(By.id("email")).sendKeys("test@bob");
         driver.findElement(By.id("form.submitted")).click();
         assertEquals("Message not found", "The domain portion of the email address is invalid (the portion after the @: bob)", driver.findElement(By.cssSelector(".error")).getText());
+    }
+
+    @Override
+    public String getSessionId() {
+        return sessionId;
+
     }
 
 }
