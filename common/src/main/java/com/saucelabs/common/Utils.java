@@ -11,7 +11,7 @@ public final class Utils {
     }
 
     public static void addBuildNumberToUpdate(Map<String, Object> updates) {
-        String buildNumber = readPropertyOrEnv("BAMBOO_BUILD_NUMBER", null);
+        String buildNumber = readPropertyOrEnv("BAMBOO_BUILDNUMBER", null);
         if (buildNumber == null || buildNumber.equals("")) {
             //try Jenkins
             buildNumber = readPropertyOrEnv("JENKINS_BUILD_NUMBER", null);
