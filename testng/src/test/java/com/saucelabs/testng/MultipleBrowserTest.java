@@ -56,7 +56,9 @@ public class MultipleBrowserTest implements SauceOnDemandSessionIdProvider, Sauc
      * @param version
      * @param os
      */
+    //Uncomment this factory to use the hardCodedBrowsers Data Provider
 //    @Factory(dataProvider = "hardCodedBrowsers")
+    //This factory uses the SauceBrowserDataProvider, which parses the SAUCE_ONDEMAND_BROWSERS environment variable
     @Factory(dataProviderClass=SauceBrowserDataProvider.class, dataProvider = "sauceBrowserDataProvider", parameters="browserJson")
     public MultipleBrowserTest(String browser, String version, String os) {
         this.browser = browser;
