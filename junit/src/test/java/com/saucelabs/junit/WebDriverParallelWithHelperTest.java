@@ -58,13 +58,13 @@ public class WebDriverParallelWithHelperTest implements SauceOnDemandSessionIdPr
 
     @Before
     public void setUp() throws Exception {
-        DesiredCapabilities capabillities = DesiredCapabilities.firefox();
-        capabillities.setCapability(CapabilityType.BROWSER_NAME, browser);
-        capabillities.setCapability(CapabilityType.VERSION, version);
-        capabillities.setCapability(CapabilityType.PLATFORM, Platform.valueOf(os));
+        DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+        capabilities.setCapability(CapabilityType.BROWSER_NAME, browser);
+        capabilities.setCapability(CapabilityType.VERSION, version);
+        capabilities.setCapability(CapabilityType.PLATFORM, Platform.valueOf(os));
         this.driver = new RemoteWebDriver(
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
-                capabillities);
+                capabilities);
         this.sessionId = ((RemoteWebDriver) driver).getSessionId().toString();
     }
 

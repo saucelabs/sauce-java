@@ -23,14 +23,14 @@ public class WebDriverTest {
     @Before
     public void setUp() throws Exception {
 
-        DesiredCapabilities capabillities = DesiredCapabilities.iphone();
-        capabillities.setCapability("version", "5.0");
-        capabillities.setCapability("platform", Platform.MAC);
+        DesiredCapabilities capabilities = DesiredCapabilities.iphone();
+        capabilities.setCapability("version", "5.0");
+        capabilities.setCapability("platform", Platform.MAC);
         String username = System.getProperty("sauce.userName");
         String accessKey = System.getProperty("sauce.accessKey");
         this.driver = new RemoteWebDriver(
                 new URL(MessageFormat.format("http://{0}:{1}@ondemand.saucelabs.com:80/wd/hub", username, accessKey)),
-                capabillities);
+                capabilities);
     }
 
     @Test

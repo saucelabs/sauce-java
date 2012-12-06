@@ -42,14 +42,14 @@ public class WebDriverTest {
                       Method method) throws Exception {
 
 
-        DesiredCapabilities capabillities = new DesiredCapabilities();
-        capabillities.setBrowserName(browser);
-        capabillities.setCapability("version", browserVersion);
-        capabillities.setCapability("platform", os);
-        capabillities.setCapability("name", method.getName());
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setBrowserName(browser);
+        capabilities.setCapability("version", browserVersion);
+        capabilities.setCapability("platform", os);
+        capabilities.setCapability("name", method.getName());
         this.driver = new RemoteWebDriver(
                 new URL("http://" + username + ":" + key + "@ondemand.saucelabs.com:80/wd/hub"),
-                capabillities);
+                capabilities);
     }
 
     @Test

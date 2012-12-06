@@ -58,28 +58,28 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider, SauceOnDem
             authentication = new SauceOnDemandAuthentication();
         }
 
-        DesiredCapabilities capabillities = new DesiredCapabilities();
+        DesiredCapabilities capabilities = new DesiredCapabilities();
         String browserEnv = System.getenv("SELENIUM_BROWSER");
         String versionEnv = System.getenv("SELENIUM_VERSION");
         String platformEnv = System.getenv("SELENIUM_PLATFORM");
 
         if (StringUtils.isNotBlank(browserEnv) && StringUtils.isNotBlank(versionEnv) && StringUtils.isNotBlank(platformEnv)) {
-            capabillities.setBrowserName(browserEnv);
-            capabillities.setCapability("version", versionEnv);
-            capabillities.setCapability("platform", Platform.extractFromSysProperty(platformEnv));
+            capabilities.setBrowserName(browserEnv);
+            capabilities.setCapability("version", versionEnv);
+            capabilities.setCapability("platform", Platform.extractFromSysProperty(platformEnv));
 
         } else if (StringUtils.isNotBlank(browser) && StringUtils.isNotBlank(browserVersion) && StringUtils.isNotBlank(os)) {
-            capabillities.setBrowserName(browser);
-            capabillities.setCapability("version", browserVersion);
-            capabillities.setCapability("platform", Platform.extractFromSysProperty(os));
+            capabilities.setBrowserName(browser);
+            capabilities.setCapability("version", browserVersion);
+            capabilities.setCapability("platform", Platform.extractFromSysProperty(os));
 
         } else {
-            capabillities = DesiredCapabilities.firefox();
+            capabilities = DesiredCapabilities.firefox();
         }
-        capabillities.setCapability("name", method.getName());
+        capabilities.setCapability("name", method.getName());
         this.driver = new RemoteWebDriver(
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
-                capabillities);
+                capabilities);
 
     }
 

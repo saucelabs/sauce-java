@@ -50,13 +50,13 @@ public class WebDriverParallelTest {
     @Before
     public void setUp() throws Exception {
 
-        DesiredCapabilities capabillities = new DesiredCapabilities();
-        capabillities.setCapability(CapabilityType.BROWSER_NAME, browser);
-        capabillities.setCapability(CapabilityType.VERSION, version);
-        capabillities.setCapability(CapabilityType.PLATFORM, Platform.valueOf(os));
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability(CapabilityType.BROWSER_NAME, browser);
+        capabilities.setCapability(CapabilityType.VERSION, version);
+        capabilities.setCapability(CapabilityType.PLATFORM, Platform.valueOf(os));
         this.driver = new RemoteWebDriver(
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
-                capabillities);
+                capabilities);
     }
 
     @Test

@@ -80,15 +80,15 @@ public class MultipleBrowserTest implements SauceOnDemandSessionIdProvider, Sauc
             authentication = new SauceOnDemandAuthentication();
         }
 
-        DesiredCapabilities capabillities = new DesiredCapabilities();
-        capabillities.setBrowserName(browser);
-        capabillities.setCapability("version", version);
-        capabillities.setCapability("os", Platform.extractFromSysProperty(os));
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setBrowserName(browser);
+        capabilities.setCapability("version", version);
+        capabilities.setCapability("os", Platform.extractFromSysProperty(os));
 
-        capabillities.setCapability("name", method.getName());
+        capabilities.setCapability("name", method.getName());
         this.driver = new RemoteWebDriver(
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
-                capabillities);
+                capabilities);
 
     }
 
