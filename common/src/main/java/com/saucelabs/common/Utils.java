@@ -23,7 +23,7 @@ public final class Utils {
 
     }
 
-    private static String readPropertyOrEnv(String key, String defaultValue) {
+    public static String readPropertyOrEnv(String key, String defaultValue) {
         String v = System.getProperty(key);
         if (v == null)
             v = System.getenv(key);
