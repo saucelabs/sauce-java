@@ -58,9 +58,9 @@ public class SeleniumRCWithHelperTest implements SauceOnDemandSessionIdProvider 
                 80,
                 "{\"username\": \"" + authentication.getUsername() + "\"," +
                         "\"access-key\": \"" + authentication.getAccessKey() + "\"," +
-                        "\"os\": \"mac\"," +
-                        "\"browser\": \"iphone\"," +
-                        "\"browser-version\": \"5.0\"," +
+                        "\"os\": \"Windows 2008\"," +
+                        "\"browser\": \"firefox\"," +
+                        "\"browser-version\": \"17\"," +
                         "\"name\": \"Testing Selenium 1 with Java on Sauce\"}",
                 "http://saucelabs.com/");
         selenium.start();

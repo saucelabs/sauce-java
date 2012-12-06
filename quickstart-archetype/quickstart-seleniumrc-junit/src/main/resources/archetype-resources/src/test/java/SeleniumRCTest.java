@@ -29,9 +29,9 @@ public class SeleniumRCTest {
                 80,
                 "{\"username\": \"${sauceUserName}\"," +
                         "\"access-key\": \"${sauceAccessKey}\"," +
-                        "\"os\": \"Windows 2003\"," +
+                        "\"os\": \"Windows 2008\"," +
                         "\"browser\": \"firefox\"," +
-                        "\"browser-version\": \"7\"," +
+                        "\"browser-version\": \"17\"," +
                         "\"name\": \"Testing Selenium 1 with Java on Sauce\"}",
                 "http://saucelabs.com/");
         selenium.start();

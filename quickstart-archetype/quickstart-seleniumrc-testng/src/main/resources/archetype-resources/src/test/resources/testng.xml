@@ -1,0 +1,17 @@
+<suite name="SauceTestSuite" verbose="5" parallel="tests" thread-count="10">
+    <parameter name="username" value="${sauceUserName}"/>
+    <parameter name="key" value="${sauceAccessKey}"/>
+    <test name="WebDriverTests">
+        <parameter name="os" value="Windows 2008"/>
+        <parameter name="browser" value="firefox"/>
+        <parameter name="browserVersion" value="17"/>
+        <classes>
+            <class name="SeleniumRCTest"/>
+            <class name="SeleniumRCWithHelperTest"/>
+        </classes>
+    </test>
+
+    <listeners>
+        <listener class-name="com.saucelabs.testng.SauceOnDemandTestListener"/>
+    </listeners>
+</suite>

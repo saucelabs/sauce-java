@@ -45,9 +45,9 @@ public class SeleniumRCWithHelperTest implements SauceOnDemandSessionIdProvider,
     @BeforeMethod
     public void setUp(@Optional("${sauceUserName}") String username,
                       @Optional("${sauceAccessKey}") String key,
-                      @Optional("mac") String os,
-                      @Optional("iphone") String browser,
-                      @Optional("5.0") String browserVersion,
+                      @Optional("Windows 2008") String os,
+                      @Optional("firefox") String browser,
+                      @Optional("17") String browserVersion,
                       Method method) throws Exception {
 
         if (StringUtils.isNotEmpty(username) && StringUtils.isNotEmpty(key)) {
