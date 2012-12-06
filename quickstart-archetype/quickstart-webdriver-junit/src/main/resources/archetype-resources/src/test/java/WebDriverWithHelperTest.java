@@ -54,7 +54,7 @@ public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider {
 
         DesiredCapabilities capabilities = DesiredCapabilities.firefox();
         capabilities.setCapability("version", "17");
-        capabilities.setCapability("platform", Platform.VISTA);
+        capabilities.setCapability("platform", Platform.XP);
         capabilities.setCapability("name",  testName.getMethodName());
         this.driver = new RemoteWebDriver(
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),

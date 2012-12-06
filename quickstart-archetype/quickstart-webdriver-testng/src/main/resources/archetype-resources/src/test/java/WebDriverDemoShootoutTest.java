@@ -26,7 +26,7 @@ public class WebDriverDemoShootoutTest {
     public void setUp() throws Exception {
         DesiredCapabilities capabilities = DesiredCapabilities.firefox();
         capabilities.setCapability("version", "17");
-        capabilities.setCapability("platform", Platform.VISTA);
+        capabilities.setCapability("platform", Platform.XP);
         this.driver = new RemoteWebDriver(
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
                 capabilities);

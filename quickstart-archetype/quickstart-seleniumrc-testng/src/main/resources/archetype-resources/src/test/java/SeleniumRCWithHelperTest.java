@@ -45,7 +45,7 @@ public class SeleniumRCWithHelperTest implements SauceOnDemandSessionIdProvider,
     @BeforeMethod
     public void setUp(@Optional("${sauceUserName}") String username,
                       @Optional("${sauceAccessKey}") String key,
-                      @Optional("Windows 2008") String os,
+                      @Optional("Windows 2003") String os,
                       @Optional("firefox") String browser,
                       @Optional("17") String browserVersion,
                       Method method) throws Exception {

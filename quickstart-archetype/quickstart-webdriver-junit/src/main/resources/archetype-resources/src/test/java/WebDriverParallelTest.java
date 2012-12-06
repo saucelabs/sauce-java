@@ -40,7 +40,7 @@ public class WebDriverParallelTest {
     @Parameterized.Parameters
     public static LinkedList browsersStrings() throws Exception {
         LinkedList browsers = new LinkedList();
-        browsers.add(new String[]{Platform.VISTA.toString(), "17", "firefox"});
+        browsers.add(new String[]{Platform.XP.toString(), "17", "firefox"});
         return browsers;
     }
 

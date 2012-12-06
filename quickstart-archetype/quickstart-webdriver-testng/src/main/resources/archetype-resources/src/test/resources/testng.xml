@@ -2,7 +2,7 @@
     <parameter name="username" value="${sauceUserName}"/>
     <parameter name="key" value="${sauceAccessKey}"/>
     <test name="WebDriverTests">
-        <parameter name="os" value="Windows 2008"/>
+        <parameter name="os" value="Windows 2003"/>
         <parameter name="browser" value="firefox"/>
         <parameter name="browserVersion" value="17"/>
         <classes>
