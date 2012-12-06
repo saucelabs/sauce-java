@@ -51,7 +51,7 @@ public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider, 
         if (StringUtils.isNotEmpty(username) && StringUtils.isNotEmpty(key)) {
            authentication = new SauceOnDemandAuthentication(username, key);
         } else {
-           authentication = new SauceOnDemandAuthentication();
+           authentication = new SauceOnDemandAuthentication("${sauceUserName}", "${sauceAccessKey}");
         }
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
