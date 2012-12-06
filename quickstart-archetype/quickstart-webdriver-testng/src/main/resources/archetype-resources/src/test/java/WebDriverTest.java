@@ -11,26 +11,26 @@ import java.lang.reflect.Method;
 import java.net.URL;
 
 import static org.testng.Assert.assertEquals;
+
 /**
+ * Simple {@link RemoteWebDriver} test that demonstrates how to run your Selenium tests with <a href="http://saucelabs.com/ondemand">Sauce OnDemand</a>.
  *
  * @author Ross Rowe
  */
-
 public class WebDriverTest {
 
     private WebDriver driver;
 
     /**
-     * If the tests can rely on the username/key to be supplied by environment variables or the existence
-     * of a ~/.sauce-ondemand file, then we don't need to specify them as parameters, just create a new instance
-     * of {@link SauceOnDemandAuthentication} using the no-arg constructor.
-     * @param username
-     * @param key
-     * @param os
-     * @param browser
-     * @param browserVersion
-     * @param method
-     * @throws Exception
+     * Creates a new {@link RemoteWebDriver} instance to be used to run WebDriver tests using Sauce.
+     *
+     * @param username the Sauce username
+     * @param key the Sauce access key
+     * @param os the operating system to be used
+     * @param browser the name of the browser to be used
+     * @param browserVersion the version of the browser to be used
+     * @param method the test method being executed
+     * @throws Exception thrown if any errors occur in the creation of the WebDriver instance
      */
     @Parameters({"username", "key", "os", "browser", "browserVersion"})
     @BeforeMethod
@@ -40,7 +40,6 @@ public class WebDriverTest {
                       @Optional("firefox") String browser,
                       @Optional("17") String browserVersion,
                       Method method) throws Exception {
-
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName(browser);

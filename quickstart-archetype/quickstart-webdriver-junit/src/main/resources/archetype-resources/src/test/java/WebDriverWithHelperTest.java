@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Simple {@link RemoteWebDriver} test that demonstrates how to run your Selenium tests with <a href="http://saucelabs.com/ondemand">Sauce OnDemand</a>.
  *
- * This test also includes the <a href="">Sauce JUnit</a> helper classes, which will use the Sauce REST API to mark the Sauce Job as passed/failed.
+ * This test also includes the <a href="https://github.com/saucelabs/sauce-java/tree/master/junit">Sauce JUnit</a> helper classes, which will use the Sauce REST API to mark the Sauce Job as passed/failed.
  *
  * In order to use the {@link SauceOnDemandTestWatcher}, the test must implement the {@link SauceOnDemandSessionIdProvider} interface.
  *
@@ -49,6 +49,11 @@ public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider {
 
     private String sessionId;
 
+    /**
+     * Creates a new {@link RemoteWebDriver} instance to be used to run WebDriver tests using Sauce.
+     *
+     * @throws Exception thrown if an error occurs constructing the WebDriver
+     */
     @Before
     public void setUp() throws Exception {
 

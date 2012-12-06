@@ -17,7 +17,11 @@ import static org.testng.Assert.assertEquals;
 
 
 /**
+ * Simple {@link RemoteWebDriver} test that demonstrates how to run your Selenium tests with <a href="http://saucelabs.com/ondemand">Sauce OnDemand</a>.
  *
+ * This test also includes the <a href="https://github.com/saucelabs/sauce-java/tree/master/testng">Sauce TestNG</a> helper classes, which will use the Sauce REST API to mark the Sauce Job as passed/failed.
+ *
+ * In order to use the {@link SauceOnDemandTestListener}, the test must implement the {@link SauceOnDemandSessionIdProvider} and {@link SauceOnDemandAuthenticationProvider} interfaces.
  * @author Ross Rowe
  */
 @Listeners({SauceOnDemandTestListener.class})
@@ -28,16 +32,15 @@ public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider, 
     private WebDriver driver;
 
     /**
-     * If the tests can rely on the username/key to be supplied by environment variables or the existence
-     * of a ~/.sauce-ondemand file, then we don't need to specify them as parameters, just create a new instance
-     * of {@link SauceOnDemandAuthentication} using the no-arg constructor.
-     * @param username
-     * @param key
-     * @param os
-     * @param browser
-     * @param browserVersion
-     * @param method
-     * @throws Exception
+     * Creates a new {@link RemoteWebDriver} instance to be used to run WebDriver tests using Sauce.
+     *
+     * @param username the Sauce username
+     * @param key the Sauce access key
+     * @param os the operating system to be used
+     * @param browser the name of the browser to be used
+     * @param browserVersion the version of the browser to be used
+     * @param method the test method being executed
+     * @throws Exception thrown if any errors occur in the creation of the WebDriver instance
      */
     @Parameters({"username", "key", "os", "browser", "browserVersion"})
     @BeforeMethod
@@ -80,6 +83,11 @@ public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider, 
         assertEquals(driver.getTitle(), "Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more");
     }
 
+    /**
+     * Closes the WebDriver instance.
+     *
+     * @throws Exception thrown if an error occurs closing the WebDriver instance
+     */
     @AfterMethod
     public void tearDown() throws Exception {
         driver.quit();

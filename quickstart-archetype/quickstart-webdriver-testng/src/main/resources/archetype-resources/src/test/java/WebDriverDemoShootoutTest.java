@@ -18,6 +18,7 @@ import static org.testng.Assert.*;
  * @author Ross Rowe
  */
 public class WebDriverDemoShootoutTest {
+
     private SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication("${sauceUserName}", "${sauceAccessKey}");
 
     private WebDriver driver;
