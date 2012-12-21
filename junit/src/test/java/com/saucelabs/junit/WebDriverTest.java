@@ -2,7 +2,6 @@ package com.saucelabs.junit;
 
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
-import junit.framework.TestResult;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -22,8 +21,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class WebDriverTest implements SauceOnDemandSessionIdProvider {
 
-    public SauceOnDemandAuthentication authentication = new
-            SauceOnDemandAuthentication("sbukhari", "08a5e7d7-50b5-47a2-a1e7-b2ba8f221522");
+    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication();
 
     public
     @Rule
@@ -60,14 +58,12 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider {
 
     @After
     public void tearDown() throws Exception {
-        TestResult result = new TestResult();
         driver.quit();
     }
 
     @Override
     public String getSessionId() {
         return sessionId;
-
     }
 
 }

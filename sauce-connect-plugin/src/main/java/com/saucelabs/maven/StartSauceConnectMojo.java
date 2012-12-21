@@ -51,9 +51,7 @@ public class StartSauceConnectMojo extends AbstractMojo {
             } catch (IOException e) {
                 getLog().error("Error generated when launching Sauce Connect", e);
             }
-
         }
 
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 }

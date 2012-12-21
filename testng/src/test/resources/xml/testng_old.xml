@@ -1,0 +1,14 @@
+<suite name="ParallelTests" verbose="5" parallel="tests" thread-count="2">
+    <parameter name="username" value="rossco_9_9"/>
+    <parameter name="key" value="44f0744c-1689-4418-af63-560303cbb37b"/>
+
+    <test name="MultipleBrowserTest">
+        <classes>
+            <class name="com.saucelabs.testng.MultipleBrowserTest"/>
+        </classes>
+    </test>
+
+    <!--<listeners>-->
+    <!--<listener class-name="com.saucelabs.testng.SauceOnDemandTestListener"/>-->
+    <!--</listeners>-->
+</suite>
