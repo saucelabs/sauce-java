@@ -32,23 +32,37 @@
             <version>4.10</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.saucelabs</groupId>
+            <artifactId>sauce_java_common</artifactId>
+            <version>1.0.14</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <!-- Include Sauce Connect plugin -->
             <plugin>
-                <groupId>com.saucelabs.maven.plugins</groupId>
+                <groupId>com.saucelabs.maven.plugin</groupId>
                 <artifactId>sauce-connect-plugin</artifactId>
                 <version>1.0.15-SNAPSHOT</version>
                 <configuration>
-
+                    <sauceUsername>YOUR_SAUCE_USERNAME</sauceUsername>
+                    <sauceAccessKey>YOUR_SAUCE_ACCESS_KEY</sauceAccessKey>
                 </configuration>
                 <executions>
                     <execution>
+                        <id>start-sauceconnct</id>
+                        <phase>pre-integration-test</phase>
                         <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
+                            <goal>start-sauceconnect</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop-sauceconnect</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop-sauceconnect</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -96,7 +110,6 @@
                         <id>start-jetty</id>
                         <phase>pre-integration-test</phase>
                         <goals>
-                            <goal>start-sauceconnect</goal>
                             <goal>start</goal>
                         </goals>
                     </execution>
@@ -105,7 +118,6 @@
                         <phase>post-integration-test</phase>
                         <goals>
                             <goal>stop</goal>
-                            <goal>stop-sauceconnect</goal>
                         </goals>
                     </execution>
                 </executions>
