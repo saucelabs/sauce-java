@@ -45,7 +45,7 @@
             <plugin>
                 <groupId>com.saucelabs.maven.plugin</groupId>
                 <artifactId>sauce-connect-plugin</artifactId>
-                <version>1.0.15-SNAPSHOT</version>
+                <version>1.0.15</version>
                 <configuration>
                     <sauceUsername>YOUR_SAUCE_USERNAME</sauceUsername>
                     <sauceAccessKey>YOUR_SAUCE_ACCESS_KEY</sauceAccessKey>
