@@ -3,13 +3,13 @@
     <parent>
         <artifactId>sauce_java</artifactId>
         <groupId>com.saucelabs</groupId>
-        <version>1.0.15</version>
+        <version>1.0.16-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.saucelabs</groupId>
     <artifactId>sauce-connect-example</artifactId>
-    <version>1.0.15</version>
+    <version>1.0.16-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>${artifactId}</name>
@@ -43,7 +43,7 @@
             <plugin>
                 <groupId>com.saucelabs.maven.plugin</groupId>
                 <artifactId>sauce-connect-plugin</artifactId>
-                <version>1.0.15</version>
+                <version>1.0.16-SNAPSHOT</version>
                 <configuration>
                     <sauceUsername>YOUR_SAUCE_USERNAME</sauceUsername>
                     <sauceAccessKey>YOUR_SAUCE_ACCESS_KEY</sauceAccessKey>
