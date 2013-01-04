@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Parallelized.class)
 public class WebDriverParallelTest {
 
-    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication();
+    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication("${sauceUserName}", "${sauceAccessKey}");
 
     private String browser;
     private String os;
