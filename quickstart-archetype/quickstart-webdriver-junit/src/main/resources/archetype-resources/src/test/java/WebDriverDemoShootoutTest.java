@@ -110,7 +110,7 @@ public class WebDriverDemoShootoutTest {
         driver.findElement(By.id("email")).clear();
         driver.findElement(By.id("email")).sendKeys("test@example");
         driver.findElement(By.id("form.submitted")).click();
-        assertEquals("Message not found", "The domain portion of the email address is invalid (the portion after the @: bob)", driver.findElement(By.cssSelector(".error")).getText());
+        assertEquals("Message not found", "The domain portion of the email address is invalid (the portion after the @: example)", driver.findElement(By.cssSelector(".error")).getText());
     }
 
     private String getUniqueId() {

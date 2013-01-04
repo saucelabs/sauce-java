@@ -91,7 +91,7 @@ public class WebDriverDemoShootoutTest {
         Map<String, String> userDetails = createRandomUser();
         userDetails.put("confirm_password", getUniqueId());
         doRegister(userDetails, false);
-        assertEquals(driver.findElement(By.cssSelector(".error")).getText(), "Please enter a value", "Message not found");
+        assertEquals(driver.findElement(By.cssSelector(".error")).getText(), "Fields do not match", "Message not found");
     }
 
     @Test
@@ -107,7 +107,7 @@ public class WebDriverDemoShootoutTest {
         driver.findElement(By.id("email")).clear();
         driver.findElement(By.id("email")).sendKeys("test@example");
         driver.findElement(By.id("form.submitted")).click();
-        assertEquals(driver.findElement(By.cssSelector(".error")).getText(), "The domain portion of the email address is invalid (the portion after the @: bob)", "Message not found");
+        assertEquals(driver.findElement(By.cssSelector(".error")).getText(), "The domain portion of the email address is invalid (the portion after the @: example)", "Message not found");
     }
 
     private String getUniqueId() {
