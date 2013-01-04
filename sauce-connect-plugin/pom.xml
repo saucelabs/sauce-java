@@ -4,7 +4,7 @@
     <parent>
         <artifactId>sauce_java</artifactId>
         <groupId>com.saucelabs</groupId>
-        <version>1.0.17-SNAPSHOT</version>
+        <version>1.0.17</version>
     </parent>
 
     <groupId>com.saucelabs.maven.plugin</groupId>
