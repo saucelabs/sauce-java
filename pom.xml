@@ -12,6 +12,7 @@
         <module>testng</module>
         <module>quickstart-archetype</module>
 		<module>sauce-connect-plugin</module>
+        <module>sauce-connect-example</module>
     </modules>
     <licenses>
         <license>
