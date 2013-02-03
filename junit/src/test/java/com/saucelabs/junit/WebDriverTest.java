@@ -2,10 +2,7 @@ package com.saucelabs.junit;
 
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.TestName;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
@@ -51,6 +48,7 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider {
     }
 
     @Test
+    @Ignore
     public void basic() throws Exception {
         driver.get("http://www.amazon.com/");
         assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());

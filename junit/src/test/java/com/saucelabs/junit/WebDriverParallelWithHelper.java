@@ -2,10 +2,7 @@ package com.saucelabs.junit;
 
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.TestName;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.Platform;
@@ -23,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Ross Rowe
  */
-public class WebDriverParallelWithHelperTest implements SauceOnDemandSessionIdProvider {
+public class WebDriverParallelWithHelper implements SauceOnDemandSessionIdProvider {
 
     public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication();
 
@@ -42,7 +39,7 @@ public class WebDriverParallelWithHelperTest implements SauceOnDemandSessionIdPr
     private String os;
     private String version;
 
-    public WebDriverParallelWithHelperTest(String os, String version, String browser) {
+    public WebDriverParallelWithHelper(String os, String version, String browser) {
         super();
         this.os = os;
         this.version = version;
@@ -74,6 +71,7 @@ public class WebDriverParallelWithHelperTest implements SauceOnDemandSessionIdPr
     }
 
     @Test
+    @Ignore
     public void basic() throws Exception {
         driver.get("http://www.amazon.com/");
         assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());

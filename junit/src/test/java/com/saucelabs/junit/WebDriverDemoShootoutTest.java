@@ -2,10 +2,7 @@ package com.saucelabs.junit;
 
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
@@ -52,6 +49,7 @@ public class WebDriverDemoShootoutTest implements SauceOnDemandSessionIdProvider
     }
 
     @Test
+    @Ignore
     public void testLoginFailsWithBadCredentials() throws Exception {
         String userName = getUniqueId();
         String password = getUniqueId();
@@ -66,6 +64,7 @@ public class WebDriverDemoShootoutTest implements SauceOnDemandSessionIdProvider
     }
 
     @Test
+    @Ignore
     public void testLogout() throws Exception {
         Map<String, String> userDetails = createRandomUser();
         doRegister(userDetails, true);
@@ -103,6 +102,7 @@ public class WebDriverDemoShootoutTest implements SauceOnDemandSessionIdProvider
     }
 
     @Test
+    @Ignore
     public void testLogin() throws Exception {
         Map<String, String> userDetails = createRandomUser();
         doRegister(userDetails, true);
@@ -117,6 +117,7 @@ public class WebDriverDemoShootoutTest implements SauceOnDemandSessionIdProvider
     }
 
     @Test
+    @Ignore
     public void testRegister() throws Exception {
         Map<String, String> userDetails = createRandomUser();
         doRegister(userDetails, false);
@@ -124,6 +125,7 @@ public class WebDriverDemoShootoutTest implements SauceOnDemandSessionIdProvider
     }
 
     @Test
+    @Ignore
     public void testRegisterFailsWithoutUsername() throws Exception {
         Map<String, String> userDetails = createRandomUser();
         userDetails.put("username", "");
@@ -133,6 +135,7 @@ public class WebDriverDemoShootoutTest implements SauceOnDemandSessionIdProvider
     }
 
     @Test
+    @Ignore
     public void testRegisterFailsWithoutName() throws Exception {
         Map<String, String> userDetails = createRandomUser();
         userDetails.put("name", "");
@@ -141,6 +144,7 @@ public class WebDriverDemoShootoutTest implements SauceOnDemandSessionIdProvider
     }
 
     @Test
+    @Ignore
     public void testRegisterFailsWithMismatchedPasswords() throws Exception {
         Map<String, String> userDetails = createRandomUser();
         userDetails.put("confirm_password", getUniqueId());
@@ -149,6 +153,7 @@ public class WebDriverDemoShootoutTest implements SauceOnDemandSessionIdProvider
     }
 
     @Test
+    @Ignore
     public void testRegisterFailsWithBadEmail() throws Exception {
         Map<String, String> userDetails = createRandomUser();
         userDetails.put("email", "test");

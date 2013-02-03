@@ -5,8 +5,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -22,7 +20,7 @@ import static org.junit.Assert.assertEquals;
  *
  * @author Ross Rowe
  */
-@RunWith(Parallelized.class)
+@RunWith(ConcurrentParameterized.class)
 public class WebDriverParallelTest {
 
     public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication();
@@ -38,10 +36,12 @@ public class WebDriverParallelTest {
         this.browser = browser;
     }
 
-    @Parameterized.Parameters
+    @ConcurrentParameterized.Parameters
     public static LinkedList browsersStrings() throws Exception {
         LinkedList browsers = new LinkedList();
-        browsers.add(new String[]{Platform.MAC.toString(), "5.0", "iPhone"});
+        browsers.add(new String[]{"Windows 2003", null, "chrome"});
+        browsers.add(new String[]{"Windows 2003", "17", "firefox"});
+        browsers.add(new String[]{"linux", "17", "firefox"});
         return browsers;
     }
 
@@ -52,16 +52,26 @@ public class WebDriverParallelTest {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(CapabilityType.BROWSER_NAME, browser);
-        capabilities.setCapability(CapabilityType.VERSION, version);
-        capabilities.setCapability(CapabilityType.PLATFORM, Platform.valueOf(os));
+        if (version != null) {
+            capabilities.setCapability(CapabilityType.VERSION, version);
+        }
+        capabilities.setCapability(CapabilityType.PLATFORM, os);
         this.driver = new RemoteWebDriver(
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
                 capabilities);
     }
 
     @Test
-    public void webDriver() throws Exception {
-        printSessionId("webDriver");
+    public void webDriverOne() throws Exception {
+
+        printSessionId("webDriverOne");
+        driver.get("http://www.amazon.com/");
+        assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());
+    }
+
+    @Test
+    public void webDriverTwo() throws Exception {
+        printSessionId("webDriverTwo");
         driver.get("http://www.amazon.com/");
         assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());
     }
@@ -69,7 +79,7 @@ public class WebDriverParallelTest {
     private void printSessionId(String testName) {
 
         String message = String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", (((RemoteWebDriver) driver).getSessionId()).toString(), testName);
-        System.out.println(message);
+        System.out.println( Thread.currentThread().getName() + " : " + message);
     }
 
     @After
