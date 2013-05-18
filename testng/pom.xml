@@ -4,7 +4,7 @@
     <parent>
         <artifactId>sauce_java</artifactId>
         <groupId>com.saucelabs</groupId>
-        <version>1.0.19</version>
+        <version>1.0.20-SNAPSHOT</version>
     </parent>
     <artifactId>sauce_testng</artifactId>
     <name>sauce_testng</name>
