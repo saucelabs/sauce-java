@@ -6,6 +6,9 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
 import java.util.Map;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Maven Mojo which stops a Sauce Connect process started by the {@link StartSauceConnectMojo}.
@@ -26,6 +29,7 @@ public class StopSauceConnectMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         getLog().info("Stopping Sauce Connect");
         Map context = getPluginContext();
+
         SauceConnectTwoManager manager = (SauceConnectTwoManager) context.get(SAUCE_CONNECT_KEY);
         if (manager == null) {
             //no process available

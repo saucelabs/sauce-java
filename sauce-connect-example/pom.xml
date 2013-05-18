@@ -3,7 +3,7 @@
     <parent>
         <artifactId>sauce_java</artifactId>
         <groupId>com.saucelabs</groupId>
-        <version>1.0.16-SNAPSHOT</version>
+        <version>1.0.18</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -43,10 +43,12 @@
             <plugin>
                 <groupId>com.saucelabs.maven.plugin</groupId>
                 <artifactId>sauce-connect-plugin</artifactId>
-                <version>1.0.16</version>
+                <version>1.0.19-SNAPSHOT</version>
                 <configuration>
-                    <sauceUsername>YOUR_SAUCE_USERNAME</sauceUsername>
-                    <sauceAccessKey>YOUR_SAUCE_ACCESS_KEY</sauceAccessKey>
+                    <sauceUsername>rossco_9_9</sauceUsername>
+                    <sauceAccessKey>44f0744c-1689-4418-af63-560303cbb37b</sauceAccessKey>
+                    <quietMode>true</quietMode>
+
                 </configuration>
                 <executions>
                     <execution>

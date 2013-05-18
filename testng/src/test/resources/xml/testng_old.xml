@@ -1,10 +1,10 @@
-<suite name="ParallelTests" verbose="5" parallel="tests" thread-count="2">
+<suite name="ParallelTests" verbose="5" parallel="tests" thread-count="6">
     <parameter name="username" value="rossco_9_9"/>
     <parameter name="key" value="44f0744c-1689-4418-af63-560303cbb37b"/>
 
-    <test name="MultipleBrowserTest">
+    <test name="AmazonTest">
         <classes>
-            <class name="com.saucelabs.testng.MultipleBrowserTest"/>
+            <class name="com.saucelabs.testng.SampleTest"/>
         </classes>
     </test>
 

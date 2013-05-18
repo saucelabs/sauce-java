@@ -11,8 +11,8 @@ import java.util.Map;
 /**
  * Maven mojo which starts a Sauce Connect process.
  *
- * @goal start-sauceconnect
  * @author Ross Rowe
+ * @goal start-sauceconnect
  */
 public class StartSauceConnectMojo extends AbstractMojo {
 
@@ -34,13 +34,21 @@ public class StartSauceConnectMojo extends AbstractMojo {
     private int port;
 
     /**
-     *
-     *
+     * @parameter expression="${sauce.httpsProtocol}
      */
     private String httpsProtocol;
 
     /**
-     *
+     * @parameter expression="${sauce.options}
+     */
+    private String options;
+
+    /**
+     * @parameter expression="${sauce.quietMode}
+     */
+    private boolean quietMode;
+
+    /**
      * @throws MojoExecutionException
      * @throws MojoFailureException
      */
@@ -60,9 +68,9 @@ public class StartSauceConnectMojo extends AbstractMojo {
             //process already running
         } else {
             //find Sauce Connect jar file location
-            SauceConnectTwoManager sauceConnectTwoManager = new SauceConnectTwoManager();
+            SauceConnectTwoManager sauceConnectTwoManager = new SauceConnectTwoManager(quietMode);
             try {
-                sauceConnectTwoManager.openConnection(sauceUsername, sauceAccessKey, port, null, httpsProtocol, null);
+                sauceConnectTwoManager.openConnection(sauceUsername, sauceAccessKey, port, null, options, httpsProtocol, null);
                 context.put(SAUCE_CONNECT_KEY, sauceConnectTwoManager);
             } catch (IOException e) {
                 getLog().error("Error generated when launching Sauce Connect", e);
