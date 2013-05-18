@@ -45,10 +45,8 @@
                 <artifactId>sauce-connect-plugin</artifactId>
                 <version>1.0.19-SNAPSHOT</version>
                 <configuration>
-                    <sauceUsername>rossco_9_9</sauceUsername>
-                    <sauceAccessKey>44f0744c-1689-4418-af63-560303cbb37b</sauceAccessKey>
-                    <quietMode>true</quietMode>
-
+                    <sauceUsername>YOUR_SAUCE_USERNAME</sauceUsername>
+                    <sauceAccessKey>YOUR_SAUCE_ACCESS_KEY</sauceAccessKey>
                 </configuration>
                 <executions>
                     <execution>
