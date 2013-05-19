@@ -68,17 +68,13 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
      * @param description not used
      */
     protected void succeeded(Description description) {
-        try {
-            if (sessionIdProvider.getSessionId() != null) {
-                //log the session id to the system out
-                printSessionId(description);
-                Map<String, Object> updates = new HashMap<String, Object>();
-                updates.put("passed", true);
-                Utils.addBuildNumberToUpdate(updates);
-                sauceREST.updateJobInfo(sessionIdProvider.getSessionId(), updates);
-            }
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe);
+        if (sessionIdProvider.getSessionId() != null) {
+            //log the session id to the system out
+            printSessionId(description);
+            Map<String, Object> updates = new HashMap<String, Object>();
+            updates.put("passed", true);
+            Utils.addBuildNumberToUpdate(updates);
+            sauceREST.updateJobInfo(sessionIdProvider.getSessionId(), updates);
         }
     }
 
@@ -95,16 +91,12 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
      * @param description not used
      */
     protected void failed(Throwable e, Description description) {
-        try {
-            if (sessionIdProvider != null && sessionIdProvider.getSessionId() != null) {
-                printSessionId(description);
-                Map<String, Object> updates = new HashMap<String, Object>();
-                updates.put("passed", false);
-                Utils.addBuildNumberToUpdate(updates);
-                sauceREST.updateJobInfo(sessionIdProvider.getSessionId(), updates);
-            }
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe);
+        if (sessionIdProvider != null && sessionIdProvider.getSessionId() != null) {
+            printSessionId(description);
+            Map<String, Object> updates = new HashMap<String, Object>();
+            updates.put("passed", false);
+            Utils.addBuildNumberToUpdate(updates);
+            sauceREST.updateJobInfo(sessionIdProvider.getSessionId(), updates);
         }
     }
 

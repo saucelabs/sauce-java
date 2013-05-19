@@ -2,13 +2,12 @@ package com.saucelabs.testng;
 
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
-import com.saucelabs.saucerest.SauceREST;
 import com.saucelabs.common.Utils;
+import com.saucelabs.saucerest.SauceREST;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -98,20 +97,17 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     }
 
     private void markJobAsFailed() {
-        try {
-            if (this.sauceREST != null && sessionIdProvider != null) {
-                String sessionId = sessionIdProvider.getSessionId();
-                if (sessionId != null) {
-                    Map<String, Object> updates = new HashMap<String, Object>();
-                    updates.put("passed", false);
-                    Utils.addBuildNumberToUpdate(updates);
-                    sauceREST.updateJobInfo(sessionId, updates);
-                }
+
+        if (this.sauceREST != null && sessionIdProvider != null) {
+            String sessionId = sessionIdProvider.getSessionId();
+            if (sessionId != null) {
+                Map<String, Object> updates = new HashMap<String, Object>();
+                updates.put("passed", false);
+                Utils.addBuildNumberToUpdate(updates);
+                sauceREST.updateJobInfo(sessionId, updates);
             }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-            throw new RuntimeException(ioe);
         }
+
     }
 
 
@@ -125,20 +121,17 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     }
 
     private void markJobAsPassed() {
-        try {
-            if (this.sauceREST != null && sessionIdProvider != null) {
-                String sessionId = sessionIdProvider.getSessionId();
-                if (sessionId != null) {
-                    Map<String, Object> updates = new HashMap<String, Object>();
-                    updates.put("passed", true);
-                    Utils.addBuildNumberToUpdate(updates);
-                    sauceREST.updateJobInfo(sessionId, updates);
-                }
+
+        if (this.sauceREST != null && sessionIdProvider != null) {
+            String sessionId = sessionIdProvider.getSessionId();
+            if (sessionId != null) {
+                Map<String, Object> updates = new HashMap<String, Object>();
+                updates.put("passed", true);
+                Utils.addBuildNumberToUpdate(updates);
+                sauceREST.updateJobInfo(sessionId, updates);
             }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-            throw new RuntimeException(ioe);
         }
+
     }
 
 }
