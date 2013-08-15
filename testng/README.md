@@ -1,26 +1,52 @@
-TestNG Sauce
+Sauce TestNG Helper Library
 ============
 
 Installation
 -------------
 
- 1. git clone git://github.com/sgrove/testng_sauce.git
- 2. Add your credentials to xml/BartOnDemand.xml
- 3. Run `ant cloud`
+ 1. Include the following in your Maven pom.xml file
 
-There are two test methods that will run in parallel, in the cloud, in the browser specified in xml/BartOnDemand.xml.
+```xml
+    <dependencies>
+        <dependency>
+            <groupId>com.saucelabs</groupId>
+            <artifactId>sauce_testng</artifactId>
+            <version>[1.0.0,)</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-TODO
-----
+    <repositories>
+        <repository>
+            <id>saucelabs-repository</id>
+            <url>http://repository-saucelabs.forge.cloudbees.com/release</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+```
 
- 1. Add in easy xml-based configuration for cross-browser testing
+2. Reference the SauceOnDemandTestListener via the following in your testng.xml file:
 
- 
+```
+    <listeners>
+        <listener class-name="com.saucelabs.testng.SauceOnDemandTestListener"/>
+    </listeners>
 
-Background
-----------
-This is meant to provide a robust starting point for Sauce Labs and TestNG users. Design decisions made in this program force tests to be written in a clean manner that will scale (in terms of parallelization) very well.
+```
 
+3. Reference the listener within your test class, eg.
+
+```java
+@Listeners({SauceOnDemandTestListener.class})
+public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider {
+
+}
+```
 Thanks
 ------
 
