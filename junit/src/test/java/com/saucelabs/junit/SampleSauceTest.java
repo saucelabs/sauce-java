@@ -1,8 +1,10 @@
 package com.saucelabs.junit;
 
 import com.saucelabs.common.SauceOnDemandAuthentication;
+import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
@@ -16,20 +18,38 @@ import java.util.LinkedList;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Demonstrates how to write a JUnit test that runs tests against Sauce OnDemand in parallel.
+ * Demonstrates how to write a JUnit test that runs tests against Sauce Labs using multiple browsers in parallel.
+ * <p/>
+ * The test is annotated with the {@link ConcurrentParameterized} test runner...
+ * <p/>
+ * The test also includes the {@link SauceOnDemandTestWatcher}...
  *
  * @author Ross Rowe
  */
 @RunWith(ConcurrentParameterized.class)
-public class WebDriverParallelTest {
+public class SampleSauceTest implements SauceOnDemandSessionIdProvider {
 
+    /**
+     * Constructs a {@link SauceOnDemandAuthentication} instance using the supplied user name/access key.  To use the authentication
+     * supplied by environment variables or from an external file, use the no-arg {@link SauceOnDemandAuthentication} constructor.
+     */
     public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication();
+
+    /**
+     * JUnit Rule which will mark the Sauce Job as passed/failed when the test succeeds or fails.
+     */
+    @Rule
+    public SauceOnDemandTestWatcher resultReportingTestWatcher = new SauceOnDemandTestWatcher(this, authentication);
 
     private String browser;
     private String os;
     private String version;
+    /**
+     *
+     */
+    private String sessionId;
 
-    public WebDriverParallelTest(String os, String version, String browser) {
+    public SampleSauceTest(String os, String version, String browser) {
         super();
         this.os = os;
         this.version = version;
@@ -38,6 +58,7 @@ public class WebDriverParallelTest {
 
     @ConcurrentParameterized.Parameters
     public static LinkedList browsersStrings() throws Exception {
+
         LinkedList browsers = new LinkedList();
         browsers.add(new String[]{"Windows 2003", null, "chrome"});
         browsers.add(new String[]{"Windows 2003", "17", "firefox"});
@@ -59,31 +80,24 @@ public class WebDriverParallelTest {
         this.driver = new RemoteWebDriver(
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
                 capabilities);
+        this.sessionId = (((RemoteWebDriver) driver).getSessionId()).toString();
+
     }
 
     @Test
     public void webDriverOne() throws Exception {
-
-        printSessionId("webDriverOne");
         driver.get("http://www.amazon.com/");
         assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());
     }
 
-    @Test
-    public void webDriverTwo() throws Exception {
-        printSessionId("webDriverTwo");
-        driver.get("http://www.amazon.com/");
-        assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());
-    }
-
-    private void printSessionId(String testName) {
-
-        String message = String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", (((RemoteWebDriver) driver).getSessionId()).toString(), testName);
-        System.out.println( Thread.currentThread().getName() + " : " + message);
-    }
 
     @After
     public void tearDown() throws Exception {
         driver.quit();
+    }
+
+    @Override
+    public String getSessionId() {
+        return sessionId;
     }
 }
