@@ -40,9 +40,8 @@ import static org.junit.Assert.assertEquals;
 /**
  * Demonstrates how to write a JUnit test that runs tests against Sauce Labs using multiple browsers in parallel.
  * <p/>
- * The test is annotated with the {@link ConcurrentParameterized} test runner...
- * <p/>
- * The test also includes the {@link SauceOnDemandTestWatcher}...
+ * The test also includes the {@link SauceOnDemandTestWatcher} which will invoke the Sauce REST API to mark
+ * the test as passed or failed.
  *
  * @author Ross Rowe
  */
