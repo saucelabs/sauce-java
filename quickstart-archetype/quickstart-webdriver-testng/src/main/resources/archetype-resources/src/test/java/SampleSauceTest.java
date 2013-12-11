@@ -80,7 +80,9 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(CapabilityType.BROWSER_NAME, browser);
-        capabilities.setCapability(CapabilityType.VERSION, version);
+        if (version != null) {
+            capabilities.setCapability(CapabilityType.VERSION, version);
+        }
         capabilities.setCapability(CapabilityType.PLATFORM, os);
         webDriver.set(new RemoteWebDriver(
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
