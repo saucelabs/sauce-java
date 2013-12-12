@@ -84,6 +84,7 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
             capabilities.setCapability(CapabilityType.VERSION, version);
         }
         capabilities.setCapability(CapabilityType.PLATFORM, os);
+        capabilities.setCapability("name", "Sauce Sample Test");
         webDriver.set(new RemoteWebDriver(
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
                 capabilities));
