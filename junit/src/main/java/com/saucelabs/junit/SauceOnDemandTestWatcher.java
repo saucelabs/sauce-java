@@ -97,6 +97,10 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
             updates.put("passed", false);
             Utils.addBuildNumberToUpdate(updates);
             sauceREST.updateJobInfo(sessionIdProvider.getSessionId(), updates);
+
+            // get, and print to StdOut, the link to the job
+            String authLink = sauceREST.getPublicJobLink(sessionIdProvider.getSessionId());
+            System.out.println("Job link: " + authLink);
         }
     }
 

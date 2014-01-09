@@ -94,6 +94,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     public void onTestFailure(ITestResult tr) {
         super.onTestFailure(tr);
         markJobAsFailed();
+        printPublicJobLink();
     }
 
     private void markJobAsFailed() {
@@ -108,6 +109,15 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
             }
         }
 
+    }
+
+    private void printPublicJobLink() {
+        if (this.sauceREST != null && sessionIdProvider != null) {
+            String sessionId = sessionIdProvider.getSessionId();
+            String authLink = this.sauceREST.getPublicJobLink(sessionId);
+            // String authLink = "test";
+            System.out.println("Job link: " + authLink);
+        }
     }
 
 
