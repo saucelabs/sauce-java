@@ -33,7 +33,7 @@
         <dependency>
             <groupId>com.saucelabs</groupId>
             <artifactId>sauce_java_common</artifactId>
-            <version>2.0.5-SNAPSHOT</version>
+            <version>1.0.14</version>
         </dependency>
     </dependencies>
 
@@ -43,10 +43,11 @@
             <plugin>
                 <groupId>com.saucelabs.maven.plugin</groupId>
                 <artifactId>sauce-connect-plugin</artifactId>
-                <version>2.0.5-SNAPSHOT</version>
+                <version>1.0.19-SNAPSHOT</version>
                 <configuration>
                     <sauceUsername>YOUR_SAUCE_USERNAME</sauceUsername>
                     <sauceAccessKey>YOUR_SAUCE_ACCESS_KEY</sauceAccessKey>
+                    <options>-i testing</options>
                 </configuration>
                 <executions>
                     <execution>
