@@ -50,3 +50,5 @@ Note that the dependencies reside in the Sauce Labs Maven repository, which can 
     </repository>
 </repositories>
 ```
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/saucelabs/sauce-java/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
