@@ -25,6 +25,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     private static final String SELENIUM_BROWSER = "SELENIUM_BROWSER";
     private static final String SELENIUM_PLATFORM = "SELENIUM_PLATFORM";
     private static final String SELENIUM_VERSION = "SELENIUM_VERSION";
+    private static final String SELENIUM_IS_LOCAL = "SELENIUM_IS_LOCAL";
 
     /**
      * The underlying {@link com.saucelabs.common.SauceOnDemandSessionIdProvider} instance which contains the Selenium session id.  This is typically
@@ -52,7 +53,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     @Override
     public void onStart(ITestContext testContext) {
         super.onStart(testContext);
-        String local = System.getenv(SELENIUM_BROWSER);
+        String local = System.getenv(SELENIUM_IS_LOCAL);
         if (local != null && !local.equals("")) {
             isLocal = true;
         }
