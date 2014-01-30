@@ -78,25 +78,27 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     public void onTestStart(ITestResult result) {
         super.onTestStart(result);
 
-        if (!isLocal) {
-            if (result.getInstance() instanceof SauceOnDemandSessionIdProvider) {
-                this.sessionIdProvider = (SauceOnDemandSessionIdProvider) result.getInstance();
-                //log the session id to the system out
-                if (sessionIdProvider.getSessionId() != null) {
-                    System.out.println(String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", sessionIdProvider.getSessionId(), result.getMethod().getMethodName()));
-                }
-            }
-            SauceOnDemandAuthentication sauceOnDemandAuthentication;
-            if (result.getInstance() instanceof SauceOnDemandAuthenticationProvider) {
-                //use the authentication information provided by the test class
-                SauceOnDemandAuthenticationProvider provider = (SauceOnDemandAuthenticationProvider) result.getInstance();
-                sauceOnDemandAuthentication = provider.getAuthentication();
-            } else {
-                //otherwise use the default authentication
-                sauceOnDemandAuthentication = new SauceOnDemandAuthentication();
-            }
-            this.sauceREST = new SauceREST(sauceOnDemandAuthentication.getUsername(), sauceOnDemandAuthentication.getAccessKey());
+        if (isLocal) {
+            return;
         }
+
+        if (result.getInstance() instanceof SauceOnDemandSessionIdProvider) {
+            this.sessionIdProvider = (SauceOnDemandSessionIdProvider) result.getInstance();
+            //log the session id to the system out
+            if (sessionIdProvider.getSessionId() != null) {
+                System.out.println(String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", sessionIdProvider.getSessionId(), result.getMethod().getMethodName()));
+            }
+        }
+        SauceOnDemandAuthentication sauceOnDemandAuthentication;
+        if (result.getInstance() instanceof SauceOnDemandAuthenticationProvider) {
+            //use the authentication information provided by the test class
+            SauceOnDemandAuthenticationProvider provider = (SauceOnDemandAuthenticationProvider) result.getInstance();
+            sauceOnDemandAuthentication = provider.getAuthentication();
+        } else {
+            //otherwise use the default authentication
+            sauceOnDemandAuthentication = new SauceOnDemandAuthentication();
+        }
+        this.sauceREST = new SauceREST(sauceOnDemandAuthentication.getUsername(), sauceOnDemandAuthentication.getAccessKey());
     }
 
     /**
@@ -105,10 +107,12 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     @Override
     public void onTestFailure(ITestResult tr) {
         super.onTestFailure(tr);
-        if (!isLocal) {
-            markJobAsFailed();
-            printPublicJobLink();
+        if (isLocal) {
+            return;
         }
+
+        markJobAsFailed();
+        printPublicJobLink();
     }
 
     private void markJobAsFailed() {
@@ -140,9 +144,11 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     @Override
     public void onTestSuccess(ITestResult tr) {
         super.onTestSuccess(tr);
-        if (!isLocal) {
-            markJobAsPassed();
+        if (isLocal) {
+            return;
         }
+
+        markJobAsPassed();
     }
 
     private void markJobAsPassed() {
