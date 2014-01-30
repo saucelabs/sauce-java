@@ -38,6 +38,11 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     private SauceREST sauceREST;
 
     /**
+     * Treat this test as a local test or run in SauceLabs.
+     */
+    private boolean isLocal = false;
+
+    /**
      * Check to see if environment variables that define the Selenium browser to be used have been set (typically by
      * a Sauce OnDemand CI plugin).  If so, then populate the appropriate system parameter, so that tests can use
      * these values.
@@ -47,6 +52,10 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     @Override
     public void onStart(ITestContext testContext) {
         super.onStart(testContext);
+        String local = System.getenv(SELENIUM_BROWSER);
+        if (local != null && !local.equals("")) {
+            isLocal = true;
+        }
         String browser = System.getenv(SELENIUM_BROWSER);
         if (browser != null && !browser.equals("")) {
             System.setProperty("browser", browser);
@@ -68,23 +77,25 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     public void onTestStart(ITestResult result) {
         super.onTestStart(result);
 
-        if (result.getInstance() instanceof SauceOnDemandSessionIdProvider) {
-            this.sessionIdProvider = (SauceOnDemandSessionIdProvider) result.getInstance();
-            //log the session id to the system out
-            if (sessionIdProvider.getSessionId() != null) {
-                System.out.println(String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", sessionIdProvider.getSessionId(), result.getMethod().getMethodName()));
+        if (!isLocal) {
+            if (result.getInstance() instanceof SauceOnDemandSessionIdProvider) {
+                this.sessionIdProvider = (SauceOnDemandSessionIdProvider) result.getInstance();
+                //log the session id to the system out
+                if (sessionIdProvider.getSessionId() != null) {
+                    System.out.println(String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", sessionIdProvider.getSessionId(), result.getMethod().getMethodName()));
+                }
             }
+            SauceOnDemandAuthentication sauceOnDemandAuthentication;
+            if (result.getInstance() instanceof SauceOnDemandAuthenticationProvider) {
+                //use the authentication information provided by the test class
+                SauceOnDemandAuthenticationProvider provider = (SauceOnDemandAuthenticationProvider) result.getInstance();
+                sauceOnDemandAuthentication = provider.getAuthentication();
+            } else {
+                //otherwise use the default authentication
+                sauceOnDemandAuthentication = new SauceOnDemandAuthentication();
+            }
+            this.sauceREST = new SauceREST(sauceOnDemandAuthentication.getUsername(), sauceOnDemandAuthentication.getAccessKey());
         }
-        SauceOnDemandAuthentication sauceOnDemandAuthentication;
-        if (result.getInstance() instanceof SauceOnDemandAuthenticationProvider) {
-            //use the authentication information provided by the test class
-            SauceOnDemandAuthenticationProvider provider = (SauceOnDemandAuthenticationProvider) result.getInstance();
-            sauceOnDemandAuthentication = provider.getAuthentication();
-        } else {
-            //otherwise use the default authentication
-            sauceOnDemandAuthentication = new SauceOnDemandAuthentication();
-        }
-        this.sauceREST = new SauceREST(sauceOnDemandAuthentication.getUsername(), sauceOnDemandAuthentication.getAccessKey());
     }
 
     /**
@@ -93,8 +104,10 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     @Override
     public void onTestFailure(ITestResult tr) {
         super.onTestFailure(tr);
-        markJobAsFailed();
-        printPublicJobLink();
+        if (!isLocal) {
+            markJobAsFailed();
+            printPublicJobLink();
+        }
     }
 
     private void markJobAsFailed() {
@@ -120,14 +133,15 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
         }
     }
 
-
     /**
      * @param tr
      */
     @Override
     public void onTestSuccess(ITestResult tr) {
         super.onTestSuccess(tr);
-        markJobAsPassed();
+        if (!isLocal) {
+            markJobAsPassed();
+        }
     }
 
     private void markJobAsPassed() {
@@ -143,5 +157,4 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
         }
 
     }
-
 }
