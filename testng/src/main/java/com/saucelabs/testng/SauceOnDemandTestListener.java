@@ -25,6 +25,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     private static final String SELENIUM_BROWSER = "SELENIUM_BROWSER";
     private static final String SELENIUM_PLATFORM = "SELENIUM_PLATFORM";
     private static final String SELENIUM_VERSION = "SELENIUM_VERSION";
+    private static final String SELENIUM_IS_LOCAL = "SELENIUM_IS_LOCAL";
 
     /**
      * The underlying {@link com.saucelabs.common.SauceOnDemandSessionIdProvider} instance which contains the Selenium session id.  This is typically
@@ -38,6 +39,11 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     private SauceREST sauceREST;
 
     /**
+     * Treat this test as a local test or run in SauceLabs.
+     */
+    private boolean isLocal = false;
+
+    /**
      * Check to see if environment variables that define the Selenium browser to be used have been set (typically by
      * a Sauce OnDemand CI plugin).  If so, then populate the appropriate system parameter, so that tests can use
      * these values.
@@ -47,6 +53,10 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     @Override
     public void onStart(ITestContext testContext) {
         super.onStart(testContext);
+        String local = System.getenv(SELENIUM_IS_LOCAL);
+        if (local != null && !local.equals("")) {
+            isLocal = true;
+        }
         String browser = System.getenv(SELENIUM_BROWSER);
         if (browser != null && !browser.equals("")) {
             System.setProperty("browser", browser);
@@ -67,6 +77,10 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     @Override
     public void onTestStart(ITestResult result) {
         super.onTestStart(result);
+
+        if (isLocal) {
+            return;
+        }
 
         if (result.getInstance() instanceof SauceOnDemandSessionIdProvider) {
             this.sessionIdProvider = (SauceOnDemandSessionIdProvider) result.getInstance();
@@ -93,6 +107,10 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     @Override
     public void onTestFailure(ITestResult tr) {
         super.onTestFailure(tr);
+        if (isLocal) {
+            return;
+        }
+
         markJobAsFailed();
         printPublicJobLink();
     }
@@ -120,13 +138,16 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
         }
     }
 
-
     /**
      * @param tr
      */
     @Override
     public void onTestSuccess(ITestResult tr) {
         super.onTestSuccess(tr);
+        if (isLocal) {
+            return;
+        }
+
         markJobAsPassed();
     }
 
@@ -143,5 +164,4 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
         }
 
     }
-
 }
