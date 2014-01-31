@@ -28,7 +28,7 @@
         <dependency>
             <groupId>com.saucelabs</groupId>
             <artifactId>ci-sauce</artifactId>
-            <version>1.35</version>
+            <version>1.40</version>
         </dependency>
     </dependencies>
 
