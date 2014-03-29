@@ -33,12 +33,21 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
      */
     private final SauceREST sauceREST;
 
+    /**
+     * Boolean indicating whether to print the log messages to the stdout.
+     */
+    private boolean verboseMode = true;
+
 
     /**
      * @param sessionIdProvider
      */
     public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider) {
         this(sessionIdProvider, new SauceOnDemandAuthentication());
+    }
+
+    public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, boolean verboseMode) {
+        this(sessionIdProvider, new SauceOnDemandAuthentication(), verboseMode);
     }
 
     /**
@@ -48,7 +57,18 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
     public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, SauceOnDemandAuthentication authentication) {
         this(sessionIdProvider,
                 authentication.getUsername(),
-                authentication.getAccessKey());
+                authentication.getAccessKey(), true);
+    }
+
+    /**
+     * @param sessionIdProvider
+     * @param authentication
+     */
+    public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, SauceOnDemandAuthentication authentication, boolean verboseMode) {
+        this(sessionIdProvider,
+                authentication.getUsername(),
+                authentication.getAccessKey(),
+                verboseMode);
     }
 
     /**
@@ -56,9 +76,10 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
      * @param username
      * @param accessKey
      */
-    public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, final String username, final String accessKey) {
+    public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, final String username, final String accessKey, boolean verboseMode) {
         this.sessionIdProvider = sessionIdProvider;
         sauceREST = new SauceREST(username, accessKey);
+        this.verboseMode = verboseMode;
     }
 
     /**
@@ -79,8 +100,10 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
     }
 
     private void printSessionId(Description description) {
-        String message = String.format("SauceOnDemandSessionID=%1$s job-name=%2$s.%3$s", sessionIdProvider.getSessionId(), description.getClassName(), description.getMethodName());
-        System.out.println(message);
+        if (verboseMode) {
+            String message = String.format("SauceOnDemandSessionID=%1$s job-name=%2$s.%3$s", sessionIdProvider.getSessionId(), description.getClassName(), description.getMethodName());
+            System.out.println(message);
+        }
     }
 
     /**
@@ -98,9 +121,11 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
             Utils.addBuildNumberToUpdate(updates);
             sauceREST.updateJobInfo(sessionIdProvider.getSessionId(), updates);
 
-            // get, and print to StdOut, the link to the job
-            String authLink = sauceREST.getPublicJobLink(sessionIdProvider.getSessionId());
-            System.out.println("Job link: " + authLink);
+            if (verboseMode) {
+                // get, and print to StdOut, the link to the job
+                String authLink = sauceREST.getPublicJobLink(sessionIdProvider.getSessionId());
+                System.out.println("Job link: " + authLink);
+            }
         }
     }
 

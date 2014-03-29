@@ -44,6 +44,11 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     private boolean isLocal = false;
 
     /**
+     * Boolean indicating whether to print the log messages to the stdout.
+     */
+    public static boolean verboseMode = true;
+
+    /**
      * Check to see if environment variables that define the Selenium browser to be used have been set (typically by
      * a Sauce OnDemand CI plugin).  If so, then populate the appropriate system parameter, so that tests can use
      * these values.
@@ -82,7 +87,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
             return;
         }
 
-        if (result.getInstance() instanceof SauceOnDemandSessionIdProvider) {
+        if (verboseMode && result.getInstance() instanceof SauceOnDemandSessionIdProvider) {
             this.sessionIdProvider = (SauceOnDemandSessionIdProvider) result.getInstance();
             //log the session id to the system out
             if (sessionIdProvider.getSessionId() != null) {
@@ -130,7 +135,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     }
 
     private void printPublicJobLink() {
-        if (this.sauceREST != null && sessionIdProvider != null) {
+        if (verboseMode && this.sauceREST != null && sessionIdProvider != null) {
             String sessionId = sessionIdProvider.getSessionId();
             String authLink = this.sauceREST.getPublicJobLink(sessionId);
             // String authLink = "test";
