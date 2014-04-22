@@ -1,6 +1,8 @@
 package com.saucelabs.maven;
 
+import com.saucelabs.ci.sauceconnect.SauceConnectFourManager;
 import com.saucelabs.ci.sauceconnect.SauceConnectTwoManager;
+import com.saucelabs.ci.sauceconnect.SauceTunnelManager;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -49,6 +51,11 @@ public class StartSauceConnectMojo extends AbstractMojo {
     private boolean quietMode;
 
     /**
+     * @parameter expression="${sauce.launchSauceConnect3}
+     */
+    private boolean launchSauceConnect3;
+
+    /**
      * @throws MojoExecutionException
      * @throws MojoFailureException
      */
@@ -68,7 +75,9 @@ public class StartSauceConnectMojo extends AbstractMojo {
             //process already running
         } else {
             //find Sauce Connect jar file location
-            SauceConnectTwoManager sauceConnectTwoManager = new SauceConnectTwoManager(quietMode);
+
+            SauceTunnelManager sauceConnectTwoManager =
+                    launchSauceConnect3 ? new SauceConnectTwoManager(quietMode) : new SauceConnectFourManager(quietMode);
             try {
                 sauceConnectTwoManager.openConnection(sauceUsername, sauceAccessKey, port, null, options, httpsProtocol, null);
                 context.put(SAUCE_CONNECT_KEY, sauceConnectTwoManager);
