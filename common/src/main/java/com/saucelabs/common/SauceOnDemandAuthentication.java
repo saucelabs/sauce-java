@@ -28,7 +28,10 @@ public class SauceOnDemandAuthentication {
     private String accessKey = "";
 
     private static final String SAUCE_USER_NAME = "SAUCE_USER_NAME";
+    /** Name of access key environment variable set by Sauce CI plugin (Jenkins/Bamboo/TeamCity)*/
     private static final String SAUCE_API_KEY = "SAUCE_API_KEY";
+    /** Name of access key environment variable set by other Sauce plugins (PHP/Travis?)*/
+    private static final String SAUCE_ACCESS_KEY = "SAUCE_ACCESS_KEY";
 
     /**
      * Constructs a new instance, first attempting to populate the username/access key
@@ -39,6 +42,11 @@ public class SauceOnDemandAuthentication {
         //first try to retrieve information from properties/environment variables
         this.username = getPropertyOrEnvironmentVariable(SAUCE_USER_NAME);
         this.accessKey = getPropertyOrEnvironmentVariable(SAUCE_API_KEY);
+        if (accessKey == null || accessKey.equals("")) {
+            //try the SAUCE_ACCESS_KEY environment variable
+            this.accessKey = getPropertyOrEnvironmentVariable(SAUCE_ACCESS_KEY);
+        }
+
         //if nothing set, try to parse ~/.sauce-ondemand
         if (username == null || accessKey == null) {
             loadCredentialsFromFile(getDefaultCredentialFile());
