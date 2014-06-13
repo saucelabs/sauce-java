@@ -4,6 +4,7 @@ import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 import org.junit.*;
 import org.junit.rules.TestName;
+import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
@@ -20,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Ross Rowe
  */
+@RunWith(ConcurrentParameterized.class)
 public class WebDriverParallelWithHelper implements SauceOnDemandSessionIdProvider {
 
     public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication();
