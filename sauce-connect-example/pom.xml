@@ -51,7 +51,7 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>start-sauceconnct</id>
+                        <id>start-sauceconnect</id>
                         <phase>pre-integration-test</phase>
                         <goals>
                             <goal>start-sauceconnect</goal>
