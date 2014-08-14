@@ -22,6 +22,12 @@ public class StopSauceConnectMojo extends AbstractMojo {
      */
     private String sauceUsername;
 
+    /**
+     * @parameter expression="${sauce.options}
+     */
+    private String options;
+
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         getLog().info("Stopping Sauce Connect");
@@ -33,7 +39,7 @@ public class StopSauceConnectMojo extends AbstractMojo {
             getLog().warn("Unable to find Sauce Connect Manager instance");
         } else {
             //close running process
-            manager.closeTunnelsForPlan(this.sauceUsername, null);
+            manager.closeTunnelsForPlan(this.sauceUsername, options, null);
             getLog().info("Sauce Connect stopped");
         }
 
