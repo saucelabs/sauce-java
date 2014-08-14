@@ -18,7 +18,7 @@ For JUnit projects, the library can be added to a project by including the follo
 <dependency>
     <groupId>com.saucelabs</groupId>
     <artifactId>sauce_junit</artifactId>
-    <version>1.0.13</version>
+    <version>2.1.3</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -29,12 +29,12 @@ For TestNG projects, the library can be added to a project by including the foll
 <dependency>
     <groupId>com.saucelabs</groupId>
     <artifactId>sauce_testng</artifactId>
-    <version>1.0.13</version>
+    <version>2.1.3</version>
     <scope>test</scope>
 </dependency>
 ```
 
-Note that the dependencies reside in the Sauce Labs Maven repository, which can be referenced by the following:
+Note that the dependencies reside in the [Sauce Labs Maven repository](http://repository-saucelabs.forge.cloudbees.com/release/com/saucelabs/), which can be referenced by the following:
 
 ```xml
 <repositories>
