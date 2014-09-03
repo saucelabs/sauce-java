@@ -5,6 +5,8 @@
     <artifactId>sauce_java</artifactId>
     <version>2.1.6-SNAPSHOT</version>
     <name>sauce_java</name>
+    <description>Collection of Java helper libraries for Sauce Labs</description>
+    <url>https://saucelabs.com</url>
     <packaging>pom</packaging>
     <modules>
         <module>common</module>
@@ -26,6 +28,8 @@
     </organization>
     <developers>
         <developer>
+            <name>Ross Rowe</name>
+            <email>piaross@gmail.com</email>
             <organization>Sauce Labs</organization>
             <organizationUrl>http://www.saucelabs.com/</organizationUrl>
         </developer>
@@ -147,5 +151,4 @@
             </snapshots>
         </repository>
     </repositories>
-
 </project>
