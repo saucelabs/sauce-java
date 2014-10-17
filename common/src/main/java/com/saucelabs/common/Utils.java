@@ -14,7 +14,7 @@ public final class Utils {
      * Populates the <code>updates</code> map with the value of the system property/environment variable
      * with the following name:
      * <ol>
-     *     <li>BAMBOO_BUILDNUMBER</li>
+     *     <li>SAUCE_BAMBOO_BUILDNUMBER</li>
      *     <li>JENKINS_BUILD_NUMBER</li>
      *     <li>BUILD_TAG</li>
      *     <li>BUILD_NUMBER</li>
@@ -25,7 +25,7 @@ public final class Utils {
      */
     public static void addBuildNumberToUpdate(Map<String, Object> updates) {
         //try Bamboo
-        String buildNumber = readPropertyOrEnv("BAMBOO_BUILDNUMBER", null);
+        String buildNumber = readPropertyOrEnv("SAUCE_BAMBOO_BUILDNUMBER", null);
         if (buildNumber == null || buildNumber.equals("")) {
             //try Jenkins
             buildNumber = readPropertyOrEnv("JENKINS_BUILD_NUMBER", null);
