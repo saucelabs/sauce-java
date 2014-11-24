@@ -58,7 +58,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     @Override
     public void onStart(ITestContext testContext) {
         super.onStart(testContext);
-        String local = System.getenv(SELENIUM_IS_LOCAL);
+        String local = Utils.readPropertyOrEnv(SELENIUM_IS_LOCAL, "");
         if (local != null && !local.equals("")) {
             isLocal = true;
         }
