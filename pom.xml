@@ -44,10 +44,14 @@
             <id>sonatype-nexus-snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <!--<repository>-->
+            <!--<id>sonatype-nexus-staging</id>-->
+            <!--<name>Nexus Release Repository</name>-->
+            <!--<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
+        <!--</repository>-->
         <repository>
-            <id>sonatype-nexus-staging</id>
-            <name>Nexus Release Repository</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>cloudbees-private-release-repository</id>
+            <url>dav:https://repository-saucelabs.forge.cloudbees.com/release</url>
         </repository>
     </distributionManagement>
     <dependencies>
