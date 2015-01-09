@@ -18,7 +18,7 @@ For JUnit projects, the library can be added to a project by including the follo
 <dependency>
     <groupId>com.saucelabs</groupId>
     <artifactId>sauce_junit</artifactId>
-    <version>2.1.3</version>
+    <version>2.1.11</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -29,7 +29,7 @@ For TestNG projects, the library can be added to a project by including the foll
 <dependency>
     <groupId>com.saucelabs</groupId>
     <artifactId>sauce_testng</artifactId>
-    <version>2.1.3</version>
+    <version>2.1.11</version>
     <scope>test</scope>
 </dependency>
 ```
