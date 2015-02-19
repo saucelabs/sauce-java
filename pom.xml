@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.saucelabs</groupId>
     <artifactId>sauce_java</artifactId>
-    <version>2.1.13-SNAPSHOT</version>
+    <version>2.1.12</version>
     <name>sauce_java</name>
     <description>Collection of Java helper libraries for Sauce Labs</description>
     <url>https://saucelabs.com</url>
@@ -149,7 +149,7 @@
 	    <properties>
 	      <repo-id>sonatype-nexus-staging</repo-id>
 	      <repo-name>Nexus Release Repository</repo-name>
-	      <repo-url>https://oss.sonatype.org/content/repositories/snapshots</repo-url>
+	      <repo-url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</repo-url>
 	    </properties>
 	  </profile>
 	  <profile>
