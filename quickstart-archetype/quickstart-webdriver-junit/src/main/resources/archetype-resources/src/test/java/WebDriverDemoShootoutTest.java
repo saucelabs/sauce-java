@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class WebDriverDemoShootoutTest {
 
-    private SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication("${sauceUserName}", "${sauceAccessKey}");
+    private SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication("${userName}", "${accessKey}");
 
     private WebDriver driver;
 
