@@ -11,5 +11,9 @@
     <requiredProperties>
         <requiredProperty key="userName"/>
         <requiredProperty key="accessKey"/>
+        <requiredProperty key="projectVersion">
+            <defaultValue>${project.version}</defaultValue>
+        </requiredProperty>
     </requiredProperties>
+
 </archetype-descriptor>
