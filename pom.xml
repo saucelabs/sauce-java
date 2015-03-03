@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.saucelabs</groupId>
     <artifactId>sauce_java</artifactId>
-    <version>2.1.17-SNAPSHOT</version>
+    <version>2.1.17</version>
     <name>sauce_java</name>
     <description>Collection of Java helper libraries for Sauce Labs</description>
     <url>https://saucelabs.com</url>
