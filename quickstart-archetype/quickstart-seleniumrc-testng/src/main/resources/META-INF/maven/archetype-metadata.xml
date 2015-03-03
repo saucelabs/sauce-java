@@ -9,7 +9,7 @@
         </fileSet>
     </fileSets>
     <requiredProperties>
-        <requiredProperty key="sauceUserName"/>
-        <requiredProperty key="sauceAccessKey"/>
+        <requiredProperty key="userName"/>
+        <requiredProperty key="accessKey"/>
     </requiredProperties>
 </archetype-descriptor>

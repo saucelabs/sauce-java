@@ -37,8 +37,8 @@ public class SeleniumRCTest {
      */
     @Parameters({"username", "key", "os", "browser", "browserVersion"})
     @BeforeMethod
-    public void setUp(@Optional("${sauceUserName}") String username,
-                      @Optional("${sauceAccessKey}") String key,
+    public void setUp(@Optional("${userName}") String username,
+                      @Optional("${accessKey}") String key,
                       @Optional("Windows 2003") String os,
                       @Optional("firefox") String browser,
                       @Optional("17") String browserVersion,
@@ -48,8 +48,8 @@ public class SeleniumRCTest {
         this.selenium = new DefaultSelenium(
                 "ondemand.saucelabs.com",
                 80,
-                "{\"username\": \"${sauceUserName}\"," +
-                        "\"access-key\": \"${sauceAccessKey}\"," +
+                "{\"username\": \"${userName}\"," +
+                        "\"access-key\": \"${accessKey}\"," +
                         "\"os\": \"" + os + "\"," +
                         "\"browser\": \"" + browser + "\"," +
                         "\"browser-version\": \"" + browserVersion + "\"," +

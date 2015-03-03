@@ -27,8 +27,8 @@ public class SeleniumRCTest {
         DefaultSelenium selenium = new DefaultSelenium(
                 "ondemand.saucelabs.com",
                 80,
-                "{\"username\": \"${sauceUserName}\"," +
-                        "\"access-key\": \"${sauceAccessKey}\"," +
+                "{\"username\": \"${userName}\"," +
+                        "\"access-key\": \"${accessKey}\"," +
                         "\"os\": \"Windows 2003\"," +
                         "\"browser\": \"firefox\"," +
                         "\"browser-version\": \"17\"," +
