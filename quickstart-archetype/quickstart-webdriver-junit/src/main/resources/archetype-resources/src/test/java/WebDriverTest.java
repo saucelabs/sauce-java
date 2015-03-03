@@ -30,7 +30,7 @@ public class WebDriverTest {
         capabilities.setCapability("version", "17");
         capabilities.setCapability("platform", Platform.XP);
         this.driver = new RemoteWebDriver(
-                new URL("http://${suserName}:${accessKey}@ondemand.saucelabs.com:80/wd/hub"),
+                new URL("http://${userName}:${accessKey}@ondemand.saucelabs.com:80/wd/hub"),
                 capabilities);
     }
 
