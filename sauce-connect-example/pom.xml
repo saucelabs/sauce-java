@@ -28,6 +28,12 @@
             <groupId>com.saucelabs</groupId>
             <artifactId>sauce_java_common</artifactId>
             <version>2.1.18</version>
+        </dependency> 
+		<dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>2.38.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -40,8 +46,8 @@
                 <version>2.1.18</version>
                 <configuration>
                     <sauceUsername>YOUR_SAUCE_USERNAME</sauceUsername>
-                    <sauceAccessKey>YOUR_SAUCE_ACCESS_KEY</sauceAccessKey>
-                    <options>-i testing</options>
+                    <sauceAccessKey>YOUR_SAUCE_ACCESSKEY</sauceAccessKey>
+                    <!--<options>-i testing</options>-->
                 </configuration>
                 <executions>
                     <execution>

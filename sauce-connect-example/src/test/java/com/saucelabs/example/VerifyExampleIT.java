@@ -10,7 +10,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.URL;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Ross Rowe
@@ -27,8 +27,8 @@ public class VerifyExampleIT {
         capabilities.setCapability("version", Utils.readPropertyOrEnv("SELENIUM_VERSION", "4"));
         capabilities.setCapability("platform", Utils.readPropertyOrEnv("SELENIUM_PLATFORM", "XP"));
         capabilities.setCapability("browserName", Utils.readPropertyOrEnv("SELENIUM_BROWSER", "firefox"));
-        String username = Utils.readPropertyOrEnv("SAUCE_USER_NAME", "");
-        String accessKey = Utils.readPropertyOrEnv("SAUCE_API_KEY", "");
+        String username = Utils.readPropertyOrEnv("SAUCE_USER_NAME", "rossco_9_9");
+        String accessKey = Utils.readPropertyOrEnv("SAUCE_API_KEY", "5753db9d-792c-4635-bd2d-7c4eec823c63");
         this.driver = new RemoteWebDriver(new URL("http://" + username + ":" + accessKey + "@localhost:4445/wd/hub"),
                 capabilities);
     }
@@ -45,8 +45,8 @@ public class VerifyExampleIT {
     public void fullRun() throws Exception {
         String sessionId = ((RemoteWebDriver) driver).getSessionId().toString();
         System.out.println("SauceOnDemandSessionID=" + sessionId);
-        driver.get("http://localhost:8080/sc");
+        driver.get("http://localhost:8080/cargocpc/");
         // if the server really hit our Jetty, we should see the same title that includes the secret code.
-        assertEquals("test", driver.getTitle());
+        assertTrue(driver.getPageSource().contains("Cargo Ping Component used to verify if the container is started."));
     }
 }
