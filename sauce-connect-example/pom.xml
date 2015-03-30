@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>sauce_java</artifactId>
-        <groupId>com.saucelabs</groupId>
-        <version>1.0.18</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.saucelabs</groupId>
     <artifactId>sauce-connect-example</artifactId>
     <version>1.0.17</version>
     <packaging>war</packaging>
-
-    <name>${artifactId}</name>
+    <name>sauce-connect-example</name>
     <description>A sample Maven project that demonstrates how to construct a pom file to launch Sauce Connect as part
         of the pre/post steps of the integration tests, using Cargo and Failsafe
     </description>
@@ -33,7 +27,7 @@
         <dependency>
             <groupId>com.saucelabs</groupId>
             <artifactId>sauce_java_common</artifactId>
-            <version>1.0.14</version>
+            <version>2.1.18</version>
         </dependency>
     </dependencies>
 
@@ -43,7 +37,7 @@
             <plugin>
                 <groupId>com.saucelabs.maven.plugin</groupId>
                 <artifactId>sauce-connect-plugin</artifactId>
-                <version>2.1.9</version>
+                <version>2.1.18</version>
                 <configuration>
                     <sauceUsername>YOUR_SAUCE_USERNAME</sauceUsername>
                     <sauceAccessKey>YOUR_SAUCE_ACCESS_KEY</sauceAccessKey>
