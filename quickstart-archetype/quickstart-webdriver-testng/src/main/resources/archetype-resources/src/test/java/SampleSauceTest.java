@@ -1,4 +1,4 @@
-package com.saucelabs;
+package ${groupId};
 
 /**
  * @author Ross Rowe

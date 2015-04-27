@@ -1,3 +1,5 @@
+package ${groupId};
+
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Platform;
