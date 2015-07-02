@@ -79,7 +79,7 @@ public class StartSauceConnectMojo extends AbstractMojo {
             SauceTunnelManager sauceConnectTwoManager =
                     launchSauceConnect3 ? new SauceConnectTwoManager(quietMode) : new SauceConnectFourManager(quietMode);
             try {
-                sauceConnectTwoManager.openConnection(sauceUsername, sauceAccessKey, port, null, options, httpsProtocol, null, !quietMode);
+                sauceConnectTwoManager.openConnection(sauceUsername, sauceAccessKey, port, null, options, httpsProtocol, null, !quietMode, null);
                 context.put(SAUCE_CONNECT_KEY, sauceConnectTwoManager);
             } catch (IOException e) {
                 getLog().error("Error generated when launching Sauce Connect", e);
