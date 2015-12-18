@@ -23,11 +23,11 @@ public class WebDriverTest {
     @Before
     public void setUp() throws Exception {
 
-        DesiredCapabilities capabilities = DesiredCapabilities.iphone();
-        capabilities.setCapability("version", "5.0");
-        capabilities.setCapability("platform", Platform.MAC);
-        String username = System.getProperty("sauce.userName");
-        String accessKey = System.getProperty("sauce.accessKey");
+        DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+        capabilities.setCapability("version", "beta");
+        capabilities.setCapability("platform", Platform.LINUX);
+        String username = System.getenv("SAUCE_USERNAME");
+        String accessKey = System.getenv("SAUCE_ACCESS_KEY");
         this.driver = new RemoteWebDriver(
                 new URL(MessageFormat.format("http://{0}:{1}@ondemand.saucelabs.com:80/wd/hub", username, accessKey)),
                 capabilities);
@@ -36,7 +36,7 @@ public class WebDriverTest {
     @Test
     public void webDriver() throws Exception {
         driver.get("http://www.amazon.com/");
-        assertEquals("Amazon", driver.getTitle());
+        assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());
     }
 
     @After
