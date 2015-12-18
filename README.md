@@ -1,6 +1,8 @@
 Sauce Java Helper libraries
 ==========
 
+[![codecov.io](https://codecov.io/github/saucelabs/sauce-java/coverage.svg?branch=master)](https://codecov.io/github/saucelabs/sauce-java?branch=master)
+
 This project contains helper libraries for consuming Sauce Labs services from Java using [TestNG](http://www.testng.org)
 and/or [JUnit](http://www.junit.org).
 
