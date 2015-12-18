@@ -15,10 +15,9 @@ import java.util.Map;
  * Test Listener that providers helper logic for TestNG tests.  Upon startup, the class
  * will store any SELENIUM_* environment variables (typically set by a Sauce OnDemand CI
  * plugin) as system parameters, so that they can be retrieved by tests as parameters.
- * <p/>
- * TODO how to specify whether to download log/video?
+ * <p>
  *
- * @author Ross Rowe
+ * @author Ross Rowe / Mehmet Gerceker
  */
 public class SauceOnDemandTestListener extends TestListenerAdapter {
 
@@ -26,12 +25,6 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     private static final String SELENIUM_PLATFORM = "SELENIUM_PLATFORM";
     private static final String SELENIUM_VERSION = "SELENIUM_VERSION";
     private static final String SELENIUM_IS_LOCAL = "SELENIUM_IS_LOCAL";
-
-    /**
-     * The underlying {@link com.saucelabs.common.SauceOnDemandSessionIdProvider} instance which contains the Selenium session id.  This is typically
-     * the unit test being executed.
-     */
-    private SauceOnDemandSessionIdProvider sessionIdProvider;
 
     /**
      * The instance of the Sauce OnDemand Java REST API client.
@@ -52,6 +45,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
      * Check to see if environment variables that define the Selenium browser to be used have been set (typically by
      * a Sauce OnDemand CI plugin).  If so, then populate the appropriate system parameter, so that tests can use
      * these values.
+     * TODO: Clarify where the env vars are coming from and the purpose.
      *
      * @param testContext
      */
@@ -86,14 +80,6 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
         if (isLocal) {
             return;
         }
-
-        if (verboseMode && result.getInstance() instanceof SauceOnDemandSessionIdProvider) {
-            this.sessionIdProvider = (SauceOnDemandSessionIdProvider) result.getInstance();
-            //log the session id to the system out
-            if (sessionIdProvider.getSessionId() != null) {
-                System.out.println(String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", sessionIdProvider.getSessionId(), result.getMethod().getMethodName()));
-            }
-        }
         SauceOnDemandAuthentication sauceOnDemandAuthentication;
         if (result.getInstance() instanceof SauceOnDemandAuthenticationProvider) {
             //use the authentication information provided by the test class
@@ -111,36 +97,29 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
      */
     @Override
     public void onTestFailure(ITestResult tr) {
+        String sessionId = ((SauceOnDemandSessionIdProvider) tr.getInstance()).getSessionId();
         super.onTestFailure(tr);
         if (isLocal) {
             return;
         }
+        markJobStatus(sessionId, false);
+        printOutSessionID(sessionId, tr.getMethod().getMethodName());
+        printPublicJobLink(sessionId);
 
-        markJobAsFailed();
-        printPublicJobLink();
     }
-
-    private void markJobAsFailed() {
-
-        if (this.sauceREST != null && sessionIdProvider != null) {
-            String sessionId = sessionIdProvider.getSessionId();
-            if (sessionId != null) {
-                Map<String, Object> updates = new HashMap<String, Object>();
-                updates.put("passed", false);
-                Utils.addBuildNumberToUpdate(updates);
-                sauceREST.updateJobInfo(sessionId, updates);
+    private void printPublicJobLink(String sessionId) {
+        if (verboseMode) {
+            try {
+                String authLink = this.sauceREST.getPublicJobLink(sessionId);
+                System.out.println("Job link: " + authLink);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
-
     }
 
-    private void printPublicJobLink() {
-        if (verboseMode && this.sauceREST != null && sessionIdProvider != null) {
-            String sessionId = sessionIdProvider.getSessionId();
-            String authLink = this.sauceREST.getPublicJobLink(sessionId);
-            // String authLink = "test";
-            System.out.println("Job link: " + authLink);
-        }
+    private void printOutSessionID(String sessionId, String testName) {
+        System.out.println(String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", sessionId, testName));
     }
 
     /**
@@ -148,25 +127,23 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
      */
     @Override
     public void onTestSuccess(ITestResult tr) {
+        String sessionId = ((SauceOnDemandSessionIdProvider) tr.getInstance()).getSessionId();
         super.onTestSuccess(tr);
         if (isLocal) {
             return;
         }
-
-        markJobAsPassed();
+        printOutSessionID(sessionId, tr.getMethod().getMethodName());
+        markJobStatus(sessionId, true);
     }
 
-    private void markJobAsPassed() {
-
-        if (this.sauceREST != null && sessionIdProvider != null) {
-            String sessionId = sessionIdProvider.getSessionId();
-            if (sessionId != null) {
-                Map<String, Object> updates = new HashMap<String, Object>();
-                updates.put("passed", true);
-                Utils.addBuildNumberToUpdate(updates);
-                sauceREST.updateJobInfo(sessionId, updates);
-            }
+    private void markJobStatus(String sessionId, boolean hasPassed) {
+        try {
+            Map<String, Object> updates = new HashMap<String, Object>();
+            updates.put("passed", hasPassed);
+            Utils.addBuildNumberToUpdate(updates);
+            sauceREST.updateJobInfo(sessionId, updates);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 }
