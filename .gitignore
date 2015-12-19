@@ -6,29 +6,13 @@
 *.ear
 
 .DS_Store
-.idea
-junit/sauce_junit.iml
-
-testng/sauce_testng.iml
+.idea/
 
 junit/atlassian-ide-plugin.xml
 
 target
 
-sauce_java.iml
-
-sauce_java.iml
-
-common/sauce_java_common.iml
-
-quickstart-archetype/quickstart-seleniumrc-junit/quickstart-seleniumrc-junit.iml
-
-quickstart-archetype/quickstart-seleniumrc-testng/quickstart-seleniumrc-testng.iml
-
-quickstart-archetype/quickstart-archetype.iml
-
-quickstart-archetype/quickstart-webdriver-junit/quickstart-webdriver-junit.iml
+*.iml
 
 atlassian-ide-plugin.xml
 
-quickstart-archetype/quickstart-webdriver-testng/quickstart-webdriver-testng.iml

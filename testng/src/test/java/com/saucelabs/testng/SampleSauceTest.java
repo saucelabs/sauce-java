@@ -71,7 +71,7 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName(browser);
         capabilities.setCapability("version", version);
-        capabilities.setCapability("platform", Platform.extractFromSysProperty(os));
+        capabilities.setCapability("platform", os);
         webDriver.set(new RemoteWebDriver(
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
                 capabilities));
@@ -83,8 +83,8 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
     public void webDriver(String browser, String version, String os) throws Exception {
         WebDriver driver = createDriver(browser, version, os);
         logger.log(Level.INFO, "Running test using " + browser + " " + version + " " + os);
-        driver.get("http://www.amazon.com/");
-        assertEquals(driver.getTitle(), "Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more");
+        driver.get("https://saucelabs.com/test/guinea-pig");
+        assertEquals(driver.getTitle(), "I am a page title - Sauce Labs");
         driver.quit();
     }
 
