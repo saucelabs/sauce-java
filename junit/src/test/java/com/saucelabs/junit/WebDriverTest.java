@@ -12,6 +12,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Ross Rowe
@@ -49,12 +50,13 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider {
 
     @Test
     public void basic() throws Exception {
-        driver.get("http://www.amazon.com/");
-        assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());
+        driver.get("https://saucelabs.com/test/guinea-pig");
+        assertEquals("I am a page title - Sauce Labs", driver.getTitle());
     }
 
     @After
     public void tearDown() throws Exception {
+        assertNotNull(driver);
         driver.quit();
     }
 
