@@ -2,7 +2,9 @@ language: java
 sudo: false
 before_script:
 - pip install --user codecov
-install: mvn install -DskipTests=true -Dgpg.skip=true -B -V
+install: true
+script:
+- mvn test -B -V
 jdk:
 - oraclejdk8
 - oraclejdk7
@@ -11,4 +13,5 @@ after_success:
 - codecov
 env:
   global:
-    secure: N1exAfvij/J+G5zcV6drFsPvPKOIgvYRmrsyV0DrWt4l7IXVsVk4ZPRnqAD3V49KfVLZNVuBFzvHJ7D6aDHQ+SxtzSL6HY0s9O4EWBx4QLWz7XyqSlB1sSFmxSBI8ijHovkc0prqKLcHmKwyR4dOrociZBRHin0QPkoTl3jqkCc=
+  - secure: EpFMQ4XMonm5cj++urew+lEuT8CLvqB6UOjqgfACYTIKd4V92eEmNai3PERRBOQUAjhXPZKbAaBXJ1OE7PW0Z8fGYk+HGs/NMQsXg3hLjgYsHeG7vJLMOEb72Z0SVB1lC4uGZzWhOP26QsoGPgYfrconJyIXrPoPVGUyM4qR0qk=
+  - secure: ZQ21xR5BFCrEHtkC2IcJd/Q/LjG4DpKY4gOieJ+VHt2+P4evTgaTz8iHCn+ujF+2B+bzgtEVT2B/Ul4KQKSdfzI+dg8QBZ0J8DWzmDXjgiH1mhQ+cGUwVeB0g46hqD/tUFWQwQt7iZ2rlXYRQLJAsUcKMLApOotWkk3Unf4b5tY=
