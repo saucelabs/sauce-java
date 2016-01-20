@@ -115,7 +115,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
         try {
             Map<String, Object> updates = new HashMap<String, Object>();
             updates.put("passed", passed);
-            Utils.addBuildNumberToUpdate(updates);
+            //Utils.addBuildNumberToUpdate(updates);
             sauceREST.updateJobInfo(sessionId, updates);
         } catch (Exception e) {
             e.printStackTrace();
