@@ -4,20 +4,15 @@ package com.saucelabs.testng;
  * @author Russ Rowe / Mehmet Gerceker
  */
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import java.io.*;
 import java.lang.reflect.Method;
 import java.util.logging.Level;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
 
 
 /**

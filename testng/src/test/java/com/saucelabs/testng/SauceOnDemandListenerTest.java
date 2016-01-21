@@ -16,7 +16,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
 
 
 /**
@@ -73,7 +72,7 @@ public class SauceOnDemandListenerTest extends SauceTestBase{
         String sessionId = null;
         String jobName = null;
         BufferedReader lineReader = new BufferedReader(new StringReader(output));
-        String line = null;
+        String line;
 
         try {
             while ((line = lineReader.readLine()) != null && sessionId == null && jobName == null) {
