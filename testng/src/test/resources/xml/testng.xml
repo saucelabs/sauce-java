@@ -6,7 +6,8 @@
     <parameter name="browserVersion" value="3.6."/>
     <test name="WebDriver" >
         <classes>
-            <class name="com.saucelabs.testng.SampleSauceTest" />
+          <class name="com.saucelabs.testng.SampleSauceTest" />
+          <class name="com.saucelabs.testng.SauceOnDemandListenerTest" />
         </classes>
     </test>
 </suite>
