@@ -27,7 +27,7 @@ public class SeleniumRCTest {
                         "\"browser\": \"firefox\"," +
                         "\"browser-version\": \"7\"," +
                         "\"name\": \"Testing Selenium 1 with Java on Sauce\"}",
-                "http://www.amazon.com");
+                "https://saucelabs.com/test/guinea-pig");
         selenium.start();
         this.selenium = selenium;
 
@@ -35,8 +35,8 @@ public class SeleniumRCTest {
 
     @Test
     public void selenumRC() throws Exception {
-        this.selenium.open("http://www.amazon.com");
-        assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", this.selenium.getTitle());
+        this.selenium.open("https://saucelabs.com/test/guinea-pig");
+        assertEquals("I am a page title - Sauce Labs", this.selenium.getTitle());
     }
 
     @After

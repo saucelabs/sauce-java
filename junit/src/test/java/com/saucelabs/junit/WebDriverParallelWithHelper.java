@@ -75,8 +75,8 @@ public class WebDriverParallelWithHelper implements SauceOnDemandSessionIdProvid
     @Test
     @Ignore
     public void basic() throws Exception {
-        driver.get("http://www.amazon.com/");
-        assertEquals("Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more", driver.getTitle());
+        driver.get("https://saucelabs.com/test/guinea-pig");
+        assertEquals("I am a page title - Sauce Labs", driver.getTitle());
     }
 
     @After

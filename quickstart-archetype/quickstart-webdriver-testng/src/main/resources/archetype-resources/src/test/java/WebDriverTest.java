@@ -55,8 +55,8 @@ public class WebDriverTest {
 
     @Test
     public void webDriver() throws Exception {
-        driver.get("http://www.amazon.com/");
-        assertEquals(driver.getTitle(), "Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more");
+        driver.get("https://saucelabs.com/test/guinea-pig");
+        assertEquals(driver.getTitle(), "I am a page title - Sauce Labs");
     }
 
     @AfterMethod

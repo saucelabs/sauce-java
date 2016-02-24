@@ -93,7 +93,7 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
     }
 
     /**
-     * Runs a simple test verifying the title of the amazon.com homepage.
+     * Runs a simple test verifying the title of the sauce test page.
      *
      * @param browser Represents the browser to be used as part of the test run.
      * @param version Represents the version of the browser to be used as part of the test run.
@@ -103,8 +103,8 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
     @Test(dataProvider = "hardCodedBrowsers")
     public void webDriver(String browser, String version, String os) throws Exception {
         WebDriver driver = createDriver(browser, version, os);
-        driver.get("http://www.amazon.com/");
-        assertEquals(driver.getTitle(), "Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more");
+        driver.get("https://saucelabs.com/test/guinea-pig");
+        assertEquals(driver.getTitle(), "I am a page title - Sauce Labs");
         driver.quit();
     }
 
