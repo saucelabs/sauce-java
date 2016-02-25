@@ -38,6 +38,7 @@
         <connection>scm:git:git://github.com/saucelabs/sauce-java.git</connection>
         <developerConnection>scm:git:git@github.com:saucelabs/sauce-java.git</developerConnection>
         <url>git@github.com:saucelabs/sauce-java.git</url>
+        <tag>HEAD</tag>
     </scm>
     <distributionManagement>
         <snapshotRepository>
@@ -46,10 +47,9 @@
         </snapshotRepository>
 
         <repository>
-			<id>${repo-id}</id>
-			<name>${repo-name}</name>
-			<url>${repo-url}</url>
-		</repository>
+            <id>maven.jenkins-ci.org</id>
+            <url>http://maven.jenkins-ci.org:8081/content/repositories/releases/</url>
+        </repository>
     </distributionManagement>
     <dependencies>
         <dependency>
