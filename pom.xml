@@ -33,6 +33,12 @@
             <organization>Sauce Labs</organization>
             <organizationUrl>http://www.saucelabs.com/</organizationUrl>
         </developer>
+        <developer>
+            <name>Mehmet Gerceker</name>
+            <email>mehmetg@msn.com</email>
+            <organization>Sauce Labs</organization>
+            <organizationUrl>http://www.saucelabs.com/</organizationUrl>
+        </developer>
     </developers>
     <scm>
         <connection>scm:git:git://github.com/saucelabs/sauce-java.git</connection>
