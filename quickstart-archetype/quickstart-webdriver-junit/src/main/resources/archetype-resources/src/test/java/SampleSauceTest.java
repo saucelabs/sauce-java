@@ -139,7 +139,7 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider {
      * @throws Exception
      */
     @Test
-    public void amazon() throws Exception {
+    public void sauceGuineaPig() throws Exception {
         driver.get("https://saucelabs.com/test/guinea-pig");
         assertEquals("I am a page title - Sauce Labs", driver.getTitle());
     }
