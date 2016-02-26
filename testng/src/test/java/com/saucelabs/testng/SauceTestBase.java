@@ -39,10 +39,10 @@ public class SauceTestBase implements SauceOnDemandSessionIdProvider, SauceOnDem
 
     /**
      * Creates a new {@link RemoteWebDriver} instance which is configured
-     * @param browser
-     * @param version
-     * @param os
-     * @return
+     * @param browser Browser to use
+     * @param version Browser version to use
+     * @param os VM OS/Platform OS
+     * @return webdriver instance created
      * @throws MalformedURLException
      */
     protected WebDriver createDriver(String browser, String version, String os) throws MalformedURLException {

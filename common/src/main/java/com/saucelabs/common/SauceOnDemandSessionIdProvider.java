@@ -2,7 +2,6 @@ package com.saucelabs.common;
 
 /**
  * Interface that should be implemented by classes using the TestNG or JUnit helper classes.
- * @author see {@link github} for original
  * @author Ross Rowe - updated documentation
  */
 public interface SauceOnDemandSessionIdProvider {

@@ -26,8 +26,8 @@ public class SampleSauceTest extends SauceTestBase {
     /**
      * Simple hard-coded DataProvider that explicitly sets the browser combinations to be used.
      *
-     * @param testMethod
-     * @return
+     * @param testMethod Test method consuming the data
+     * @return 2D Array of data provider (2D String Array)
      */
     @DataProvider(name = "hardCodedBrowsers", parallel = true)
     public static Object[][] sauceBrowserDataProvider(Method testMethod) {

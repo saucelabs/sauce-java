@@ -15,7 +15,6 @@ import java.util.Map;
  * Test Listener that providers helper logic for TestNG tests.  Upon startup, the class
  * will store any SELENIUM_* environment variables (typically set by a Sauce OnDemand CI
  * plugin) as system parameters, so that they can be retrieved by tests as parameters.
- * <p/>*
  *
  * @author Ross Rowe / Mehmet Gerceker
  */
@@ -46,7 +45,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
      * a Sauce OnDemand CI plugin).  If so, then populate the appropriate system parameter, so that tests can use
      * these values.
      *
-     * @param testContext
+     * @param testContext Current test context
      */
     @Override
     public void onStart(ITestContext testContext) {
@@ -70,7 +69,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     }
 
     /**
-     * @param result
+     * @param result Test Result for the test being started
      */
     @Override
     public void onTestStart(ITestResult result) {
@@ -93,21 +92,18 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     }
 
     /**
-     * @param tr
+     * @param testResult Test result of the test that just failed.
      */
     @Override
-    public void onTestFailure(ITestResult tr) {
-        SauceOnDemandSessionIdProvider sessionIdProvider = (SauceOnDemandSessionIdProvider) tr.getInstance();
+    public void onTestFailure(ITestResult testResult) {
+        SauceOnDemandSessionIdProvider sessionIdProvider = (SauceOnDemandSessionIdProvider) testResult.getInstance();
         if (sessionIdProvider != null && sauceREST != null) {
             String sessionId = sessionIdProvider.getSessionId();
             markJobStatus(sessionId, false);
-            printOutSessionID(sessionId, tr.getMethod().getMethodName());
+            printOutSessionID(sessionId, testResult.getMethod().getMethodName());
             printPublicJobLink(sessionId);
         }
-        super.onTestFailure(tr);
-        if (isLocal) {
-            return;
-        }
+        super.onTestFailure(testResult);
     }
 
     private void markJobStatus(String sessionId, boolean passed) {
@@ -136,19 +132,15 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     }
 
     /**
-     * @param tr
+     * @param testResult Test result for the test that just passed.
      */
     @Override
-    public void onTestSuccess(ITestResult tr) {
-        SauceOnDemandSessionIdProvider sessionIdProvider = (SauceOnDemandSessionIdProvider) tr.getInstance();
+    public void onTestSuccess(ITestResult testResult) {
+        SauceOnDemandSessionIdProvider sessionIdProvider = (SauceOnDemandSessionIdProvider) testResult.getInstance();
         String sessionId = sessionIdProvider.getSessionId();
-        printOutSessionID(sessionId, tr.getMethod().getMethodName());
+        printOutSessionID(sessionId, testResult.getMethod().getMethodName());
         markJobStatus(sessionId, true);
-        super.onTestSuccess(tr);
-        if (isLocal) {
-            return;
-        }
-
+        super.onTestSuccess(testResult);
     }
 
 }

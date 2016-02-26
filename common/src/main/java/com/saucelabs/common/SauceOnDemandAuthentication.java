@@ -98,10 +98,9 @@ public class SauceOnDemandAuthentication {
 
     /**
      * Location of the default credential file. "~/.sauce-ondemand"
-     * <p/>
-     * <p/>
      * This common convention allows all the tools that interact with Sauce OnDemand REST API
      * to use the single credential, thereby simplifying the user configuration.
+     * @return File object for the "~/.sauce-ondemand" credential file
      */
     public static File getDefaultCredentialFile() {
         return new File(new File(System.getProperty("user.home")), ".sauce-ondemand");
@@ -133,7 +132,7 @@ public class SauceOnDemandAuthentication {
 
     /**
      * Persists this credential to the disk.
-     *
+     * @param propertyFile File object to save java propery style credentials to.
      * @throws IOException If the file I/O fails.
      */
     public void saveTo(File propertyFile) throws IOException {

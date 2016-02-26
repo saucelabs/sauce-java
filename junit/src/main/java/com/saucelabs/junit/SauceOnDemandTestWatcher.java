@@ -7,17 +7,12 @@ import com.saucelabs.saucerest.SauceREST;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * {@link TestWatcher} subclass that will mark a Sauce OnDemand job as passed or failed depending on the result
  * of the test case being executed.
- *
- * @author see {@link github} for original
  * @author Ross Rowe - modifications to use {@link SauceOnDemandAuthentication}
  */
 public class SauceOnDemandTestWatcher extends TestWatcher {
@@ -40,7 +35,7 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
 
 
     /**
-     * @param sessionIdProvider
+     * @param sessionIdProvider Id provider for the current web driver session
      */
     public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider) {
         this(sessionIdProvider, new SauceOnDemandAuthentication());
@@ -51,8 +46,8 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
     }
 
     /**
-     * @param sessionIdProvider
-     * @param authentication
+     * @param sessionIdProvider Id provider for the current web driver session
+     * @param authentication Authentication provider for the current sauce labs user
      */
     public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, SauceOnDemandAuthentication authentication) {
         this(sessionIdProvider,
@@ -61,8 +56,9 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
     }
 
     /**
-     * @param sessionIdProvider
-     * @param authentication
+     * @param sessionIdProvider Id provider for the current web driver session
+     * @param authentication Authentication provider for the current sauce labs user
+     * @param verboseMode Enables verbose mode
      */
     public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, SauceOnDemandAuthentication authentication, boolean verboseMode) {
         this(sessionIdProvider,
@@ -72,9 +68,10 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
     }
 
     /**
-     * @param sessionIdProvider
-     * @param username
-     * @param accessKey
+     * @param sessionIdProvider Id provider for the current web driver session
+     * @param username Sauce user name
+     * @param accessKey Sauce access key
+     * @param verboseMode Enables verbose mode
      */
     public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, final String username, final String accessKey, boolean verboseMode) {
         this.sessionIdProvider = sessionIdProvider;

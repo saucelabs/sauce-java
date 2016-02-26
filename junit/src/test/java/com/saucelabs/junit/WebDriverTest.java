@@ -49,13 +49,13 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider {
     }
 
     @Test
-    public void basic() throws Exception {
+    public void basic() {
         driver.get("https://saucelabs.com/test/guinea-pig");
         assertEquals("I am a page title - Sauce Labs", driver.getTitle());
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         assertNotNull(driver);
         driver.quit();
     }

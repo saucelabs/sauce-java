@@ -61,12 +61,12 @@
         <dependency>
             <groupId>com.saucelabs</groupId>
             <artifactId>saucerest</artifactId>
-            <version>1.0.22</version>
+            <version>1.0.32</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>2.38.0</version>
+            <version>2.52.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -188,6 +188,7 @@
 	      <repo-url>dav:https://repository-saucelabs.forge.cloudbees.com/release</repo-url>
 	    </properties>
 	  </profile>
+
 	</profiles>
 
 </project>

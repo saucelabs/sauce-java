@@ -11,7 +11,6 @@ import java.util.concurrent.*;
 
 /**
  * Creates a dynamically sized thread pool when running parallel tests.
- * <p/>
  * Inspired by http://hwellmann.blogspot.com/2009/12/running-parameterized-junit-tests-in.html
  *
  * @author Ross Rowe
