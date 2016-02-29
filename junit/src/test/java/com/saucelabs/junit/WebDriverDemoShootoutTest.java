@@ -44,7 +44,7 @@ public class WebDriverDemoShootoutTest implements SauceOnDemandSessionIdProvider
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         driver.quit();
     }
 

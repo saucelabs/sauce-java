@@ -77,7 +77,7 @@ public class SauceOnDemandListenerTest extends SauceTestBase{
         try {
             while ((line = lineReader.readLine()) != null && sessionId == null && jobName == null) {
                 //make sure it is a possible match it can't be less than 32 chars
-                if (line == null || line.length() < 32) {
+                if (line.length() < 32) {
                     continue;
                 }
                 Matcher m = sessionIdPattern.matcher(line);
@@ -100,8 +100,8 @@ public class SauceOnDemandListenerTest extends SauceTestBase{
     /**
      * Simple hard-coded DataProvider that explicitly sets the browser combination to be used.
      *
-     * @param testMethod
-     * @return 2D Array of browser configs.
+     * @param testMethod Test method consuming the data
+     * @return 2D array of data (2D Array of strings)
      */
     @DataProvider(name = "singleBrowser", parallel = false)
     public static Object[][] sauceSingleBrowserDataProvider(Method testMethod) {

@@ -28,12 +28,12 @@ public class SeleniumRCWithHelperTest implements SauceOnDemandSessionIdProvider,
      * If the tests can rely on the username/key to be supplied by environment variables or the existence
      * of a ~/.sauce-ondemand file, then we don't need to specify them as parameters, just create a new instance
      * of {@link SauceOnDemandAuthentication} using the no-arg constructor.
-     * @param username
-     * @param key
-     * @param os
-     * @param browser
-     * @param browserVersion
-     * @param method
+     * @param username Sauce user name
+     * @param key Sauce access key
+     * @param os VM OS/Platform OS
+     * @param browser Browser to use
+     * @param browserVersion Browser version to use
+     * @param method Method being set up
      * @throws Exception
      */
     @Parameters({"username", "key", "os", "browser", "browserVersion"})
@@ -86,7 +86,7 @@ public class SeleniumRCWithHelperTest implements SauceOnDemandSessionIdProvider,
     }
 
     @Test
-    public void seleniumRCWithHelper() throws Exception {
+    public void seleniumRCWithHelper() {
         this.selenium.open("https://saucelabs.com/test/guinea-pig");
         assertEquals("I am a page title - Sauce Labs", this.selenium.getTitle());
     }

@@ -31,24 +31,19 @@ public class ConcurrentParameterized extends Suite {
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
-    public static @interface Parameters {
+    public @interface Parameters {
         /**
-         * <p>
          * Optional pattern to derive the test's name from the parameters. Use
          * numbers in braces to refer to the parameters or the additional data
          * as follows:
-         * </p>
-         * <p/>
          * <pre>
          * {index} - the current parameter index
          * {0} - the first parameter value
          * {1} - the second parameter value
          * etc...
          * </pre>
-         * <p>
          * Default value is "{index}" for compatibility with previous JUnit
          * versions.
-         * </p>
          *
          * @return {@link java.text.MessageFormat} pattern string, except the index
          *         placeholder.
@@ -59,17 +54,17 @@ public class ConcurrentParameterized extends Suite {
 
     /**
      * Annotation for fields of the test class which will be initialized by the
-     * method annotated by <code>Parameters</code><br/>
-     * By using directly this annotation, the test class constructor isn't needed.<br/>
+     * method annotated by <code>Parameters</code>
+     * By using directly this annotation, the test class constructor isn't needed.
      * Index range must start at 0.
      * Default value is 0.
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.FIELD)
-    public static @interface Parameter {
+    public @interface Parameter {
         /**
          * Method that returns the index of the parameter in the array
-         * returned by the method annotated by <code>Parameters</code>.<br/>
+         * returned by the method annotated by <code>Parameters</code>.
          * Index range must start at 0.
          * Default value is 0.
          *
@@ -78,13 +73,14 @@ public class ConcurrentParameterized extends Suite {
         int value() default 0;
     }
 
-    private static final List<Runner> NO_RUNNERS = Collections
-            .<Runner>emptyList();
+    private static final List<Runner> NO_RUNNERS = Collections.emptyList();
 
     private final ArrayList<Runner> runners = new ArrayList<Runner>();
 
     /**
      * Only called reflectively. Do not use programmatically.
+     * @param klass Sets up class with data provider and runners for parallel runs
+     * @throws Throwable Throwable propagating from {link#createRunnersForParameters}
      */
     public ConcurrentParameterized(Class<?> klass) throws Throwable {
         super(klass, NO_RUNNERS);
@@ -123,7 +119,7 @@ public class ConcurrentParameterized extends Suite {
     }
 
     private void createRunnersForParameters(Iterable<Object[]> allParameters,
-                                            String namePattern) throws InitializationError, Exception {
+                                            String namePattern) throws Exception {
         try {
             int i = 0;
             for (Object[] parametersOfSingleTest : allParameters) {

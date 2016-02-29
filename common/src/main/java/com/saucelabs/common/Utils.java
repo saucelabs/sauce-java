@@ -21,7 +21,7 @@ public final class Utils {
      *     <li>TRAVIS_BUILD_NUMBER</li>
      *     <li>CIRCLE_BUILD_NUM</li>
      * </ol>
-     * @param updates
+     * @param updates String,Object pair containing job updates
      */
     public static void addBuildNumberToUpdate(Map<String, Object> updates) {
         //try Bamboo

@@ -26,8 +26,8 @@ public class SauceBrowserDataProvider {
      * The method retrieves and parses the value of the SAUCE_ONDEMAND_BROWSERS environment variable/system
      * property which is assumed to be in JSON format.
      *
-     * @param testMethod
-     * @return
+     * @param testMethod Test method consuming the data
+     * @return ArrayList of data provider (List of strings)
      */
     @DataProvider(name = "sauceBrowserDataProvider")
     public static Iterator<Object[]> sauceBrowserDataProvider(Method testMethod) {

@@ -49,8 +49,8 @@ public class WebDriverParallelWithHelper implements SauceOnDemandSessionIdProvid
     }
 
     @Parameterized.Parameters
-    public static LinkedList browsersStrings() throws Exception {
-        LinkedList browsers = new LinkedList();
+    public static LinkedList browsersStrings() {
+        LinkedList<String[]> browsers = new LinkedList<String[]>();
         browsers.add(new String[]{Platform.MAC.toString(), "5.0", "iPhone"});
         return browsers;
     }
@@ -74,13 +74,13 @@ public class WebDriverParallelWithHelper implements SauceOnDemandSessionIdProvid
 
     @Test
     @Ignore
-    public void basic() throws Exception {
+    public void basic() {
         driver.get("https://saucelabs.com/test/guinea-pig");
         assertEquals("I am a page title - Sauce Labs", driver.getTitle());
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         driver.quit();
     }
 }

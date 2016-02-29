@@ -1,7 +1,6 @@
 package com.saucelabs.maven;
 
 import com.saucelabs.ci.sauceconnect.SauceConnectFourManager;
-import com.saucelabs.ci.sauceconnect.SauceConnectTwoManager;
 import com.saucelabs.ci.sauceconnect.SauceTunnelManager;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -51,13 +50,8 @@ public class StartSauceConnectMojo extends AbstractMojo {
     private boolean quietMode;
 
     /**
-     * @parameter expression="${sauce.launchSauceConnect3}
-     */
-    private boolean launchSauceConnect3;
-
-    /**
-     * @throws MojoExecutionException
-     * @throws MojoFailureException
+     * @throws MojoExecutionException Execution exception from plugin
+     * @throws MojoFailureException Failure exception from plugin
      */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -71,16 +65,13 @@ public class StartSauceConnectMojo extends AbstractMojo {
             return;
         }
         Map context = getPluginContext();
-        if (context.get(SAUCE_CONNECT_KEY) != null) {
-            //process already running
-        } else {
+        if (context.get(SAUCE_CONNECT_KEY) == null) {
             //find Sauce Connect jar file location
 
-            SauceTunnelManager sauceConnectTwoManager =
-                    launchSauceConnect3 ? new SauceConnectTwoManager(quietMode) : new SauceConnectFourManager(quietMode);
+            SauceTunnelManager SauceConnectFourManager = new SauceConnectFourManager(quietMode);
             try {
-                sauceConnectTwoManager.openConnection(sauceUsername, sauceAccessKey, port, null, options, httpsProtocol, null, !quietMode, null);
-                context.put(SAUCE_CONNECT_KEY, sauceConnectTwoManager);
+                SauceConnectFourManager.openConnection(sauceUsername, sauceAccessKey, port, null, options, null, !quietMode, null);
+                context.put(SAUCE_CONNECT_KEY, SauceConnectFourManager);
             } catch (IOException e) {
                 getLog().error("Error generated when launching Sauce Connect", e);
             }

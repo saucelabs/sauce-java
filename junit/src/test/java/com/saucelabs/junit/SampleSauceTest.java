@@ -57,9 +57,9 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider {
     }
 
     @ConcurrentParameterized.Parameters
-    public static LinkedList browsersStrings() throws Exception {
+    public static LinkedList browsersStrings() {
 
-        LinkedList browsers = new LinkedList();
+        LinkedList<String[]> browsers = new LinkedList<String[]>();
         browsers.add(new String[]{"Windows 2003", null, "chrome"});
         browsers.add(new String[]{"Windows 2003", "17", "firefox"});
         browsers.add(new String[]{"linux", "17", "firefox"});
@@ -85,14 +85,14 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider {
     }
 
     @Test
-    public void webDriverOne() throws Exception {
+    public void webDriverOne() {
         driver.get("https://saucelabs.com/test/guinea-pig");
         assertEquals("I am a page title - Sauce Labs", driver.getTitle());
     }
 
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         driver.quit();
     }
 
