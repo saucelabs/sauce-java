@@ -30,11 +30,6 @@
             <version>2.6</version>
         </dependency>
         <dependency>
-            <groupId>com.saucelabs</groupId>
-            <artifactId>sauce_java_common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>6.9.10</version>
