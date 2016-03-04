@@ -20,7 +20,7 @@ For JUnit projects, the library can be added to a project by including the follo
 <dependency>
     <groupId>com.saucelabs</groupId>
     <artifactId>sauce_junit</artifactId>
-    <version>2.1.11</version>
+    <version>2.1.21</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -31,26 +31,9 @@ For TestNG projects, the library can be added to a project by including the foll
 <dependency>
     <groupId>com.saucelabs</groupId>
     <artifactId>sauce_testng</artifactId>
-    <version>2.1.11</version>
+    <version>2.1.21</version>
     <scope>test</scope>
 </dependency>
-```
-
-Note that the dependencies reside in the [Sauce Labs Maven repository](http://repository-saucelabs.forge.cloudbees.com/release/com/saucelabs/), which can be referenced by the following:
-
-```xml
-<repositories>
-    <repository>
-        <id>saucelabs-repository</id>
-        <url>https://repository-saucelabs.forge.cloudbees.com/release</url>
-        <releases>
-            <enabled>true</enabled>
-        </releases>
-        <snapshots>
-            <enabled>true</enabled>
-        </snapshots>
-    </repository>
-</repositories>
 ```
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/saucelabs/sauce-java/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
