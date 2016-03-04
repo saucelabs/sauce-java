@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.saucelabs</groupId>
     <artifactId>sauce_java</artifactId>
-    <version>2.1.22-SNAPSHOT</version>
+    <version>2.1.21-SNAPSHOT</version>
     <name>sauce_java</name>
     <description>Collection of Java helper libraries for Sauce Labs</description>
     <url>https://saucelabs.com</url>
@@ -77,7 +77,19 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.3</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+            <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -138,6 +150,25 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.7.6.201602180812</version>
@@ -179,27 +210,5 @@
         </pluginManagement>
 
     </build>
-	<profiles>
-	  <profile>
-	    <id>sonatype-nexus-staging</id>
-	    <activation>
-	      <activeByDefault>true</activeByDefault>
-	    </activation>
-	    <properties>
-	      <repo-id>sonatype-nexus-staging</repo-id>
-	      <repo-name>Nexus Release Repository</repo-name>
-	      <repo-url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</repo-url>
-	    </properties>
-	  </profile>
-	  <profile>
-	    <id>cloudbees-private-release-repository</id>
-	    <properties>
-	      <repo-id>cloudbees-private-release-repository</repo-id>
-	      <repo-name>Sauce Labs Public Repository</repo-name>
-	      <repo-url>dav:https://repository-saucelabs.forge.cloudbees.com/release</repo-url>
-	    </properties>
-	  </profile>
-
-	</profiles>
 
 </project>
