@@ -52,7 +52,7 @@ public class SauceTestBase implements SauceOnDemandSessionIdProvider, SauceOnDem
         capabilities.setCapability("version", version);
         capabilities.setCapability("platform", os);
         webDriver.set(new RemoteWebDriver(
-            new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
+            new URL("https://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:443/wd/hub"),
             capabilities));
         sessionId.set(((RemoteWebDriver) getWebDriver()).getSessionId().toString());
         return webDriver.get();
