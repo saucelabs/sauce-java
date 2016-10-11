@@ -62,7 +62,7 @@ public class WebDriverParallelWithHelper implements SauceOnDemandSessionIdProvid
         capabilities.setCapability(CapabilityType.VERSION, version);
         capabilities.setCapability(CapabilityType.PLATFORM, Platform.valueOf(os));
         this.driver = new RemoteWebDriver(
-                new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
+                new URL("https://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:443/wd/hub"),
                 capabilities);
         this.sessionId = ((RemoteWebDriver) driver).getSessionId().toString();
     }
