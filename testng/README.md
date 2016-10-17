@@ -1,5 +1,9 @@
-Sauce TestNG Helper Library
+Sauce TestNG
 ============
+
+Location of this project has changed.
+
+See: https://github.com/saucelabs-sample-test-frameworks/Java-Junit-Selenium
 
 Installation
 -------------

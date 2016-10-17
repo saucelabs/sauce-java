@@ -1,6 +1,10 @@
 Sauce JUnit
 ==============
 
+Location of this project has changed.
+
+See: https://github.com/saucelabs-sample-test-frameworks/Java-Junit-Selenium
+
 This project contains the source code for helper classes that can be included in JUnit test classes
 
 Usage
@@ -38,7 +42,7 @@ public void setUp() throws Exception {
 }
 
 
-@Override   
+@Override
 public String getSessionId() {
     return sessionId.toString();
 }
