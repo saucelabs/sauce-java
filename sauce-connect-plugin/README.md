@@ -29,7 +29,7 @@ The plugin can be included in a project by adding the following to your pom.xml 
             <executions>
                 <!-- Start Sauce Connect prior to running the integration tests -->
                 <execution>
-                    <id>start-sauceconnct</id>
+                    <id>start-sauceconnect</id>
                     <phase>pre-integration-test</phase>
                     <goals>
                         <goal>start-sauceconnect</goal>
