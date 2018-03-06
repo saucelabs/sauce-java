@@ -18,12 +18,12 @@ public class StopSauceConnectMojo extends AbstractMojo {
     private static final String SAUCE_CONNECT_KEY = "SAUCE_CONNECT";
 
     /**
-     * @parameter expression="${sauce.user}"
+     * @parameter property="{sauce.user}"
      */
     private String sauceUsername;
 
     /**
-     * @parameter expression="${sauce.options}
+     * @parameter property="{sauce.options}
      */
     private String options;
 

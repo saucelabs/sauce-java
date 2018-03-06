@@ -20,12 +20,12 @@ public class StartSauceConnectMojo extends AbstractMojo {
     private static final String SAUCE_CONNECT_KEY = "SAUCE_CONNECT";
 
     /**
-     * @parameter expression="${sauce.user}"
+     * @parameter property="{sauce.user}"
      */
     private String sauceUsername;
 
     /**
-     * @parameter expression="${sauce.sauceAccessKey}"
+     * @parameter property="{sauce.sauceAccessKey}"
      */
     private String sauceAccessKey;
 
@@ -35,17 +35,17 @@ public class StartSauceConnectMojo extends AbstractMojo {
     private int port;
 
     /**
-     * @parameter expression="${sauce.httpsProtocol}
+     * @parameter property="{sauce.httpsProtocol}
      */
     private String httpsProtocol;
 
     /**
-     * @parameter expression="${sauce.options}
+     * @parameter property="{sauce.options}
      */
     private String options;
 
     /**
-     * @parameter expression="${sauce.quietMode}
+     * @parameter property="{sauce.quietMode}
      */
     private boolean quietMode;
 

@@ -48,30 +48,4 @@ The plugin can be included in a project by adding the following to your pom.xml 
         ...
     </plugins>
 </build>
-<repositories>
-   <repository>
-       <id>saucelabs-repository</id>
-       <url>http://repository-saucelabs.forge.cloudbees.com/release</url>
-       <releases>
-           <enabled>true</enabled>
-       </releases>
-       <snapshots>
-           <enabled>true</enabled>
-       </snapshots>
-   </repository>
-</repositories>
-<pluginRepositories>
-    <pluginRepository>
-       <id>saucelabs-repository</id>
-       <url>http://repository-saucelabs.forge.cloudbees.com/release</url>
-       <releases>
-           <enabled>true</enabled>
-       </releases>
-       <snapshots>
-           <enabled>true</enabled>
-       </snapshots>
-   </pluginRepository>
-</pluginRepositories>
 ```
-
-Note: You can always find the latest version in the repository: http://repository-saucelabs.forge.cloudbees.com/release/com/saucelabs/maven/plugin/sauce-connect-plugin/
