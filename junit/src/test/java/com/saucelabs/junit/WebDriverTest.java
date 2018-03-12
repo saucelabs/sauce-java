@@ -37,7 +37,7 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider {
     public void setUp() throws Exception {
         DesiredCapabilities capabilities = DesiredCapabilities.firefox();
         capabilities.setCapability("version", "5");
-        capabilities.setCapability("platform", Platform.XP);
+        capabilities.setCapability("platform", Platform.WIN10);
         capabilities.setCapability("name", "xxTest :"
                 + testName.getMethodName());
         this.driver = new RemoteWebDriver(
