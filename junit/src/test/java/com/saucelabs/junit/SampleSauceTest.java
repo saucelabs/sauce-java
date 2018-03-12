@@ -60,9 +60,9 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider {
     public static LinkedList browsersStrings() {
 
         LinkedList<String[]> browsers = new LinkedList<String[]>();
-        browsers.add(new String[]{"Windows 2003", null, "chrome"});
-        browsers.add(new String[]{"Windows 2003", "17", "firefox"});
-        browsers.add(new String[]{"linux", "17", "firefox"});
+        browsers.add(new String[]{"Windows 10", null, "chrome"});
+        browsers.add(new String[]{"Windows 10", null, "firefox"});
+        browsers.add(new String[]{"linux", null, "firefox"});
         return browsers;
     }
 

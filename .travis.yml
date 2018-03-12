@@ -7,7 +7,6 @@ script:
 - mvn test -B -V
 jdk:
 - oraclejdk8
-- oraclejdk7
 - openjdk7
 after_success:
 - codecov
