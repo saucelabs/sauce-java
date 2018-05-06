@@ -22,7 +22,7 @@
         <dependency>
             <groupId>com.saucelabs</groupId>
             <artifactId>saucerest</artifactId>
-            <version>1.0.32</version>
+            <version>1.0.37</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
