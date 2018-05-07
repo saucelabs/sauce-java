@@ -81,6 +81,8 @@ public class WebDriverParallelWithHelper implements SauceOnDemandSessionIdProvid
 
     @After
     public void tearDown() {
-        driver.quit();
+        if(driver != null) {
+            driver.quit();
+        }
     }
 }

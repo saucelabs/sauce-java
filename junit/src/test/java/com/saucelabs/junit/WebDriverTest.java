@@ -54,10 +54,16 @@ public class WebDriverTest implements SauceOnDemandSessionIdProvider {
         assertEquals("I am a page title - Sauce Labs", driver.getTitle());
     }
 
+    @Test
+    public void assertDriverNotNull(){
+        assertNotNull(driver);
+    }
+
     @After
     public void tearDown() {
-        assertNotNull(driver);
-        driver.quit();
+        if(driver != null) {
+            driver.quit();
+        }
     }
 
     @Override

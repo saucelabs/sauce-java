@@ -93,7 +93,9 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider {
 
     @After
     public void tearDown() {
-        driver.quit();
+        if(driver != null) {
+            driver.quit();
+        }
     }
 
     @Override
