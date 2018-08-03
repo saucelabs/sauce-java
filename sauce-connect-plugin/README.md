@@ -21,7 +21,7 @@ The plugin can be included in a project by adding the following to your pom.xml 
         <plugin>
             <groupId>com.saucelabs.maven.plugin</groupId>
             <artifactId>sauce-connect-plugin</artifactId>
-            <version>2.1.3</version>
+            <version>2.1.24</version>
             <configuration>
                 <sauceUsername>YOUR_SAUCE_USERNAME</sauceUsername>
                 <sauceAccessKey>YOUR_SAUCE_ACCESS_KEY</sauceAccessKey>
