@@ -27,8 +27,8 @@ public class VerifyExampleIT {
         capabilities.setCapability("version", Utils.readPropertyOrEnv("SELENIUM_VERSION", "4"));
         capabilities.setCapability("platform", Utils.readPropertyOrEnv("SELENIUM_PLATFORM", "XP"));
         capabilities.setCapability("browserName", Utils.readPropertyOrEnv("SELENIUM_BROWSER", "firefox"));
-        String username = Utils.readPropertyOrEnv("SAUCE_USER_NAME", "rossco_9_9");
-        String accessKey = Utils.readPropertyOrEnv("SAUCE_API_KEY", "5753db9d-792c-4635-bd2d-7c4eec823c63");
+        String username = Utils.readPropertyOrEnv("SAUCE_USER_NAME", "my_username");
+        String accessKey = Utils.readPropertyOrEnv("SAUCE_API_KEY", "my_api_key");
         this.driver = new RemoteWebDriver(new URL("http://" + username + ":" + accessKey + "@localhost:4445/wd/hub"),
                 capabilities);
     }
