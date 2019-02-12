@@ -29,20 +29,6 @@
         <name>Sauce Labs</name>
         <url>http://www.saucelabs.com/</url>
     </organization>
-    <developers>
-        <developer>
-            <name>Ross Rowe</name>
-            <email>piaross@gmail.com</email>
-            <organization>Sauce Labs</organization>
-            <organizationUrl>http://www.saucelabs.com/</organizationUrl>
-        </developer>
-        <developer>
-            <name>Mehmet Gerceker</name>
-            <email>mehmetg@msn.com</email>
-            <organization>Sauce Labs</organization>
-            <organizationUrl>http://www.saucelabs.com/</organizationUrl>
-        </developer>
-    </developers>
     <scm>
         <connection>scm:git:git://github.com/saucelabs/sauce-java.git</connection>
         <developerConnection>scm:git:git@github.com:saucelabs/sauce-java.git</developerConnection>
@@ -70,7 +56,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>2.52.0</version>
+            <version>3.11.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -160,20 +146,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-scm-plugin</artifactId>
                 <version>1.9.4</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
