@@ -10,6 +10,11 @@
     <name>sauce_testng</name>
     <dependencies>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.3.2</version>
+        </dependency>
+        <dependency>
             <groupId>com.saucelabs</groupId>
             <artifactId>sauce_java_common</artifactId>
             <version>${project.version}</version>
@@ -34,6 +39,12 @@
             <artifactId>testng</artifactId>
             <version>6.9.10</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.7</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

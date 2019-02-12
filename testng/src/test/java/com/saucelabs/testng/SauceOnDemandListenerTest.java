@@ -3,7 +3,6 @@ package com.saucelabs.testng;
 /**
  * @author Mehmet Gerceker
  */
-
 import org.apache.commons.lang3.tuple.Pair;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
