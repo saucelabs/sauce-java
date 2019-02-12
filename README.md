@@ -37,3 +37,17 @@ For TestNG projects, the library can be added to a project by including the foll
 ```
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/saucelabs/sauce-java/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
+Thanks and Acknowledgements
+------
+
+  - [Adam Goucher][1]
+  - [Adam Christian][2]
+  - [Ross Row][3]
+  - [Mehmet Gerceker][3]
+  - [Sauce Labs][3] 
+
+
+  [1]: http://adam.goucher.ca/
+  [2]: http://adamchristian.com/
+  [3]: http://saucelabs.com
