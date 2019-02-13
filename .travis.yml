@@ -10,6 +10,8 @@ jdk:
 - openjdk7
 after_success:
 - codecov
+notifications:
+  slack: saucelabs:UuMma1Or531Mia6gJpFzwn5Z
 env:
   global:
   - SAUCE_USERNAME=sauce_examples
