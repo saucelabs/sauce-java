@@ -10,6 +10,8 @@ jdk:
 - openjdk7
 after_success:
 - codecov
+notifications:
+  slack: saucelabs:UuMma1Or531Mia6gJpFzwn5Z
 env:
   global:
   - secure: EpFMQ4XMonm5cj++urew+lEuT8CLvqB6UOjqgfACYTIKd4V92eEmNai3PERRBOQUAjhXPZKbAaBXJ1OE7PW0Z8fGYk+HGs/NMQsXg3hLjgYsHeG7vJLMOEb72Z0SVB1lC4uGZzWhOP26QsoGPgYfrconJyIXrPoPVGUyM4qR0qk=
