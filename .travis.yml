@@ -10,7 +10,9 @@ jdk:
 - openjdk7
 after_success:
 - codecov
+notifications:
+  slack: saucelabs:UuMma1Or531Mia6gJpFzwn5Z
 env:
   global:
-  - secure: EpFMQ4XMonm5cj++urew+lEuT8CLvqB6UOjqgfACYTIKd4V92eEmNai3PERRBOQUAjhXPZKbAaBXJ1OE7PW0Z8fGYk+HGs/NMQsXg3hLjgYsHeG7vJLMOEb72Z0SVB1lC4uGZzWhOP26QsoGPgYfrconJyIXrPoPVGUyM4qR0qk=
-  - secure: ZQ21xR5BFCrEHtkC2IcJd/Q/LjG4DpKY4gOieJ+VHt2+P4evTgaTz8iHCn+ujF+2B+bzgtEVT2B/Ul4KQKSdfzI+dg8QBZ0J8DWzmDXjgiH1mhQ+cGUwVeB0g46hqD/tUFWQwQt7iZ2rlXYRQLJAsUcKMLApOotWkk3Unf4b5tY=
+  - SAUCE_USERNAME=sauce_examples
+  - secure: hSCw1EB+bAwdEY7KrE25WmKFlId7LyLOd2BWhiMmmwHI5+hkTdncWi9zmRfmVL4+4xX5M3IBhG6Bdie+5/r6okrp0yTJOxMrFetkGMNwNhBUxnQeH2k1xvUaZPL5coA8IdcDgszoOJEJCLUPbLEKM4reKX2mRBrDa1mVuD7oblE=
