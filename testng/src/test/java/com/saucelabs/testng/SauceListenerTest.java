@@ -25,8 +25,8 @@ import static org.testng.Assert.assertEquals;
  *
  * @author Mehmet Gerceker
  */
-@Listeners({SauceOnDemandTestListener.class})
-public class SauceOnDemandListenerTest extends SauceTestBase{
+@Listeners({SauceTestListener.class})
+public class SauceListenerTest extends SauceTestBase{
 
 
     protected PrintStream stdoutStream;
@@ -68,7 +68,7 @@ public class SauceOnDemandListenerTest extends SauceTestBase{
     }
 
     protected Pair<String, String> parseSessionIdJobName(String output) {
-        Pattern sessionIdPattern = Pattern.compile("SauceOnDemandSessionID=([0-9a-fA-F]+)(?:.job-name=(.*))?");
+        Pattern sessionIdPattern = Pattern.compile("SauceSessionID=([0-9a-fA-F]+)(?:.job-name=(.*))?");
         String sessionId = null;
         String jobName = null;
         BufferedReader lineReader = new BufferedReader(new StringReader(output));

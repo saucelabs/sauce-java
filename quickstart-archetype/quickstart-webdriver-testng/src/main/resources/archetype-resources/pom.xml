@@ -7,7 +7,7 @@
     <version>${version}</version>
     <packaging>jar</packaging>
     <name>sauce_quickstart</name>
-    <description>A sample Maven project that demonstrates how to integrate Sauce OnDemand with WebDriver tests
+    <description>A sample Maven project that demonstrates how to integrate Sauce Labs with WebDriver tests
         that run using TestNG
     </description>
 

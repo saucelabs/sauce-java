@@ -11,8 +11,8 @@ The helper libraries provide the following functionality:
 * Invoke the Sauce REST API to mark a Sauce Job as passed/failed, based on the test result
 * Output the Sauce Session Id to the stdout, so that the Sauce Continuous Integration plugins (for Bamboo/Jenkins/Hudson)
 can parse the output)
-* Provide a com.saucelabs.common.SauceOnDemandAuthentication class, which handles obtaining the Sauce OnDemand user name
-and access key from environment variables and/or the filesystem.
+* Provide a com.saucelabs.common.SauceAuthentication class, which handles obtaining the Sauce Labs user name
+and access key from environment variables or system properties.
 
 For JUnit projects, the library can be added to a project by including the following dependency:
 

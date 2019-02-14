@@ -1,6 +1,6 @@
 package ${groupId};
 
-import com.saucelabs.common.SauceOnDemandAuthentication;
+import com.saucelabs.common.SauceAuthentication;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
@@ -21,7 +21,7 @@ import static org.testng.Assert.*;
  */
 public class WebDriverDemoShootoutTest {
 
-    private SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication("${userName}", "${accessKey}");
+    private SauceAuthentication authentication = new SauceAuthentication("${userName}", "${accessKey}");
 
     private WebDriver driver;
 

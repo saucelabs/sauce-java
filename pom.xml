@@ -27,20 +27,20 @@
     </licenses>
     <organization>
         <name>Sauce Labs</name>
-        <url>http://www.saucelabs.com/</url>
+        <url>https://www.saucelabs.com/</url>
     </organization>
     <developers>
         <developer>
             <name>Ross Rowe</name>
             <email>piaross@gmail.com</email>
             <organization>Sauce Labs</organization>
-            <organizationUrl>http://www.saucelabs.com/</organizationUrl>
+            <organizationUrl>https://www.saucelabs.com/</organizationUrl>
         </developer>
         <developer>
             <name>Mehmet Gerceker</name>
             <email>mehmetg@msn.com</email>
             <organization>Sauce Labs</organization>
-            <organizationUrl>http://www.saucelabs.com/</organizationUrl>
+            <organizationUrl>https://www.saucelabs.com/</organizationUrl>
         </developer>
     </developers>
     <scm>

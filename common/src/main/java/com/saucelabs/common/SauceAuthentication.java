@@ -8,22 +8,22 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- * Stores the Sauce OnDemand authentication (retrieved from
+ * Stores the Sauce Labs authentication (retrieved from
  * either System properties/environment variables or by parsing the ~/.sauce-ondemand file).
  * The authentication information information will also be made available by the getter methods, so
- * that it can be used when constructing Sauce OnDemand request URLs.
+ * that it can be used when constructing Sauce Labs request URLs.
  *
  * @author Ross Rowe
  */
-public class SauceOnDemandAuthentication {
+public class SauceAuthentication {
 
     /**
-     * The username to use when connecting to Sauce OnDemand.  Defaults to empty string.
+     * The username to use when connecting to Sauce Labs.  Defaults to empty string.
      */
     private String username = "";
 
     /**
-     * The access key to use when connecting to Sauce OnDemand. Defaults to empty string.
+     * The access key to use when connecting to Sauce Labs. Defaults to empty string.
      */
     private String accessKey = "";
 
@@ -49,7 +49,7 @@ public class SauceOnDemandAuthentication {
      * from system properties/environment variables.  If none are found, then attempt
      * to parse a ~/.sauce-ondemand file.
      */
-    public SauceOnDemandAuthentication() {
+    public SauceAuthentication() {
         //first try to retrieve information from properties/environment variables
         this.username = getPropertyOrEnvironmentVariable(SAUCE_USER_NAME);
         if (username == null || username.equals("")) {
@@ -68,7 +68,7 @@ public class SauceOnDemandAuthentication {
         }
     }
 
-    public SauceOnDemandAuthentication(String username, String accessKey) {
+    public SauceAuthentication(String username, String accessKey) {
         this.username = username;
         this.accessKey = accessKey;
     }
@@ -98,7 +98,7 @@ public class SauceOnDemandAuthentication {
 
     /**
      * Location of the default credential file. "~/.sauce-ondemand"
-     * This common convention allows all the tools that interact with Sauce OnDemand REST API
+     * This common convention allows all the tools that interact with Sauce Labs REST API
      * to use the single credential, thereby simplifying the user configuration.
      * @return File object for the "~/.sauce-ondemand" credential file
      */

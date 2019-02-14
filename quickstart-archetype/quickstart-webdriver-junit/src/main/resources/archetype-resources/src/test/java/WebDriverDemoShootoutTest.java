@@ -1,6 +1,6 @@
 package ${groupId};
 
-import com.saucelabs.common.SauceOnDemandAuthentication;
+import com.saucelabs.common.SauceAuthentication;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class WebDriverDemoShootoutTest {
 
-    private SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication("${userName}", "${accessKey}");
+    private SauceAuthentication authentication = new SauceAuthentication("${userName}", "${accessKey}");
 
     private WebDriver driver;
 

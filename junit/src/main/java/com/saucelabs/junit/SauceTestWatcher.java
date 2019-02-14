@@ -1,7 +1,7 @@
 package com.saucelabs.junit;
 
-import com.saucelabs.common.SauceOnDemandAuthentication;
-import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.common.SauceAuthentication;
+import com.saucelabs.common.SauceSessionIdProvider;
 import com.saucelabs.common.Utils;
 import com.saucelabs.saucerest.SauceREST;
 import org.junit.rules.TestWatcher;
@@ -11,20 +11,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * {@link TestWatcher} subclass that will mark a Sauce OnDemand job as passed or failed depending on the result
+ * {@link TestWatcher} subclass that will mark a Sauce Labs job as passed or failed depending on the result
  * of the test case being executed.
- * @author Ross Rowe - modifications to use {@link SauceOnDemandAuthentication}
+ * @author Ross Rowe - modifications to use {@link SauceAuthentication}
  */
-public class SauceOnDemandTestWatcher extends TestWatcher {
+public class SauceTestWatcher extends TestWatcher {
 
     /**
-     * The underlying {@link com.saucelabs.common.SauceOnDemandSessionIdProvider} instance which contains the Selenium session id.  This is typically
+     * The underlying {@link SauceSessionIdProvider} instance which contains the Selenium session id.  This is typically
      * the unit test being executed.
      */
-    private final SauceOnDemandSessionIdProvider sessionIdProvider;
+    private final SauceSessionIdProvider sessionIdProvider;
 
     /**
-     * The instance of the Sauce OnDemand Java REST API client.
+     * The instance of the Sauce Labs Java REST API client.
      */
     private final SauceREST sauceREST;
 
@@ -37,19 +37,19 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
     /**
      * @param sessionIdProvider Id provider for the current web driver session
      */
-    public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider) {
-        this(sessionIdProvider, new SauceOnDemandAuthentication());
+    public SauceTestWatcher(SauceSessionIdProvider sessionIdProvider) {
+        this(sessionIdProvider, new SauceAuthentication());
     }
 
-    public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, boolean verboseMode) {
-        this(sessionIdProvider, new SauceOnDemandAuthentication(), verboseMode);
+    public SauceTestWatcher(SauceSessionIdProvider sessionIdProvider, boolean verboseMode) {
+        this(sessionIdProvider, new SauceAuthentication(), verboseMode);
     }
 
     /**
      * @param sessionIdProvider Id provider for the current web driver session
      * @param authentication Authentication provider for the current sauce labs user
      */
-    public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, SauceOnDemandAuthentication authentication) {
+    public SauceTestWatcher(SauceSessionIdProvider sessionIdProvider, SauceAuthentication authentication) {
         this(sessionIdProvider,
                 authentication.getUsername(),
                 authentication.getAccessKey(), true);
@@ -60,7 +60,7 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
      * @param authentication Authentication provider for the current sauce labs user
      * @param verboseMode Enables verbose mode
      */
-    public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, SauceOnDemandAuthentication authentication, boolean verboseMode) {
+    public SauceTestWatcher(SauceSessionIdProvider sessionIdProvider, SauceAuthentication authentication, boolean verboseMode) {
         this(sessionIdProvider,
                 authentication.getUsername(),
                 authentication.getAccessKey(),
@@ -73,7 +73,7 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
      * @param accessKey Sauce access key
      * @param verboseMode Enables verbose mode
      */
-    public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, final String username, final String accessKey, boolean verboseMode) {
+    public SauceTestWatcher(SauceSessionIdProvider sessionIdProvider, final String username, final String accessKey, boolean verboseMode) {
         this.sessionIdProvider = sessionIdProvider;
         sauceREST = new SauceREST(username, accessKey);
         this.verboseMode = verboseMode;

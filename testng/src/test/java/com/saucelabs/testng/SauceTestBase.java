@@ -4,8 +4,8 @@ package com.saucelabs.testng;
  * @author Ross Rowe
  */
 
-import com.saucelabs.common.SauceOnDemandAuthentication;
-import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.common.SauceAuthentication;
+import com.saucelabs.common.SauceSessionIdProvider;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -21,14 +21,14 @@ import java.util.logging.Logger;
  *
  * @author Ross Rowe
  */
-@Listeners({SauceOnDemandTestListener.class})
-public class SauceTestBase implements SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider {
+@Listeners({SauceTestListener.class})
+public class SauceTestBase implements SauceSessionIdProvider, SauceAuthenticationProvider {
 
     /**
-     * Constructs a {@link com.saucelabs.common.SauceOnDemandAuthentication} instance using the supplied user name/access key.  To use the authentication
-     * supplied by environment variables or from an external file, use the no-arg {@link com.saucelabs.common.SauceOnDemandAuthentication} constructor.
+     * Constructs a {@link SauceAuthentication} instance using the supplied user name/access key.  To use the authentication
+     * supplied by environment variables or from an external file, use the no-arg {@link SauceAuthentication} constructor.
      */
-    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication();
+    public SauceAuthentication authentication = new SauceAuthentication();
 
     protected ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
 
@@ -70,7 +70,7 @@ public class SauceTestBase implements SauceOnDemandSessionIdProvider, SauceOnDem
     }
 
     @Override
-    public SauceOnDemandAuthentication getAuthentication() {
+    public SauceAuthentication getAuthentication() {
         return authentication;
     }
 }

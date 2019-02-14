@@ -6,6 +6,6 @@
     </test>
 
     <listeners>
-        <listener class-name="com.saucelabs.testng.SauceOnDemandTestListener"/>
+        <listener class-name="com.saucelabs.testng.SauceTestListener"/>
     </listeners>
 </suite>

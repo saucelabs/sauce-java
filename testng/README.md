@@ -30,11 +30,11 @@ Installation
     </repositories>
 ```
 
-2. Reference the SauceOnDemandTestListener via the following in your testng.xml file:
+2. Reference the SauceTestListener via the following in your testng.xml file:
 
 ```
     <listeners>
-        <listener class-name="com.saucelabs.testng.SauceOnDemandTestListener"/>
+        <listener class-name="com.saucelabs.testng.SauceTestListener"/>
     </listeners>
 
 ```
@@ -42,8 +42,8 @@ Installation
 3. Reference the listener within your test class, eg.
 
 ```java
-@Listeners({SauceOnDemandTestListener.class})
-public class WebDriverWithHelperTest implements SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider {
+@Listeners({SauceTestListener.class})
+public class WebDriverWithHelperTest implements com.saucelabs.common.SauceSessionIdProvider, SauceAuthenticationProvider {
 
 }
 ```

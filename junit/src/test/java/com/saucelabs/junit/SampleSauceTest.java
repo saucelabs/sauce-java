@@ -1,7 +1,7 @@
 package com.saucelabs.junit;
 
-import com.saucelabs.common.SauceOnDemandAuthentication;
-import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.common.SauceAuthentication;
+import com.saucelabs.common.SauceSessionIdProvider;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -22,24 +22,24 @@ import static org.junit.Assert.assertEquals;
  * <p/>
  * The test is annotated with the {@link ConcurrentParameterized} test runner...
  * <p/>
- * The test also includes the {@link SauceOnDemandTestWatcher}...
+ * The test also includes the {@link SauceTestWatcher}...
  *
  * @author Ross Rowe
  */
 @RunWith(ConcurrentParameterized.class)
-public class SampleSauceTest implements SauceOnDemandSessionIdProvider {
+public class SampleSauceTest implements SauceSessionIdProvider {
 
     /**
-     * Constructs a {@link SauceOnDemandAuthentication} instance using the supplied user name/access key.  To use the authentication
-     * supplied by environment variables or from an external file, use the no-arg {@link SauceOnDemandAuthentication} constructor.
+     * Constructs a {@link SauceAuthentication} instance using the supplied user name/access key.  To use the authentication
+     * supplied by environment variables or from an external file, use the no-arg {@link SauceAuthentication} constructor.
      */
-    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication();
+    public SauceAuthentication authentication = new SauceAuthentication();
 
     /**
      * JUnit Rule which will mark the Sauce Job as passed/failed when the test succeeds or fails.
      */
     @Rule
-    public SauceOnDemandTestWatcher resultReportingTestWatcher = new SauceOnDemandTestWatcher(this, authentication);
+    public SauceTestWatcher resultReportingTestWatcher = new SauceTestWatcher(this, authentication);
 
     private String browser;
     private String os;

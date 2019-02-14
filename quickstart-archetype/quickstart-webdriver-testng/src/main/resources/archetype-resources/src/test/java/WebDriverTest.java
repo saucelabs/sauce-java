@@ -1,7 +1,7 @@
 package ${groupId};
 
-import com.saucelabs.common.SauceOnDemandAuthentication;
-import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.common.SauceAuthentication;
+import com.saucelabs.common.SauceSessionIdProvider;
 import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
@@ -15,7 +15,8 @@ import java.net.URL;
 import static org.testng.Assert.assertEquals;
 
 /**
- * Simple {@link RemoteWebDriver} test that demonstrates how to run your Selenium tests with <a href="http://saucelabs.com/ondemand">Sauce OnDemand</a>.
+ * Simple {@link RemoteWebDriver} test that demonstrates how to run your Selenium tests with
+ * <a href="https://saucelabs.com/ondemand">Sauce Labs</a>.
  *
  * @author Ross Rowe
  */

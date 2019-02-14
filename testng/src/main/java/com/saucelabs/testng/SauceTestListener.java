@@ -1,7 +1,7 @@
 package com.saucelabs.testng;
 
-import com.saucelabs.common.SauceOnDemandAuthentication;
-import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.common.SauceAuthentication;
+import com.saucelabs.common.SauceSessionIdProvider;
 import com.saucelabs.common.Utils;
 import com.saucelabs.saucerest.SauceREST;
 import org.testng.ITestContext;
@@ -13,12 +13,12 @@ import java.util.Map;
 
 /**
  * Test Listener that providers helper logic for TestNG tests.  Upon startup, the class
- * will store any SELENIUM_* environment variables (typically set by a Sauce OnDemand CI
+ * will store any SELENIUM_* environment variables (typically set by a Sauce Labs CI
  * plugin) as system parameters, so that they can be retrieved by tests as parameters.
  *
  * @author Ross Rowe / Mehmet Gerceker
  */
-public class SauceOnDemandTestListener extends TestListenerAdapter {
+public class SauceTestListener extends TestListenerAdapter {
 
     private static final String SELENIUM_BROWSER = "SELENIUM_BROWSER";
     private static final String SELENIUM_PLATFORM = "SELENIUM_PLATFORM";
@@ -26,7 +26,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     private static final String SELENIUM_IS_LOCAL = "SELENIUM_IS_LOCAL";
 
     /**
-     * The instance of the Sauce OnDemand Java REST API client.
+     * The instance of the Sauce Labs Java REST API client.
      */
     private SauceREST sauceREST;
 
@@ -42,7 +42,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
 
     /**
      * Check to see if environment variables that define the Selenium browser to be used have been set (typically by
-     * a Sauce OnDemand CI plugin).  If so, then populate the appropriate system parameter, so that tests can use
+     * a Sauce Labs CI plugin).  If so, then populate the appropriate system parameter, so that tests can use
      * these values.
      *
      * @param testContext Current test context
@@ -79,16 +79,16 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
             return;
         }
 
-        SauceOnDemandAuthentication sauceOnDemandAuthentication;
-        if (result.getInstance() instanceof SauceOnDemandAuthenticationProvider) {
+        SauceAuthentication sauceAuthentication;
+        if (result.getInstance() instanceof SauceAuthenticationProvider) {
             //use the authentication information provided by the test class
-            SauceOnDemandAuthenticationProvider provider = (SauceOnDemandAuthenticationProvider) result.getInstance();
-            sauceOnDemandAuthentication = provider.getAuthentication();
+            SauceAuthenticationProvider provider = (SauceAuthenticationProvider) result.getInstance();
+            sauceAuthentication = provider.getAuthentication();
         } else {
             //otherwise use the default authentication
-            sauceOnDemandAuthentication = new SauceOnDemandAuthentication();
+            sauceAuthentication = new SauceAuthentication();
         }
-        this.sauceREST = new SauceREST(sauceOnDemandAuthentication.getUsername(), sauceOnDemandAuthentication.getAccessKey());
+        this.sauceREST = new SauceREST(sauceAuthentication.getUsername(), sauceAuthentication.getAccessKey());
     }
 
     /**
@@ -96,7 +96,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
      */
     @Override
     public void onTestFailure(ITestResult testResult) {
-        SauceOnDemandSessionIdProvider sessionIdProvider = (SauceOnDemandSessionIdProvider) testResult.getInstance();
+        SauceSessionIdProvider sessionIdProvider = (SauceSessionIdProvider) testResult.getInstance();
         if (sessionIdProvider != null && sauceREST != null) {
             String sessionId = sessionIdProvider.getSessionId();
             markJobStatus(sessionId, false);
@@ -128,7 +128,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
     }
 
     private void printOutSessionID(String sessionId, String testName) {
-        System.out.println(String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", sessionId, testName));
+        System.out.println(String.format("SauceSessionID=%1$s job-name=%2$s", sessionId, testName));
     }
 
     /**
@@ -136,7 +136,7 @@ public class SauceOnDemandTestListener extends TestListenerAdapter {
      */
     @Override
     public void onTestSuccess(ITestResult testResult) {
-        SauceOnDemandSessionIdProvider sessionIdProvider = (SauceOnDemandSessionIdProvider) testResult.getInstance();
+        SauceSessionIdProvider sessionIdProvider = (SauceSessionIdProvider) testResult.getInstance();
         String sessionId = sessionIdProvider.getSessionId();
         printOutSessionID(sessionId, testResult.getMethod().getMethodName());
         markJobStatus(sessionId, true);

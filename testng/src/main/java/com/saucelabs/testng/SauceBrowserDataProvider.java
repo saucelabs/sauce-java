@@ -19,11 +19,11 @@ import java.util.List;
  */
 public class SauceBrowserDataProvider {
 
-    public static final String SAUCE_ONDEMAND_BROWSERS = "SAUCE_ONDEMAND_BROWSERS";
+    public static final String SAUCE_BROWSERS = "SAUCE_BROWSERS";
 
     /**
      * Constructs a List of Object array instances which represent a series of browser combinations.
-     * The method retrieves and parses the value of the SAUCE_ONDEMAND_BROWSERS environment variable/system
+     * The method retrieves and parses the value of the SAUCE_BROWSERS environment variable/system
      * property which is assumed to be in JSON format.
      *
      * @param testMethod Test method consuming the data
@@ -35,7 +35,7 @@ public class SauceBrowserDataProvider {
         List<Object[]> data = new ArrayList<Object[]>();
 
         //read browsers from JSON-formatted environment variable if specified
-        String json = Utils.readPropertyOrEnv(SAUCE_ONDEMAND_BROWSERS, "");
+        String json = Utils.readPropertyOrEnv(SAUCE_BROWSERS, "");
 
         if (json == null || json.equals("")) {
             throw new IllegalArgumentException("Unable to find JSON");

@@ -1,6 +1,6 @@
 package ${groupId};
 
-import com.saucelabs.common.SauceOnDemandAuthentication;
+import com.saucelabs.common.SauceAuthentication;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,15 +13,15 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import com.saucelabs.junit.Parallelized;
 import com.saucelabs.junit.ConcurrentParameterized;
-import com.saucelabs.junit.SauceOnDemandTestWatcher;
+import com.saucelabs.junit.SauceTestWatcher;
 
 import java.net.URL;
 import java.util.LinkedList;
 
 import static org.junit.Assert.assertEquals;
 
-import com.saucelabs.common.SauceOnDemandAuthentication;
-import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.common.SauceAuthentication;
+import com.saucelabs.common.SauceSessionIdProvider;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -40,25 +40,25 @@ import static org.junit.Assert.assertEquals;
 /**
  * Demonstrates how to write a JUnit test that runs tests against Sauce Labs using multiple browsers in parallel.
  * <p/>
- * The test also includes the {@link SauceOnDemandTestWatcher} which will invoke the Sauce REST API to mark
+ * The test also includes the {@link SauceTestWatcher} which will invoke the Sauce REST API to mark
  * the test as passed or failed.
  *
  * @author Ross Rowe
  */
 @RunWith(ConcurrentParameterized.class)
-public class SampleSauceTest implements SauceOnDemandSessionIdProvider {
+public class SampleSauceTest implements com.saucelabs.common.SauceSessionIdProvider {
 
     /**
-     * Constructs a {@link SauceOnDemandAuthentication} instance using the supplied user name/access key.  To use the authentication
-     * supplied by environment variables or from an external file, use the no-arg {@link SauceOnDemandAuthentication} constructor.
+     * Constructs a {@link SauceAuthentication} instance using the supplied user name/access key.  To use the authentication
+     * supplied by environment variables or from an external file, use the no-arg {@link SauceAuthentication} constructor.
      */
-    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication("${userName}", "${accessKey}");
+    public SauceAuthentication authentication = new SauceAuthentication("${userName}", "${accessKey}");
 
     /**
      * JUnit Rule which will mark the Sauce Job as passed/failed when the test succeeds or fails.
      */
     @Rule
-    public SauceOnDemandTestWatcher resultReportingTestWatcher = new SauceOnDemandTestWatcher(this, authentication);
+    public SauceTestWatcher resultReportingTestWatcher = new SauceTestWatcher(this, authentication);
 
     /**
      * Represents the browser to be used as part of the test run.

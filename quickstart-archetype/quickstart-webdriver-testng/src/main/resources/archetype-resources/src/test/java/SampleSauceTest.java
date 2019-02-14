@@ -4,10 +4,10 @@ package ${groupId};
  * @author Ross Rowe
  */
 
-import com.saucelabs.common.SauceOnDemandAuthentication;
-import com.saucelabs.common.SauceOnDemandSessionIdProvider;
-import com.saucelabs.testng.SauceOnDemandAuthenticationProvider;
-import com.saucelabs.testng.SauceOnDemandTestListener;
+import com.saucelabs.common.SauceAuthentication;
+import com.saucelabs.common.SauceSessionIdProvider;
+import com.saucelabs.testng.SauceAuthenticationProvider;
+import com.saucelabs.testng.SauceTestListener;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -31,14 +31,14 @@ import static org.testng.Assert.assertEquals;
  *
  * @author Ross Rowe
  */
-@Listeners({SauceOnDemandTestListener.class})
-public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider {
+@Listeners({SauceTestListener.class})
+public class SampleSauceTest implements com.saucelabs.common.SauceSessionIdProvider, SauceAuthenticationProvider {
 
     /**
-     * Constructs a {@link com.saucelabs.common.SauceOnDemandAuthentication} instance using the supplied user name/access key.  To use the authentication
-     * supplied by environment variables or from an external file, use the no-arg {@link com.saucelabs.common.SauceOnDemandAuthentication} constructor.
+     * Constructs a {@link com.saucelabs.common.SauceAuthentication} instance using the supplied user name/access key.  To use the authentication
+     * supplied by environment variables or from an external file, use the no-arg {@link com.saucelabs.common.SauceAuthentication} constructor.
      */
-    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication("${userName}", "${accessKey}");
+    public SauceAuthentication authentication = new SauceAuthentication("${userName}", "${accessKey}");
 
     /**
      * ThreadLocal variable which contains the  {@link WebDriver} instance which is used to perform browser interactions with.
@@ -126,10 +126,10 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
 
     /**
      *
-     * @return the {@link SauceOnDemandAuthentication} instance containing the Sauce username/access key
+     * @return the {@link SauceAuthentication} instance containing the Sauce username/access key
      */
     @Override
-    public SauceOnDemandAuthentication getAuthentication() {
+    public SauceAuthentication getAuthentication() {
         return authentication;
     }
 }

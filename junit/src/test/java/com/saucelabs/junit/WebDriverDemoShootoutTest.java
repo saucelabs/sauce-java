@@ -1,7 +1,7 @@
 package com.saucelabs.junit;
 
-import com.saucelabs.common.SauceOnDemandAuthentication;
-import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.common.SauceAuthentication;
+import com.saucelabs.common.SauceSessionIdProvider;
 import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Platform;
@@ -18,14 +18,14 @@ import static org.junit.Assert.*;
 /**
  * @author Ross Rowe
  */
-public class WebDriverDemoShootoutTest implements SauceOnDemandSessionIdProvider {
+public class WebDriverDemoShootoutTest implements SauceSessionIdProvider {
 
-    public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication();
+    public SauceAuthentication authentication = new SauceAuthentication();
 
     public
     @Rule
-    SauceOnDemandTestWatcher resultReportingTestWatcher = new
-            SauceOnDemandTestWatcher(this, authentication);
+    SauceTestWatcher resultReportingTestWatcher = new
+        SauceTestWatcher(this, authentication);
 
     private WebDriver driver;
 

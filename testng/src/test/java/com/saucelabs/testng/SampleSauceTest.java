@@ -20,7 +20,7 @@ import static org.testng.Assert.assertEquals;
  *
  * @author Russ Rowe / Mehmet Gerceker
  */
-@Listeners({SauceOnDemandTestListener.class})
+@Listeners({SauceTestListener.class})
 public class SampleSauceTest extends SauceTestBase {
 
     /**
