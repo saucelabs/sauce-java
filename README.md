@@ -1,6 +1,7 @@
 Sauce Java Helper libraries
 ==========
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7ac060ba64c047fa897980f2bc176f49)](https://app.codacy.com/app/SauceLabs/sauce-java?utm_source=github.com&utm_medium=referral&utm_content=saucelabs/sauce-java&utm_campaign=Badge_Grade_Dashboard)
 [![codecov.io](https://codecov.io/github/saucelabs/sauce-java/coverage.svg?branch=master)](https://codecov.io/github/saucelabs/sauce-java?branch=master)
 
 This project contains helper libraries for consuming Sauce Labs services from Java using [TestNG](http://www.testng.org)
