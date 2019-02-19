@@ -9,7 +9,7 @@ import java.util.Properties;
 
 /**
  * Stores the Sauce OnDemand authentication (retrieved from
- * either System properties/environment variables or by parsing the ~/.sauce-ondemand file).
+ * either System properties/environment variables.
  * The authentication information information will also be made available by the getter methods, so
  * that it can be used when constructing Sauce OnDemand request URLs.
  *
@@ -45,26 +45,17 @@ public class SauceOnDemandAuthentication {
     private static final String SAUCE_ACCESS_KEY = "SAUCE_ACCESS_KEY";
 
     /**
-     * Constructs a new instance, first attempting to populate the username/access key
-     * from system properties/environment variables.  If none are found, then attempt
-     * to parse a ~/.sauce-ondemand file.
+     * Constructs a new instance by the username/access key from system properties/environment variables.
      */
     public SauceOnDemandAuthentication() {
-        //first try to retrieve information from properties/environment variables
+        // Different plugins store this value in different Environment Variables
         this.username = getPropertyOrEnvironmentVariable(SAUCE_USER_NAME);
         if (username == null || username.equals("")) {
-            //try the SAUCE_USERNAME environment variable
             this.username = getPropertyOrEnvironmentVariable(SAUCE_USERNAME);
         }
         this.accessKey = getPropertyOrEnvironmentVariable(SAUCE_API_KEY);
         if (accessKey == null || accessKey.equals("")) {
-            //try the SAUCE_ACCESS_KEY environment variable
             this.accessKey = getPropertyOrEnvironmentVariable(SAUCE_ACCESS_KEY);
-        }
-
-        //if nothing set, try to parse ~/.sauce-ondemand
-        if (username == null || accessKey == null) {
-            loadCredentialsFromFile(getDefaultCredentialFile());
         }
     }
 
@@ -94,16 +85,6 @@ public class SauceOnDemandAuthentication {
                 //ignore error and continue
             }
         }
-    }
-
-    /**
-     * Location of the default credential file. "~/.sauce-ondemand"
-     * This common convention allows all the tools that interact with Sauce OnDemand REST API
-     * to use the single credential, thereby simplifying the user configuration.
-     * @return File object for the "~/.sauce-ondemand" credential file
-     */
-    public static File getDefaultCredentialFile() {
-        return new File(new File(System.getProperty("user.home")), ".sauce-ondemand");
     }
 
     private static String getPropertyOrEnvironmentVariable(String property) {

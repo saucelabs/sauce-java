@@ -10,8 +10,6 @@
     <name>quickstart-archetype</name>
     <packaging>pom</packaging>
     <modules>
-        <module>quickstart-seleniumrc-junit</module>
-        <module>quickstart-seleniumrc-testng</module>
         <module>quickstart-webdriver-junit</module>
         <module>quickstart-webdriver-testng</module>
     </modules>
