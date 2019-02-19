@@ -6,8 +6,9 @@ install: true
 script:
 - mvn test -B -V
 jdk:
+- oraclejdk11
+- oraclejdk9
 - oraclejdk8
-- openjdk7
 after_success:
 - codecov
 notifications:
