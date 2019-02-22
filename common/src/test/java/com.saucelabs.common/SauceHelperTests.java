@@ -15,18 +15,20 @@ public class SauceHelperTests {
     @Test
     public void shouldReturnPassedForTrueResult()
     {
-
-        assertEquals("sauce:job-result=true", sauceHelper.getTestResultString(true));
+        assertStringsEqual("sauce:job-result=", true);
     }
     @Test
     public void shouldReturnFailedForFalseResult()
     {
-        assertEquals("sauce:job-result=false", sauceHelper.getTestResultString(false));
+        assertStringsEqual("sauce:job-result=", false);
     }
     @Test
     public void shouldReturnCorrectStringForTestName()
     {
         String testName = "MyTestName";
         assertEquals("sauce:job-name=" + testName, sauceHelper.getTestNameString(testName));
+    }
+    private void assertStringsEqual(String s, boolean b) {
+        assertEquals(s + b, sauceHelper.getTestResultString(b));
     }
 }
