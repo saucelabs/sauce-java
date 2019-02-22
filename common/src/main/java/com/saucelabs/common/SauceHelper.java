@@ -9,4 +9,8 @@ public class SauceHelper {
     public String getTestNameString(String testName) {
         return "sauce:job-name=" + testName;
     }
+
+    public String getCommentString(String comment) {
+        return "sauce:context=" + comment;
+    }
 }
