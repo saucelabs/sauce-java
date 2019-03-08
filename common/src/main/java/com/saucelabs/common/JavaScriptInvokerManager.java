@@ -3,11 +3,11 @@ package com.saucelabs.common;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
-public class JavaScriptRunnerManager implements JavaScriptExecutor {
+public class JavaScriptInvokerManager implements JavaScriptExecutor {
     private final WebDriver webDriver;
 
 
-    public JavaScriptRunnerManager(WebDriver driver)
+    public JavaScriptInvokerManager(WebDriver driver)
     {
         webDriver = driver;
     }
