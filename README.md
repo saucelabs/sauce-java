@@ -8,7 +8,6 @@ This project contains helper libraries for consuming Sauce Labs services from Ja
 and/or [JUnit](http://www.junit.org).
 
 The helper libraries provide the following functionality:
-
 * Invoke the Sauce REST API to mark a Sauce Job as passed/failed, based on the test result
 * Output the Sauce Session Id to the stdout, so that the Sauce Continuous Integration plugins (for Bamboo/Jenkins/Hudson)
 can parse the output)
