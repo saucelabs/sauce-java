@@ -3,6 +3,7 @@ package com.saucelabs.junit;
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 import com.saucelabs.common.Utils;
+import com.saucelabs.saucerest.DataCenter;
 import com.saucelabs.saucerest.SauceREST;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
@@ -75,7 +76,20 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
      */
     public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, final String username, final String accessKey, boolean verboseMode) {
         this.sessionIdProvider = sessionIdProvider;
-        sauceREST = new SauceREST(username, accessKey);
+        sauceREST = new SauceREST(username, accessKey, DataCenter.US);
+        this.verboseMode = verboseMode;
+    }
+
+    /**
+     * @param sessionIdProvider Id provider for the current web driver session
+     * @param username Sauce user name
+     * @param accessKey Sauce access key
+     * @param verboseMode Enables verbose mode
+     * @param dataCenter - data center for running test EU or US - US is default
+     */
+    public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, final String username, final String accessKey, boolean verboseMode, DataCenter dataCenter) {
+        this.sessionIdProvider = sessionIdProvider;
+        sauceREST = new SauceREST(username, accessKey, dataCenter);
         this.verboseMode = verboseMode;
     }
 
