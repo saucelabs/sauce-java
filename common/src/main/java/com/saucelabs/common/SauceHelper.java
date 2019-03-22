@@ -13,8 +13,12 @@ public class SauceHelper {
     public SauceHelper() {
     }
 
-    public String getTestResultString(boolean result) {
-        return "sauce:job-result=" + result;
+    //TODO duplication of 'sauce:jobresult' string and concatenation
+    public String getTestResultString(boolean testResult) {
+        return "sauce:job-result=" + testResult;
+    }
+    private String getTestResultString(String testResult) {
+        return "sauce:job-result=" + testResult;
     }
 
     public String getTestNameString(String testName) {
@@ -33,7 +37,5 @@ public class SauceHelper {
         new JavaScriptInvoker(webDriver).executeScript(getTestResultString(testResult));
     }
 
-    private String getTestResultString(String testResult) {
-        return getTestResultString(Boolean.getBoolean(testResult));
-    }
+
 }
