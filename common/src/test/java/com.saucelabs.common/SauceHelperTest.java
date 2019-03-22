@@ -39,11 +39,11 @@ public class SauceHelperTest {
     @Test
     public void shouldRunExecuteStringMethodWithoutDefaultManagerSet()
     {
-        JavaScriptInvokerManager mockCustomJsManager = mock(JavaScriptInvokerManager.class);
-        JavaScriptInvokerFactory.setJavaScriptInvoker(mockCustomJsManager);
+        JavaScriptInvokerManager javascriptExecutor = mock(JavaScriptInvokerManager.class);
+        JavaScriptInvokerFactory.setJavaScriptInvoker(javascriptExecutor);
 
         sauceHelper.setTestStatus("pass");
-        verify(mockCustomJsManager, times(1)).executeScript("sauce:job-result=pass");
+        verify(javascriptExecutor, times(1)).executeScript("sauce:job-result=pass");
     }
     private void assertStringsEqual(String s, boolean b) {
         assertEquals(s + b, sauceHelper.getTestResultString(b));
