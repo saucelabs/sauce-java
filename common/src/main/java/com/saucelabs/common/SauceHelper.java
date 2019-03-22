@@ -29,10 +29,6 @@ public class SauceHelper {
         return "sauce:context=" + comment;
     }
 
-    public void comment(String comment) {
-        new JavaScriptInvoker(webDriver).executeScript(getCommentString(comment));
-    }
-
     public void setTestStatus(String testResult) {
         new JavaScriptInvoker(webDriver).executeScript(getTestResultString(testResult));
     }

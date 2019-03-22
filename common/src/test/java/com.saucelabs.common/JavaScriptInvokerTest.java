@@ -1,39 +1,29 @@
 package com.saucelabs.common;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
-public class JavaScriptInvokerTest
+public class JavaScriptInvokerTest extends BaseTest
 {
-    WebDriver mockDriver;
-    @Before
-    public void runBeforeTest()
-    {
-        mockDriver = mock(WebDriver.class);
-    }
     @Test
-    public void shouldReturnObjectForTheManager()
+    public void shouldExecuteScriptOneTimeWhenMockManagerIsSet()
     {
         JavaScriptInvokerManager mockJsManager = mock(JavaScriptInvokerManager.class);
-        when(mockJsManager.executeScript("test")).thenReturn(Object.class);
 
-        JavaScriptInvokerFactory.setJavaScriptManager(mockJsManager);
-        JavaScriptInvoker js = new JavaScriptInvoker(mockDriver);
-        Object obj = js.executeScript("test");
-        assertThat(obj, instanceOf(Object.class));
+        JavaScriptInvokerFactory.setJavaScriptInvoker(mockJsManager);
+        JavaScriptInvoker js = new JavaScriptInvoker(mockWebDriver);
+        js.executeScript("test");
+        verify(mockJsManager, times(1)).executeScript("test");
     }
 
     @Test
     public void shouldReturnJavaScriptInvokerWhenManagerNotSet()
     {
-        JavaScriptInvoker js = new JavaScriptInvoker(mockDriver);
+        JavaScriptInvoker js = new JavaScriptInvoker(mockWebDriver);
         assertThat(js, instanceOf(JavaScriptInvoker.class));
     }
 }
