@@ -21,12 +21,19 @@ public class JavaScriptInvokerTest
     @Test
     public void shouldReturnObjectForTheManager()
     {
-        JavaScriptInvokerManager mockJS = mock(JavaScriptInvokerManager.class);
-        when(mockJS.executeScript("test")).thenReturn(Object.class);
+        JavaScriptInvokerManager mockJsManager = mock(JavaScriptInvokerManager.class);
+        when(mockJsManager.executeScript("test")).thenReturn(Object.class);
 
-        JavaScriptInvokerFactory.setJavaScriptManager(mockJS);
+        JavaScriptInvokerFactory.setJavaScriptManager(mockJsManager);
         JavaScriptInvoker js = new JavaScriptInvoker(mockDriver);
         Object obj = js.executeScript("test");
         assertThat(obj, instanceOf(Object.class));
+    }
+
+    @Test
+    public void shouldReturnJavaScriptInvokerWhenManagerNotSet()
+    {
+        JavaScriptInvoker js = new JavaScriptInvoker(mockDriver);
+        assertThat(js, instanceOf(JavaScriptInvoker.class));
     }
 }
