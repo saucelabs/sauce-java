@@ -26,4 +26,5 @@ public class JavaScriptInvokerTest extends BaseTest
         JavaScriptInvoker js = new JavaScriptInvoker(mockWebDriver);
         assertThat(js, instanceOf(JavaScriptInvoker.class));
     }
+
 }

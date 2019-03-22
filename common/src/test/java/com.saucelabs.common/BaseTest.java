@@ -1,5 +1,6 @@
 package com.saucelabs.common;
 
+import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 
@@ -11,5 +12,10 @@ public class BaseTest {
     public void runBeforeTest()
     {
         mockWebDriver = mock(WebDriver.class);
+    }
+    @After
+    public void afterEveryTest()
+    {
+        JavaScriptInvokerFactory.setJavaScriptInvoker(null);
     }
 }

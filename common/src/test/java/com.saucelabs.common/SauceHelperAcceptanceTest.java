@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.saucelabs.saucerest.DataCenter;
 import com.saucelabs.saucerest.SauceREST;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.MutableCapabilities;
@@ -22,6 +23,7 @@ public class SauceHelperAcceptanceTest
     private String username = System.getenv("SAUCE_USERNAME");
     private String accesskey = System.getenv("SAUCE_ACCESS_KEY");
     String SAUCE_REMOTE_URL = "https://ondemand.saucelabs.com/wd/hub";
+    private WebDriver driver;
 
     @Test
     public void shouldSetTestStatusToPassed() throws MalformedURLException {
@@ -29,18 +31,22 @@ public class SauceHelperAcceptanceTest
         MutableCapabilities sauceOptions = getMutableCapabilities();
 
         caps.setCapability("sauce:options", sauceOptions);
-        WebDriver driver = new RemoteWebDriver(new URL(SAUCE_REMOTE_URL), caps);
+        driver = new RemoteWebDriver(new URL(SAUCE_REMOTE_URL), caps);
         SessionId sessionId = ((RemoteWebDriver) driver).getSessionId();
 
         driver.navigate().to("https://www.saucedemo.com");
         SauceHelper sauceHelper = new SauceHelper(driver);
         sauceHelper.setTestStatus("passed");
-        driver.quit();
 
         SauceREST sauceRest = new SauceREST(username, accesskey, DataCenter.US);
         String job = sauceRest.getJobInfo(sessionId.toString());
         JsonElement jsonArray = new JsonParser().parse(job);
         Assert.assertEquals(true, ((JsonObject) jsonArray).get("passed").getAsBoolean());
+    }
+    @After
+    public void afterTest()
+    {
+        driver.quit();
     }
 
     private MutableCapabilities getMutableCapabilities() {
