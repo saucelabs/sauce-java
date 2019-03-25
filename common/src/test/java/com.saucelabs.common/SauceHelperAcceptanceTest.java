@@ -41,7 +41,8 @@ public class SauceHelperAcceptanceTest
         SauceREST sauceRest = new SauceREST(username, accesskey, DataCenter.US);
         String job = sauceRest.getJobInfo(sessionId.toString());
         JsonElement jsonArray = new JsonParser().parse(job);
-        Assert.assertEquals(true, ((JsonObject) jsonArray).get("passed").getAsBoolean());
+        Assert.assertFalse("The job info request returned Null: " + sessionId.toString(), jsonArray.isJsonNull());
+        Assert.assertTrue(((JsonObject) jsonArray).get("passed").getAsBoolean());
     }
     @After
     public void afterTest()
