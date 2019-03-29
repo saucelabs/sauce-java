@@ -3,10 +3,7 @@ package com.saucelabs.common;
 import com.saucelabs.saucerest.DataCenter;
 import com.saucelabs.saucerest.SauceREST;
 import io.restassured.path.json.JsonPath;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.TestName;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.MutableCapabilities;
@@ -25,20 +22,25 @@ public class SauceHelperAcceptanceTest
     private String accesskey = System.getenv("SAUCE_ACCESS_KEY");
     String SAUCE_REMOTE_URL = "https://ondemand.saucelabs.com/wd/hub";
     private WebDriver driver;
+    SessionId sessionId;
 
     @Rule
     public TestName testName = new TestName();
 
-    @Test
-    public void shouldSetTestStatusToPassed() throws MalformedURLException {
+    @Before
+    public void runBeforeEachTest() throws MalformedURLException {
         ChromeOptions caps = getChromeOptions();
         MutableCapabilities sauceOptions = getMutableCapabilities();
-
         caps.setCapability("sauce:options", sauceOptions);
         driver = new RemoteWebDriver(new URL(SAUCE_REMOTE_URL), caps);
-        SessionId sessionId = ((RemoteWebDriver) driver).getSessionId();
+        sessionId = ((RemoteWebDriver) driver).getSessionId();
 
         driver.navigate().to("https://www.saucedemo.com");
+    }
+
+    @Test
+    public void shouldSetTestStatusToPassed(){
+
         SauceHelper sauceHelper = new SauceHelper(driver);
         sauceHelper.setTestStatus("passed");
         driver.quit();
@@ -49,15 +51,7 @@ public class SauceHelperAcceptanceTest
         Assert.assertEquals(true, isPassed);
     }
     @Test
-    public void shouldSetTestStatusToPassedWithSeleniumJSExecutor() throws MalformedURLException {
-        ChromeOptions caps = getChromeOptions();
-        MutableCapabilities sauceOptions = getMutableCapabilities();
-
-        caps.setCapability("sauce:options", sauceOptions);
-        driver = new RemoteWebDriver(new URL(SAUCE_REMOTE_URL), caps);
-        SessionId sessionId = ((RemoteWebDriver) driver).getSessionId();
-
-        driver.navigate().to("https://www.saucedemo.com");
+    public void shouldSetTestStatusToPassedWithSeleniumJSExecutor(){
         ((JavascriptExecutor)driver).executeScript("sauce:job-result=passed");
         driver.quit();
 
