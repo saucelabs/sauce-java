@@ -3,7 +3,7 @@ package com.saucelabs.common;
 import org.openqa.selenium.WebDriver;
 
 public class JavaScriptInvoker {
-    private JavaScriptInvokerManager manager;
+    private JavaScriptInvokerImpl manager;
     public JavaScriptInvoker(WebDriver driver)
     {
         manager = JavaScriptInvokerFactory.create(driver);

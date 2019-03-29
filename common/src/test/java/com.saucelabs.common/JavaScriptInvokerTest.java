@@ -12,7 +12,7 @@ public class JavaScriptInvokerTest extends BaseTest
     @Test
     public void shouldExecuteScriptOneTimeWhenMockManagerIsSet()
     {
-        JavaScriptInvokerManager mockJsManager = mock(JavaScriptInvokerManager.class);
+        JavaScriptInvokerImpl mockJsManager = mock(JavaScriptInvokerImpl.class);
 
         JavaScriptInvokerFactory.setJavaScriptInvoker(mockJsManager);
         JavaScriptInvoker js = new JavaScriptInvoker(mockWebDriver);

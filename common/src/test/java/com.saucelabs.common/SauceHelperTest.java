@@ -39,7 +39,7 @@ public class SauceHelperTest {
     @Test
     public void shouldRunExecuteStringMethodWithoutDefaultManagerSet()
     {
-        JavaScriptInvokerManager javascriptExecutor = mock(JavaScriptInvokerManager.class);
+        JavaScriptInvokerImpl javascriptExecutor = mock(JavaScriptInvokerImpl.class);
         JavaScriptInvokerFactory.setJavaScriptInvoker(javascriptExecutor);
 
         sauceHelper.setTestStatus("pass");

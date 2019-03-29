@@ -10,7 +10,7 @@ public class JavaScriptInvokerFactoryTest extends BaseTest{
     @Test
     public void shouldReturnObjectForTheManager()
     {
-        JavaScriptInvokerManager jsManager = JavaScriptInvokerFactory.create(mockWebDriver);
-        assertThat(jsManager, instanceOf(JavaScriptInvokerManager.class));
+        JavaScriptInvokerImpl jsManager = JavaScriptInvokerFactory.create(mockWebDriver);
+        assertThat(jsManager, instanceOf(JavaScriptInvokerImpl.class));
     }
 }
