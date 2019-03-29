@@ -3,12 +3,12 @@ package com.saucelabs.common;
 import org.openqa.selenium.WebDriver;
 
 public class JavaScriptInvoker {
-    private JavaScriptInvokerImpl manager;
+    private JavaScriptInvokerImpl jsInvokerImplementation;
     public JavaScriptInvoker(WebDriver driver)
     {
-        manager = JavaScriptInvokerFactory.create(driver);
+        jsInvokerImplementation = JavaScriptInvokerFactory.create(driver);
     }
     public Object executeScript(String script){
-        return manager.executeScript(script);
+        return jsInvokerImplementation.executeScript(script);
     }
 }

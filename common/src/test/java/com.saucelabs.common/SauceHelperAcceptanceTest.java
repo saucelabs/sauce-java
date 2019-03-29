@@ -47,8 +47,6 @@ public class SauceHelperAcceptanceTest
         String jobInfo = sauceRest.getJobInfo(sessionId.toString());
         Boolean isPassed = checkIfTestPassed(jobInfo);
         Assert.assertEquals(true, isPassed);
-        //JsonElement jsonArray = new JsonParser().parse(job);
-        //Assert.assertEquals(true, ((JsonObject) jsonArray).get("passed").getAsBoolean());
     }
     @Test
     public void shouldSetTestStatusToPassedWithSeleniumJSExecutor() throws MalformedURLException {
