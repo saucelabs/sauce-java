@@ -1,13 +1,14 @@
 package com.saucelabs.common;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.saucelabs.saucerest.DataCenter;
 import com.saucelabs.saucerest.SauceREST;
+import io.restassured.path.json.JsonPath;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -25,6 +26,9 @@ public class SauceHelperAcceptanceTest
     String SAUCE_REMOTE_URL = "https://ondemand.saucelabs.com/wd/hub";
     private WebDriver driver;
 
+    @Rule
+    public TestName testName = new TestName();
+
     @Test
     public void shouldSetTestStatusToPassed() throws MalformedURLException {
         ChromeOptions caps = getChromeOptions();
@@ -37,16 +41,40 @@ public class SauceHelperAcceptanceTest
         driver.navigate().to("https://www.saucedemo.com");
         SauceHelper sauceHelper = new SauceHelper(driver);
         sauceHelper.setTestStatus("passed");
+        driver.quit();
 
         SauceREST sauceRest = new SauceREST(username, accesskey, DataCenter.US);
-        String job = sauceRest.getJobInfo(sessionId.toString());
-        JsonElement jsonArray = new JsonParser().parse(job);
-        Assert.assertEquals(true, ((JsonObject) jsonArray).get("passed").getAsBoolean());
+        String jobInfo = sauceRest.getJobInfo(sessionId.toString());
+        Boolean isPassed = checkIfTestPassed(jobInfo);
+        Assert.assertEquals(true, isPassed);
+        //JsonElement jsonArray = new JsonParser().parse(job);
+        //Assert.assertEquals(true, ((JsonObject) jsonArray).get("passed").getAsBoolean());
     }
+    @Test
+    public void shouldSetTestStatusToPassedWithSeleniumJSExecutor() throws MalformedURLException {
+        ChromeOptions caps = getChromeOptions();
+        MutableCapabilities sauceOptions = getMutableCapabilities();
+
+        caps.setCapability("sauce:options", sauceOptions);
+        driver = new RemoteWebDriver(new URL(SAUCE_REMOTE_URL), caps);
+        SessionId sessionId = ((RemoteWebDriver) driver).getSessionId();
+
+        driver.navigate().to("https://www.saucedemo.com");
+        ((JavascriptExecutor)driver).executeScript("sauce:job-result=passed");
+        driver.quit();
+
+        SauceREST sauceRest = new SauceREST(username, accesskey, DataCenter.US);
+        String jobInfo = sauceRest.getJobInfo(sessionId.toString());
+        Boolean isPassed = checkIfTestPassed(jobInfo);
+        Assert.assertEquals(true, isPassed);
+    }
+
     @After
     public void afterTest()
     {
-        driver.quit();
+        if(driver != null){
+            driver.quit();
+        }
     }
 
     private MutableCapabilities getMutableCapabilities() {
@@ -55,7 +83,7 @@ public class SauceHelperAcceptanceTest
         sauceOptions.setCapability("username", username);
         sauceOptions.setCapability("accessKey", accesskey);
         sauceOptions.setCapability("seleniumVersion", "3.141.59");
-        sauceOptions.setCapability("name", "shouldPassTest");
+        sauceOptions.setCapability("name", getTestName());
         return sauceOptions;
     }
 
@@ -67,36 +95,21 @@ public class SauceHelperAcceptanceTest
         caps.setExperimentalOption("w3c", true);
         return caps;
     }
+    private Boolean checkIfTestPassed(String jobInfo) {
+        Boolean isPassed;
+        try
+        {
+            isPassed = JsonPath.from(jobInfo).getBoolean("passed");
+        }
+        catch(NullPointerException e)
+        {
+            isPassed = false;
+        }
+        return isPassed;
+    }
+    public String getTestName()
+    {
+        return this.getClass().getSimpleName() + " " + testName.getMethodName();
+    }
     //TODO need a test that doesn't set the test status with JS executor, in which case "passed" should be null
-    //TODO need a test that makes sure that the JS executor from Selenium works as expected
-//    @Test
-//    public void shouldSetTestToPassUsingJSExecutor() throws MalformedURLException {
-//        ChromeOptions caps = new ChromeOptions();
-//        caps.setCapability("version", "72.0");
-//        caps.setCapability("platform", "Windows 10");
-//        caps.setExperimentalOption("w3c", true);
-//
-//        MutableCapabilities sauceOptions = new MutableCapabilities();
-//        sauceOptions.setCapability("username", username);
-//        sauceOptions.setCapability("accessKey", accesskey);
-//        sauceOptions.setCapability("seleniumVersion", "3.141.59");
-//        sauceOptions.setCapability("name", "shouldPassTest");
-//
-//        caps.setCapability("sauce:options", sauceOptions);
-//        String SAUCE_REMOTE_URL = "https://ondemand.saucelabs.com/wd/hub";
-//        WebDriver driver = new RemoteWebDriver(new URL(SAUCE_REMOTE_URL), caps);
-//        SessionId sessionId = ((RemoteWebDriver) driver).getSessionId();
-//        driver.navigate().to("https://www.saucedemo.com");
-//        SauceHelper sauceHelper = new SauceHelper(driver);
-//
-//        //((JavascriptExecutor)driver).executeScript("sauce:job-result=passed");
-//        //sauceHelper.setTestStatus("passed");
-//        SauceREST sauceRest = new SauceREST(username, accesskey, DataCenter.US);
-//        String job = sauceRest.getJobInfo(sessionId.toString());
-////        Gson gson = new Gson();
-////        String json = gson.toJson(job);
-////        String[] jsonArr = gson.fromJson(json, String[].class);
-//        //Assert.assertEquals();
-//        driver.quit();
-//    }
 }
