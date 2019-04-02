@@ -45,20 +45,27 @@ public class SauceHelperAcceptanceTest
         sauceHelper.setTestStatus("passed");
         driver.quit();
 
-        SauceREST sauceRest = new SauceREST(username, accesskey, DataCenter.US);
-        String jobInfo = sauceRest.getJobInfo(sessionId.toString());
-        Boolean isPassed = checkIfTestPassed(jobInfo);
-        Assert.assertEquals(true, isPassed);
+        String jobInfo = getSauceJobInformation();
+        assertAcceptanceTestPassed(jobInfo);
     }
+
+    private void assertAcceptanceTestPassed(String jobInfo) {
+        Boolean isTestPassed = checkIfTestPassed(jobInfo);
+        Assert.assertTrue(isTestPassed);
+    }
+
+    private String getSauceJobInformation() {
+        SauceREST sauceRest = new SauceREST(username, accesskey, DataCenter.US);
+        return sauceRest.getJobInfo(sessionId.toString());
+    }
+
     @Test
     public void shouldSetTestStatusToPassedWithSeleniumJSExecutor(){
         ((JavascriptExecutor)driver).executeScript("sauce:job-result=passed");
         driver.quit();
 
-        SauceREST sauceRest = new SauceREST(username, accesskey, DataCenter.US);
-        String jobInfo = sauceRest.getJobInfo(sessionId.toString());
-        Boolean isPassed = checkIfTestPassed(jobInfo);
-        Assert.assertEquals(true, isPassed);
+        String jobInfo = getSauceJobInformation();
+        assertAcceptanceTestPassed(jobInfo);
     }
 
     @After

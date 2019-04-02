@@ -32,6 +32,4 @@ public class SauceHelper {
     public void setTestStatus(String testResult) {
         new JavaScriptInvoker(webDriver).executeScript(getTestResultString(testResult));
     }
-
-
 }
