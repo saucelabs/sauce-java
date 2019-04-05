@@ -3,7 +3,6 @@ package com.saucelabs.common;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 
@@ -18,33 +17,6 @@ public class SauceHelperTest extends BaseUnitTest {
         mockJSExecutor = mock(JavaScriptExecutor.class);
         JavaScriptInvokerFactory.setJavaScriptExecutor(mockJSExecutor);
     }
-
-    @Test
-    public void shouldReturnPassedForTrueResult()
-    {
-        assertStringsEqual("sauce:job-result=", true);
-    }
-    private void assertStringsEqual(String s, boolean b) {
-        assertEquals(s + b, sauceHelper.getTestResultString(b));
-    }
-
-    @Test
-    public void shouldReturnFailedForFalseResult()
-    {
-        assertStringsEqual("sauce:job-result=", false);
-    }
-    @Test
-    public void shouldReturnCorrectStringForTestName()
-    {
-        String testName = "MyTestName";
-        assertEquals("sauce:job-name=" + testName, sauceHelper.getTestNameString(testName));
-    }
-    @Test
-    public void shouldReturnSauceContextString()
-    {
-        String comment = "This is a comment";
-        assertEquals("sauce:context=" + comment, sauceHelper.getCommentString(comment));
-    }
     @Test
     public void shouldRunExecuteStringMethodWithoutDefaultManagerSet()
     {
@@ -54,14 +26,25 @@ public class SauceHelperTest extends BaseUnitTest {
     @Test
     public void shouldSetTestName()
     {
+        String testName = "testName";
         sauceHelper.setTestName("testName");
-        verify(mockJSExecutor, times(1)).executeScript("sauce:job-name=testName");
+        verify(mockJSExecutor, times(1)).
+            executeScript(SauceJavaScriptStrings.testNamePrefix + testName);
     }
     @Test
     public void shouldSetTags()
     {
         String tags = "tag1,tag2,tag3";
         sauceHelper.setTestTags(tags);
-        verify(mockJSExecutor, times(1)).executeScript("sauce:job-tags=" + tags);
+        verify(mockJSExecutor, times(1)).
+            executeScript(SauceJavaScriptStrings.tagsPrefix + tags);
+    }
+    @Test
+    public void shouldComment()
+    {
+        String comment = "a comment";
+        sauceHelper.comment(comment);
+        verify(mockJSExecutor, times(1)).
+            executeScript(SauceJavaScriptStrings.sauceContextPrefix + comment);
     }
 }

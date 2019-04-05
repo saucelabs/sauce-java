@@ -34,10 +34,14 @@ public class SauceHelper {
     }
 
     public void setTestName(String testName) {
-        new JavaScriptInvoker(webDriver).executeScript(getTestNameString(testName));
+        new JavaScriptInvoker(webDriver).executeScript(SauceJavaScriptStrings.testNamePrefix + testName);
     }
 
     public void setTestTags(String tags) {
-        new JavaScriptInvoker(webDriver).executeScript(SauceJavaScriptStrings.TagsPrefix + tags);
+        new JavaScriptInvoker(webDriver).executeScript(SauceJavaScriptStrings.tagsPrefix + tags);
+    }
+
+    public void comment(String comment) {
+        new JavaScriptInvoker(webDriver).executeScript(SauceJavaScriptStrings.sauceContextPrefix + comment);
     }
 }
