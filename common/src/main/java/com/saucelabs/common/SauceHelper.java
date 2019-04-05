@@ -21,16 +21,19 @@ public class SauceHelper {
         return "sauce:job-result=" + testResult;
     }
 
-    public String getTestNameString(String testName) {
-        return "sauce:job-name=" + testName;
-    }
-
-    public String getCommentString(String comment) {
-        return "sauce:context=" + comment;
-    }
-
-    public void setTestStatus(String testResult) {
+    public void setTestStatus(String testResult) throws InvalidTestStatusException {
+        //TODO finish implementation
+        //testResult = testResult.toLowerCase();
+        //isValidTestStatus(testResult);
         new JavaScriptInvoker(webDriver).executeScript(getTestResultString(testResult));
+    }
+
+    private void isValidTestStatus(String testResult) throws InvalidTestStatusException {
+        if(testResult != "passed" || testResult != "failed" ||
+            testResult != "true" || testResult != "false")
+        {
+            throw new InvalidTestStatusException();
+        }
     }
 
     public void setTestName(String testName) {
@@ -43,5 +46,13 @@ public class SauceHelper {
 
     public void comment(String comment) {
         new JavaScriptInvoker(webDriver).executeScript(SauceJavaScriptStrings.sauceContextPrefix + comment);
+    }
+
+    public void setBuildName(String buildName) {
+        new JavaScriptInvoker(webDriver).executeScript(SauceJavaScriptStrings.buildPrefix + buildName);
+    }
+
+    public void setBreakpoint() {
+        new JavaScriptInvoker(webDriver).executeScript(SauceJavaScriptStrings.breakStatement);
     }
 }

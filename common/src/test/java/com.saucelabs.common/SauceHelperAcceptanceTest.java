@@ -39,7 +39,7 @@ public class SauceHelperAcceptanceTest
     }
 
     @Test
-    public void shouldSetTestStatusToPassed(){
+    public void shouldSetTestStatusToPassed() throws InvalidTestStatusException {
         SauceHelper sauceHelper = new SauceHelper(driver);
         sauceHelper.setTestStatus("passed");
         driver.quit();

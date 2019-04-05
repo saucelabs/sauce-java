@@ -18,8 +18,7 @@ public class SauceHelperTest extends BaseUnitTest {
         JavaScriptInvokerFactory.setJavaScriptExecutor(mockJSExecutor);
     }
     @Test
-    public void shouldRunExecuteStringMethodWithoutDefaultManagerSet()
-    {
+    public void shouldRunExecuteStringMethodWithoutDefaultManagerSet() throws InvalidTestStatusException {
         sauceHelper.setTestStatus("pass");
         verify(mockJSExecutor, times(1)).executeScript("sauce:job-result=pass");
     }
@@ -46,5 +45,50 @@ public class SauceHelperTest extends BaseUnitTest {
         sauceHelper.comment(comment);
         verify(mockJSExecutor, times(1)).
             executeScript(SauceJavaScriptStrings.sauceContextPrefix + comment);
+    }
+
+    @Test
+    public void shouldSetBuildName()
+    {
+        String buildName = "myBuild";
+        sauceHelper.setBuildName(buildName);
+        verify(mockJSExecutor, times(1)).
+            executeScript(SauceJavaScriptStrings.buildPrefix + buildName);
+    }
+    @Test
+    public void shouldSetBreakpoint()
+    {
+        sauceHelper.setBreakpoint();
+        verify(mockJSExecutor, times(1)).
+            executeScript(SauceJavaScriptStrings.breakStatement);
+    }
+    @Test
+    public void shouldSetTestStatusWithPass() throws InvalidTestStatusException {
+        String testStatus = "pass";
+        sauceHelper.setTestStatus(testStatus);
+        verifyTestStatus(testStatus);
+    }
+    @Test
+    public void shouldSetTestStatusWithTrue() throws InvalidTestStatusException {
+        String testStatus = "true";
+        sauceHelper.setTestStatus(testStatus);
+        verifyTestStatus(testStatus);
+    }
+    @Test
+    public void shouldSetTestStatusWithFailed() throws InvalidTestStatusException {
+        String testStatus = "failed";
+        sauceHelper.setTestStatus(testStatus);
+        verifyTestStatus(testStatus);
+    }
+    @Test
+    public void shouldSetTestStatusWithFalse() throws InvalidTestStatusException {
+        String testStatus = "false";
+        sauceHelper.setTestStatus(testStatus);
+        verifyTestStatus(testStatus);
+    }
+
+    private void verifyTestStatus(String testStatus) {
+        verify(mockJSExecutor, times(1)).
+            executeScript(SauceJavaScriptStrings.testStatusPrefix + testStatus);
     }
 }
