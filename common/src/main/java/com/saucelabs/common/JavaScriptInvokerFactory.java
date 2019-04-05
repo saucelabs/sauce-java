@@ -3,13 +3,13 @@ package com.saucelabs.common;
 import org.openqa.selenium.WebDriver;
 
 public class JavaScriptInvokerFactory {
-    private static JavaScriptInvokerImpl customManager = null;
+    private static JavaScriptExecutor customManager = null;
 
-    public static void setJavaScriptInvoker(JavaScriptInvokerImpl js)
+    public static void setJavaScriptExecutor(JavaScriptExecutor js)
     {
         customManager = js;
     }
-    public static JavaScriptInvokerImpl create(WebDriver driver)
+    public static JavaScriptExecutor create(WebDriver driver)
     {
         if (customManager != null)
         {

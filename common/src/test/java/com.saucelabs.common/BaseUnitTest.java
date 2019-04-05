@@ -20,6 +20,6 @@ public class BaseUnitTest {
         resetJavaScriptInvokerState();
     }
     private void resetJavaScriptInvokerState() {
-        JavaScriptInvokerFactory.setJavaScriptInvoker(null);
+        JavaScriptInvokerFactory.setJavaScriptExecutor(null);
     }
 }

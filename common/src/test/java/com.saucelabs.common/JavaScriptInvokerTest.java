@@ -14,7 +14,7 @@ public class JavaScriptInvokerTest extends BaseUnitTest
     {
         JavaScriptInvokerImpl mockJsManager = mock(JavaScriptInvokerImpl.class);
 
-        JavaScriptInvokerFactory.setJavaScriptInvoker(mockJsManager);
+        JavaScriptInvokerFactory.setJavaScriptExecutor(mockJsManager);
         JavaScriptInvoker js = new JavaScriptInvoker(mockWebDriver);
         js.executeScript("test");
         verify(mockJsManager, times(1)).executeScript("test");

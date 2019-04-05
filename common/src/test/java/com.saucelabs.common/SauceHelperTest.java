@@ -41,10 +41,19 @@ public class SauceHelperTest extends BaseUnitTest {
     public void shouldRunExecuteStringMethodWithoutDefaultManagerSet()
     {
         JavaScriptInvokerImpl javascriptExecutor = mock(JavaScriptInvokerImpl.class);
-        JavaScriptInvokerFactory.setJavaScriptInvoker(javascriptExecutor);
+        JavaScriptInvokerFactory.setJavaScriptExecutor(javascriptExecutor);
 
         sauceHelper.setTestStatus("pass");
         verify(javascriptExecutor, times(1)).executeScript("sauce:job-result=pass");
+    }
+    @Test
+    public void shouldSetTestName()
+    {
+        JavaScriptExecutor mockJSExecutor = mock(JavaScriptExecutor.class);
+        JavaScriptInvokerFactory.setJavaScriptExecutor(mockJSExecutor);
+
+        sauceHelper.setTestName("testName");
+        verify(mockJSExecutor, times(1)).executeScript("sauce:job-name=testName");
     }
     private void assertStringsEqual(String s, boolean b) {
         assertEquals(s + b, sauceHelper.getTestResultString(b));
