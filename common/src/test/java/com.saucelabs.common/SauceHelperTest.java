@@ -1,5 +1,6 @@
 package com.saucelabs.common;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,7 +14,17 @@ public class SauceHelperTest {
     public void runBeforeEveryTest()
     {
         sauceHelper = new SauceHelper();
+        resetJavaScriptInvokerState(null);
     }
+    @After
+    public void runAfterEveryTest()
+    {
+        resetJavaScriptInvokerState(null);
+    }
+    private void resetJavaScriptInvokerState(JavaScriptInvokerImpl o) {
+        JavaScriptInvokerFactory.setJavaScriptInvoker(o);
+    }
+
     @Test
     public void shouldReturnPassedForTrueResult()
     {
