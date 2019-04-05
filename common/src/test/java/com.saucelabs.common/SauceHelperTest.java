@@ -87,6 +87,14 @@ public class SauceHelperTest extends BaseUnitTest {
         verifyTestStatus(testStatus);
     }
 
+    //TODO add this test after we finish implementation of SauceHelper.isValidTestStatus()
+//    @Test
+//    public void shouldThrowExceptionForInvalidTestStatus()
+//    {
+//        String invalidTestStatus = "success";
+//        verify(mockJSExecutor, times(1)).
+//            executeScript(SauceJavaScriptStrings.testStatusPrefix + invalidTestStatus);
+//    }
     private void verifyTestStatus(String testStatus) {
         verify(mockJSExecutor, times(1)).
             executeScript(SauceJavaScriptStrings.testStatusPrefix + testStatus);
