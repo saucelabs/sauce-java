@@ -28,13 +28,13 @@ public class SauceHelper {
         new JavaScriptInvoker(webDriver).executeScript(getTestResultString(testResult));
     }
 
-    private void isValidTestStatus(String testResult) throws InvalidTestStatusException {
-        if(testResult != "passed" || testResult != "failed" ||
-            testResult != "true" || testResult != "false")
-        {
-            throw new InvalidTestStatusException();
-        }
-    }
+//    private void isValidTestStatus(String testResult) throws InvalidTestStatusException {
+//        if(!testResult.equals("passed")  || !testResult.equals("failed")  ||
+//            !testResult.equals("true") || !testResult.equals("false"))
+//        {
+//            throw new InvalidTestStatusException();
+//        }
+//    }
 
     public void setTestName(String testName) {
         new JavaScriptInvoker(webDriver).executeScript(SauceJavaScriptStrings.testNamePrefix + testName);
