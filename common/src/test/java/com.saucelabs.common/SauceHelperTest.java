@@ -9,10 +9,14 @@ import static org.mockito.Mockito.*;
 
 public class SauceHelperTest extends BaseUnitTest {
     private SauceHelper sauceHelper;
+    private JavaScriptExecutor mockJSExecutor;
+
     @Before
     public void runBeforeEveryTest()
     {
         sauceHelper = new SauceHelper();
+        mockJSExecutor = mock(JavaScriptExecutor.class);
+        JavaScriptInvokerFactory.setJavaScriptExecutor(mockJSExecutor);
     }
 
     @Test
@@ -20,6 +24,10 @@ public class SauceHelperTest extends BaseUnitTest {
     {
         assertStringsEqual("sauce:job-result=", true);
     }
+    private void assertStringsEqual(String s, boolean b) {
+        assertEquals(s + b, sauceHelper.getTestResultString(b));
+    }
+
     @Test
     public void shouldReturnFailedForFalseResult()
     {
@@ -40,22 +48,20 @@ public class SauceHelperTest extends BaseUnitTest {
     @Test
     public void shouldRunExecuteStringMethodWithoutDefaultManagerSet()
     {
-        JavaScriptInvokerImpl javascriptExecutor = mock(JavaScriptInvokerImpl.class);
-        JavaScriptInvokerFactory.setJavaScriptExecutor(javascriptExecutor);
-
         sauceHelper.setTestStatus("pass");
-        verify(javascriptExecutor, times(1)).executeScript("sauce:job-result=pass");
+        verify(mockJSExecutor, times(1)).executeScript("sauce:job-result=pass");
     }
     @Test
     public void shouldSetTestName()
     {
-        JavaScriptExecutor mockJSExecutor = mock(JavaScriptExecutor.class);
-        JavaScriptInvokerFactory.setJavaScriptExecutor(mockJSExecutor);
-
         sauceHelper.setTestName("testName");
         verify(mockJSExecutor, times(1)).executeScript("sauce:job-name=testName");
     }
-    private void assertStringsEqual(String s, boolean b) {
-        assertEquals(s + b, sauceHelper.getTestResultString(b));
+    @Test
+    public void shouldSetTags()
+    {
+        String tags = "tag1,tag2,tag3";
+        sauceHelper.setTestTags(tags);
+        verify(mockJSExecutor, times(1)).executeScript("sauce:job-tags=" + tags);
     }
 }

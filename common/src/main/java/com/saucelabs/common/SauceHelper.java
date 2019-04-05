@@ -36,4 +36,8 @@ public class SauceHelper {
     public void setTestName(String testName) {
         new JavaScriptInvoker(webDriver).executeScript(getTestNameString(testName));
     }
+
+    public void setTestTags(String tags) {
+        new JavaScriptInvoker(webDriver).executeScript("sauce:job-tags=" + tags);
+    }
 }
