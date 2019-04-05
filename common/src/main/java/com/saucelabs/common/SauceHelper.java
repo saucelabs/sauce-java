@@ -38,6 +38,6 @@ public class SauceHelper {
     }
 
     public void setTestTags(String tags) {
-        new JavaScriptInvoker(webDriver).executeScript("sauce:job-tags=" + tags);
+        new JavaScriptInvoker(webDriver).executeScript(SauceJavaScriptStrings.TagsPrefix + tags);
     }
 }
