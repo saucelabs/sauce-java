@@ -20,9 +20,9 @@ public class SauceHelperAcceptanceTest
 {
     private String username = System.getenv("SAUCE_USERNAME");
     private String accesskey = System.getenv("SAUCE_ACCESS_KEY");
-    String SAUCE_REMOTE_URL = "https://ondemand.saucelabs.com/wd/hub";
+    private String SAUCE_REMOTE_URL = "https://ondemand.saucelabs.com/wd/hub";
     private WebDriver driver;
-    SessionId sessionId;
+    private SessionId sessionId;
 
     @Rule
     public TestName testName = new TestName();

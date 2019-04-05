@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import static org.mockito.Mockito.mock;
 
 public class BaseUnitTest {
-    WebDriver mockWebDriver;
+    public WebDriver mockWebDriver;
     @Before
     public void runBeforeTest()
     {
