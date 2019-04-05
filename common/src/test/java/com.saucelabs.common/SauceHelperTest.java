@@ -1,6 +1,5 @@
 package com.saucelabs.common;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,21 +7,12 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 
-public class SauceHelperTest {
+public class SauceHelperTest extends BaseUnitTest {
     private SauceHelper sauceHelper;
     @Before
     public void runBeforeEveryTest()
     {
         sauceHelper = new SauceHelper();
-        resetJavaScriptInvokerState(null);
-    }
-    @After
-    public void runAfterEveryTest()
-    {
-        resetJavaScriptInvokerState(null);
-    }
-    private void resetJavaScriptInvokerState(JavaScriptInvokerImpl o) {
-        JavaScriptInvokerFactory.setJavaScriptInvoker(o);
     }
 
     @Test

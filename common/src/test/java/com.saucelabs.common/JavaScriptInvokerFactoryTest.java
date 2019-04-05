@@ -6,7 +6,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 
 
-public class JavaScriptInvokerFactoryTest extends BaseTest{
+public class JavaScriptInvokerFactoryTest extends BaseUnitTest {
     @Test
     public void shouldReturnObjectForTheManager()
     {

@@ -6,16 +6,20 @@ import org.openqa.selenium.WebDriver;
 
 import static org.mockito.Mockito.mock;
 
-public class BaseTest {
+public class BaseUnitTest {
     WebDriver mockWebDriver;
     @Before
     public void runBeforeTest()
     {
         mockWebDriver = mock(WebDriver.class);
+        resetJavaScriptInvokerState();
     }
     @After
     public void afterEveryTest()
     {
+        resetJavaScriptInvokerState();
+    }
+    private void resetJavaScriptInvokerState() {
         JavaScriptInvokerFactory.setJavaScriptInvoker(null);
     }
 }

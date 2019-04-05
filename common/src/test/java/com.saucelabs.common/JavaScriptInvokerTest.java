@@ -7,7 +7,7 @@ import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.mockito.Mockito.*;
 
 
-public class JavaScriptInvokerTest extends BaseTest
+public class JavaScriptInvokerTest extends BaseUnitTest
 {
     @Test
     public void shouldExecuteScriptOneTimeWhenMockManagerIsSet()
