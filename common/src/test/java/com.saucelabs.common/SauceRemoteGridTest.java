@@ -7,56 +7,57 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import static org.junit.Assert.assertEquals;
 
-public class SauceDriverTests {
+public class SauceRemoteGridTest {
 
-    private SauceDriver driver;
+    private SauceRemoteGrid sauceGrid;
 
     @Test
     public void basicDefault() {
-        driver = new SauceDriver();
+        sauceGrid = new SauceRemoteGrid();
 
         MutableCapabilities expectedOptions = new MutableCapabilities();
 
-        assertEquals(driver.getOptions(), expectedOptions);
+        assertEquals(sauceGrid.getOptions(), expectedOptions);
     }
 
     @Test
     public void desiredCapabilities(){
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
-        driver = new SauceDriver(capabilities);
+        sauceGrid = new SauceRemoteGrid(capabilities);
 
         MutableCapabilities expectedOptions = new MutableCapabilities();
 
-        assertEquals(driver.getOptions(), expectedOptions);
+        assertEquals(sauceGrid.getOptions(), expectedOptions);
     }
 
     @Test
     public void browserOptions(){
         MutableCapabilities options = new MutableCapabilities();
 
-        driver = new SauceDriver(options);
+        sauceGrid = new SauceRemoteGrid(options);
 
         MutableCapabilities expectedOptions = new MutableCapabilities();
 
-        assertEquals(driver.getOptions(), expectedOptions);
+        assertEquals(sauceGrid.getOptions(), expectedOptions);
     }
 
     @Test
     public void setOnlyBrowser(){
-        driver = new SauceDriver("chrome");
+        sauceGrid = new SauceRemoteGrid("chrome");
 
         MutableCapabilities expectedOptions = new ChromeOptions();
 
-        assertEquals(driver.getOptions(), expectedOptions);
+        assertEquals(sauceGrid.getOptions(), expectedOptions);
     }
 
     @Test
     public void setOnlyMobileOS() {
-        driver = new SauceDriver("android");
+        sauceGrid = new SauceRemoteGrid("android");
 
         MutableCapabilities expectedOptions = new MutableCapabilities();
+        expectedOptions.setCapability("platformName", "Android");
 
-        assertEquals(driver.getOptions(), expectedOptions);
+        assertEquals(sauceGrid.getOptions(), expectedOptions);
     }
 }

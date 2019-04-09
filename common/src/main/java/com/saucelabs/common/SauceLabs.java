@@ -2,11 +2,11 @@ package com.saucelabs.common;
 
 public class SauceLabs {
 
-    public SauceDriver driver;
+    public SauceRemoteGrid driver;
     public SauceHelper helper;
 
     public SauceLabs(){
-        this.driver = new SauceDriver();
+        this.driver = new SauceRemoteGrid();
         this.helper = new SauceHelper();
     }
 }
