@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 
-public class SauceHelperTests {
+public class SauceHelperTest {
     private SauceHelper sauceHelper;
     @Before
     public void runBeforeEveryTest()
