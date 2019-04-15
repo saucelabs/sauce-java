@@ -28,4 +28,9 @@ public class SauceGridTest{
     {
         Assert.assertEquals(Browser.Chrome, sauceGrid.test.getBrowser());
     }
+    @Test
+    public void shouldSetDefaultOSToLinux()
+    {
+        Assert.assertEquals(OperatingSystem.Linux, sauceGrid.test.getOperatingSystem());
+    }
 }
