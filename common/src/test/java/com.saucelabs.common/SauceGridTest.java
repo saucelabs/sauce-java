@@ -33,4 +33,9 @@ public class SauceGridTest{
     {
         Assert.assertEquals(OperatingSystem.Linux, sauceGrid.test.getOperatingSystem());
     }
+    @Test
+    public void shouldSetDefaultBrowserVersionToLatest()
+    {
+        Assert.assertEquals("latest", sauceGrid.test.getBrowserVersion());
+    }
 }
