@@ -2,14 +2,13 @@ package com.saucelabs.common;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import static org.mockito.Mockito.*;
 
 
 public class SauceHelperTest extends BaseUnitTest {
     private SauceHelper sauceHelper;
     private JavaScriptExecutor mockJSExecutor;
-
+  
     @Before
     public void runBeforeEveryTest()
     {
