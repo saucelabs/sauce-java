@@ -1,9 +1,9 @@
 package com.saucelabs.common;
 
 public class SauceRemoteGrid {
-    public SauceLabsTest test;
+    public SauceLabsSession test;
     public SauceRemoteGrid()
     {
-        test = new SauceLabsTest();
+        test = new SauceLabsSession();
     }
 }

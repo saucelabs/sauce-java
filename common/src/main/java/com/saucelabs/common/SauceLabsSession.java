@@ -4,12 +4,12 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 
-public class SauceLabsTest {
+public class SauceLabsSession {
     private static final String SAUCE_REMOTE_URL = "https://ondemand.saucelabs.com/wd/hub";
     private OperatingSystem currentOS;
     private String currentBrowserVersion;
 
-    public SauceLabsTest()
+    public SauceLabsSession()
     {
         currentBrowser = Browser.Chrome;
         currentOS = OperatingSystem.Linux;
@@ -35,7 +35,7 @@ public class SauceLabsTest {
             SAUCE_REMOTE_URL);
     }
 
-    public IRemoteBrowser getRemoteDriver() {
+    public IRemoteSession getRemoteDriver() {
         return new SauceRemoteBrowser();
     }
 

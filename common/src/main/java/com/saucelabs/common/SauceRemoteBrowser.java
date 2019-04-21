@@ -7,7 +7,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class SauceRemoteBrowser implements IRemoteBrowser {
+public class SauceRemoteBrowser implements IRemoteSession {
     @Override
     public RemoteWebDriver create(String version,  String platform,
                                   String userName, String accessKey,
