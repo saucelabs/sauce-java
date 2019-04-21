@@ -1,8 +1,11 @@
 package com.saucelabs.common;
 
+import org.openqa.selenium.MutableCapabilities;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
+import java.net.URL;
 
 public class SauceLabsSession {
     private static final String SAUCE_REMOTE_URL = "https://ondemand.saucelabs.com/wd/hub";
@@ -30,13 +33,23 @@ public class SauceLabsSession {
     }
 
     public RemoteWebDriver start() throws MalformedURLException {
-        return getRemoteDriver().create(getBrowserVersion(),
-            "Windows 10", getUserName(), getAccessKey(),
-            SAUCE_REMOTE_URL);
+        return getRemoteDriver();
     }
 
-    public IRemoteSession getRemoteDriver() {
-        return new SauceRemoteBrowser();
+    public RemoteWebDriver getRemoteDriver() throws MalformedURLException {
+        ChromeOptions caps;
+        caps = new ChromeOptions();
+        caps.setCapability("version", getBrowserVersion());
+        caps.setCapability("platform", "Windows 10");
+        caps.setExperimentalOption("w3c", true);
+
+        MutableCapabilities sauceOptions;
+        sauceOptions = new MutableCapabilities();
+        sauceOptions.setCapability("username", getUserName());
+        sauceOptions.setCapability("accessKey", getAccessKey());
+
+        caps.setCapability("sauce:options", sauceOptions);
+        return new RemoteWebDriver(new URL(SAUCE_REMOTE_URL), caps);
     }
 
     public String getUserName() {

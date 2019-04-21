@@ -55,7 +55,7 @@ public class SauceGridTest{
     }
     @Test
     public void shouldStartSessionWithDefaults() throws MalformedURLException {
-        IRemoteSession mockRemoteSession = mock(IRemoteSession.class);
+        RemoteWebDriver mockRemoteSession = mock(RemoteWebDriver.class);
         SauceLabsSession sauceTest = new StubSauceSession(mockRemoteSession);
         RemoteWebDriver driver = sauceTest.start();
         assertNotNull(driver);

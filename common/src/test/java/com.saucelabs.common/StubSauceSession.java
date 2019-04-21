@@ -1,15 +1,16 @@
 package com.saucelabs.common;
 
-public class StubSauceSession extends SauceLabsSession {
-    private final IRemoteSession fakeRemoteDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
-    public StubSauceSession(IRemoteSession remoteDriver)
+public class StubSauceSession extends SauceLabsSession {
+    private final RemoteWebDriver fakeRemoteDriver;
+
+    public StubSauceSession(RemoteWebDriver remoteDriver)
     {
         fakeRemoteDriver = remoteDriver;
     }
-
     @Override
-    public IRemoteSession getRemoteDriver() {
+    public RemoteWebDriver getRemoteDriver(){
         return fakeRemoteDriver;
     }
 }
