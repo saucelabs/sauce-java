@@ -1,9 +1,14 @@
 package com.saucelabs.common;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
 
 
 public class SauceGridTest{
@@ -16,26 +21,44 @@ public class SauceGridTest{
     @Test
     public void shouldReturnObject()
     {
-        Assert.assertNotNull(sauceGrid);
+        assertNotNull(sauceGrid);
     }
     @Test
     public void shouldReturnTestObject()
     {
-        Assert.assertNotNull(sauceGrid.test);
+        assertNotNull(sauceGrid.test);
     }
     @Test
     public void shouldSetDefaultBrowserToChrome()
     {
-        Assert.assertEquals(Browser.Chrome, sauceGrid.test.getBrowser());
+        assertEquals(Browser.Chrome, sauceGrid.test.getBrowser());
     }
     @Test
     public void shouldSetDefaultOSToLinux()
     {
-        Assert.assertEquals(OperatingSystem.Linux, sauceGrid.test.getOperatingSystem());
+        assertEquals(OperatingSystem.Linux, sauceGrid.test.getOperatingSystem());
     }
     @Test
     public void shouldSetDefaultBrowserVersionToLatest()
     {
-        Assert.assertEquals("latest", sauceGrid.test.getBrowserVersion());
+        assertEquals("latest", sauceGrid.test.getBrowserVersion());
+    }
+    @Test
+    public void shouldReturnSauceUserName()
+    {
+        assertEquals("fakeName", sauceGrid.test.getUserName());
+    }
+    @Test
+    public void shouldReturnSauceAccessKey()
+    {
+        assertEquals("fakeKey", sauceGrid.test.getAccessKey());
+    }
+    @Test
+    public void shouldStartSessionWithDefaults() throws MalformedURLException {
+        IRemoteBrowser mockRemoteBrowser = mock(IRemoteBrowser.class);
+        TestableSauceTest sauceTest = new TestableSauceTest(mockRemoteBrowser);
+        RemoteWebDriver driver = sauceTest.start();
+        assertEquals(OperatingSystem.Linux, sauceTest.getOperatingSystem());
+        assertNotNull(driver);
     }
 }
