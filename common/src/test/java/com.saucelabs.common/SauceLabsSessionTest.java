@@ -11,7 +11,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 
 
-public class SauceGridTest{
+public class SauceLabsSessionTest {
     SauceRemoteGrid sauceGrid;
     @Before
     public void setupBeforeTest()
@@ -46,19 +46,22 @@ public class SauceGridTest{
     @Test
     public void shouldReturnSauceUserName()
     {
-        assertEquals("fakeName", sauceGrid.test.getUserName());
+        String userName = "testUserName";
+        SauceLabsSession sauceTest = new StubSauceSession(userName);
+        assertEquals(userName, sauceTest.getUserName());
     }
     @Test
     public void shouldReturnSauceAccessKey()
     {
-        assertEquals("fakeKey", sauceGrid.test.getAccessKey());
+        String accessKey = "testAccessKey";
+        SauceLabsSession sauceTest = new StubSauceSession(accessKey);
+        assertEquals(accessKey, sauceTest.getAccessKey());
     }
     @Test
-    public void shouldStartSessionWithDefaults() throws MalformedURLException {
+    public void shouldStartTestSession() throws MalformedURLException {
         RemoteWebDriver mockRemoteSession = mock(RemoteWebDriver.class);
         SauceLabsSession sauceTest = new StubSauceSession(mockRemoteSession);
         RemoteWebDriver driver = sauceTest.start();
         assertNotNull(driver);
-        assertEquals(OperatingSystem.Linux, sauceTest.getOperatingSystem());
     }
 }

@@ -39,8 +39,8 @@ public class SauceLabsSession {
     public RemoteWebDriver getRemoteDriver() throws MalformedURLException {
         ChromeOptions caps;
         caps = new ChromeOptions();
-        caps.setCapability("version", getBrowserVersion());
-        caps.setCapability("platform", "Windows 10");
+        caps.setCapability("version", currentBrowserVersion);
+        caps.setCapability("platform", currentOS);
         caps.setExperimentalOption("w3c", true);
 
         MutableCapabilities sauceOptions;
