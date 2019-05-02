@@ -2,9 +2,6 @@ package com.saucelabs.common;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.remote.RemoteWebDriver;
-
-import java.net.MalformedURLException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -42,31 +39,6 @@ public class SauceLabsSessionTest {
     {
         assertEquals("latest", sauceGrid.test.getBrowserVersion());
     }
-    @Test
-    public void shouldReturnSauceUserName() throws SauceEnvironmentVariableNotSetException {
-        String userName = "testUserName";
-        SauceLabsSession sauceTest = new SauceLabsSession();
-        assertEquals(userName, sauceTest.getUserName());
-    }
-    @Test(expected = SauceEnvironmentVariableNotSetException.class)
-    public void shouldThrowExceptionForNullUserName() throws SauceEnvironmentVariableNotSetException {
-        SauceEnvironment stubSauceEnv = new SauceEnvironment();
-        stubSauceEnv.setUserNameEnvironmentVariable("FAKE", "FAKEVAL");
-        SauceLabsSession sauceTest = new SauceLabsSession(stubSauceEnv);
 
-        sauceTest.getUserName();
-    }
-    @Test
-    public void shouldReturnSauceAccessKey()
-    {
-        String accessKey = "testAccessKey";
-        SauceLabsSession sauceTest = new StubSauceSession(accessKey);
-        assertEquals(accessKey, sauceTest.getAccessKey());
-    }
-    @Test
-    public void shouldStartTestSession() throws MalformedURLException, SauceEnvironmentVariableNotSetException {
-        SauceLabsSession sauceTest = new StubSauceSession("testKey");
-        RemoteWebDriver driver = sauceTest.start();
-        assertNotNull(driver);
-    }
+
 }

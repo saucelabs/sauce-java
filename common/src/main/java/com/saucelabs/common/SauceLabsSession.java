@@ -48,18 +48,10 @@ public class SauceLabsSession {
         caps.setExperimentalOption("w3c", true);
 
         MutableCapabilities sauceOptions = new MutableCapabilities();
-        sauceOptions.setCapability("username", getUserName());
-        sauceOptions.setCapability("accessKey", getAccessKey());
+        sauceOptions.setCapability("username", sauceEnvironmentData.getUserName());
+        sauceOptions.setCapability("accessKey", sauceEnvironmentData.accessKey);
 
         caps.setCapability("sauce:options", sauceOptions);
         return new RemoteWebDriver(new URL(SAUCE_REMOTE_URL), caps);
-    }
-
-    public String getUserName() throws SauceEnvironmentVariableNotSetException {
-        return sauceEnvironmentData.getUserName();
-    }
-
-    public String getAccessKey() {
-        return "accessKey";
     }
 }
