@@ -8,7 +8,6 @@ import java.net.MalformedURLException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
 
 
 public class SauceLabsSessionTest {
@@ -44,11 +43,18 @@ public class SauceLabsSessionTest {
         assertEquals("latest", sauceGrid.test.getBrowserVersion());
     }
     @Test
-    public void shouldReturnSauceUserName()
-    {
+    public void shouldReturnSauceUserName() throws SauceEnvironmentVariableNotSetException {
         String userName = "testUserName";
-        SauceLabsSession sauceTest = new StubSauceSession(userName);
+        SauceLabsSession sauceTest = new SauceLabsSession();
         assertEquals(userName, sauceTest.getUserName());
+    }
+    @Test(expected = SauceEnvironmentVariableNotSetException.class)
+    public void shouldThrowExceptionForNullUserName() throws SauceEnvironmentVariableNotSetException {
+        SauceEnvironment stubSauceEnv = new SauceEnvironment();
+        stubSauceEnv.setUserNameEnvironmentVariable("FAKE", "FAKEVAL");
+        SauceLabsSession sauceTest = new SauceLabsSession(stubSauceEnv);
+
+        sauceTest.getUserName();
     }
     @Test
     public void shouldReturnSauceAccessKey()
@@ -58,9 +64,8 @@ public class SauceLabsSessionTest {
         assertEquals(accessKey, sauceTest.getAccessKey());
     }
     @Test
-    public void shouldStartTestSession() throws MalformedURLException {
-        RemoteWebDriver mockRemoteSession = mock(RemoteWebDriver.class);
-        SauceLabsSession sauceTest = new StubSauceSession(mockRemoteSession);
+    public void shouldStartTestSession() throws MalformedURLException, SauceEnvironmentVariableNotSetException {
+        SauceLabsSession sauceTest = new StubSauceSession("testKey");
         RemoteWebDriver driver = sauceTest.start();
         assertNotNull(driver);
     }

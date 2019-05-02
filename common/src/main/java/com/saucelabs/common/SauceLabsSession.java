@@ -9,6 +9,7 @@ import java.net.URL;
 
 public class SauceLabsSession {
     private static final String SAUCE_REMOTE_URL = "https://ondemand.saucelabs.com/wd/hub";
+    private SauceEnvironment sauceEnvironmentData;
     private OperatingSystem currentOS;
     private String currentBrowserVersion;
 
@@ -19,6 +20,10 @@ public class SauceLabsSession {
         currentBrowserVersion = "latest";
     }
     private Browser currentBrowser;
+
+    public SauceLabsSession(SauceEnvironment stubSauceEnv) {
+        sauceEnvironmentData = stubSauceEnv;
+    }
 
     public Browser getBrowser() {
         return currentBrowser;
@@ -32,19 +37,17 @@ public class SauceLabsSession {
         return currentBrowserVersion;
     }
 
-    public RemoteWebDriver start() throws MalformedURLException {
+    public RemoteWebDriver start() throws MalformedURLException, SauceEnvironmentVariableNotSetException {
         return getRemoteDriver();
     }
 
-    public RemoteWebDriver getRemoteDriver() throws MalformedURLException {
-        ChromeOptions caps;
-        caps = new ChromeOptions();
+    public RemoteWebDriver getRemoteDriver() throws MalformedURLException, SauceEnvironmentVariableNotSetException {
+        ChromeOptions caps = new ChromeOptions();
         caps.setCapability("version", currentBrowserVersion);
         caps.setCapability("platform", currentOS);
         caps.setExperimentalOption("w3c", true);
 
-        MutableCapabilities sauceOptions;
-        sauceOptions = new MutableCapabilities();
+        MutableCapabilities sauceOptions = new MutableCapabilities();
         sauceOptions.setCapability("username", getUserName());
         sauceOptions.setCapability("accessKey", getAccessKey());
 
@@ -52,8 +55,8 @@ public class SauceLabsSession {
         return new RemoteWebDriver(new URL(SAUCE_REMOTE_URL), caps);
     }
 
-    public String getUserName() {
-        return "nikolay-a";
+    public String getUserName() throws SauceEnvironmentVariableNotSetException {
+        return sauceEnvironmentData.getUserName();
     }
 
     public String getAccessKey() {
