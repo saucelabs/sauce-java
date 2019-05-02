@@ -10,8 +10,7 @@ import static org.junit.Assert.assertNotNull;
 public class SauceLabsSessionTest {
     SauceRemoteGrid sauceGrid;
     @Before
-    public void setupBeforeTest()
-    {
+    public void setupBeforeTest() throws SauceEnvironmentVariableNotSetException {
         sauceGrid = new SauceRemoteGrid();
     }
     @Test
@@ -39,6 +38,5 @@ public class SauceLabsSessionTest {
     {
         assertEquals("latest", sauceGrid.test.getBrowserVersion());
     }
-
 
 }

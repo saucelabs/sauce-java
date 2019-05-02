@@ -13,17 +13,13 @@ public class SauceLabsSession {
     private OperatingSystem currentOS;
     private String currentBrowserVersion;
 
-    public SauceLabsSession()
-    {
+    public SauceLabsSession() throws SauceEnvironmentVariableNotSetException {
         currentBrowser = Browser.Chrome;
         currentOS = OperatingSystem.Linux;
         currentBrowserVersion = "latest";
+        sauceEnvironmentData = new SauceEnvironment();
     }
     private Browser currentBrowser;
-
-    public SauceLabsSession(SauceEnvironment stubSauceEnv) {
-        sauceEnvironmentData = stubSauceEnv;
-    }
 
     public Browser getBrowser() {
         return currentBrowser;

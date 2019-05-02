@@ -17,13 +17,15 @@ public class SauceEnvironment {
 
     public String getUserName() throws SauceEnvironmentVariableNotSetException {
         String userName = System.getenv(userNameEnvironmentVariableKey);
-        if(userName == null)
-            throw new SauceEnvironmentVariableNotSetException();
-        return userName;
+        return checkIfEmpty(userName);
     }
     public String getAccessKey() throws SauceEnvironmentVariableNotSetException {
-        String userName = System.getenv(apiKeyEnvironmentVariableName);
-        if(userName == null)
+        String apiKey = System.getenv(apiKeyEnvironmentVariableName);
+        return checkIfEmpty(apiKey);
+    }
+
+    private String checkIfEmpty(String userName) throws SauceEnvironmentVariableNotSetException {
+        if (userName == null)
             throw new SauceEnvironmentVariableNotSetException();
         return userName;
     }
