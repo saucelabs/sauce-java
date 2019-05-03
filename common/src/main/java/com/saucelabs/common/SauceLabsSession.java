@@ -10,22 +10,22 @@ import java.net.URL;
 public class SauceLabsSession {
     private static final String SAUCE_REMOTE_URL = "https://ondemand.saucelabs.com/wd/hub";
     private SauceEnvironment sauceEnvironmentData;
-    private OperatingSystem currentOS;
+    private String currentOS;
     private String currentBrowserVersion;
 
     public SauceLabsSession() throws SauceEnvironmentVariableNotSetException {
-        currentBrowser = Browser.Chrome;
-        currentOS = OperatingSystem.Linux;
+        currentBrowser = Browser.Chrome.toString().toLowerCase();
+        currentOS = "Windows 10";
         currentBrowserVersion = "latest";
         sauceEnvironmentData = new SauceEnvironment();
     }
-    private Browser currentBrowser;
+    private String currentBrowser;
 
-    public Browser getBrowser() {
+    public String getBrowser() {
         return currentBrowser;
     }
 
-    public OperatingSystem getOperatingSystem() {
+    public String getOperatingSystem() {
         return currentOS;
     }
 
@@ -38,16 +38,24 @@ public class SauceLabsSession {
     }
 
     public RemoteWebDriver getRemoteDriver() throws MalformedURLException, SauceEnvironmentVariableNotSetException {
+        ChromeOptions caps = getChromeOptions();
+        MutableCapabilities sauceOptions = getMutableCapabilities();
+        caps.setCapability("sauce:options", sauceOptions);
+        return new RemoteWebDriver(new URL(SAUCE_REMOTE_URL), caps);
+    }
+    private MutableCapabilities getMutableCapabilities() throws SauceEnvironmentVariableNotSetException {
+        MutableCapabilities sauceOptions = new MutableCapabilities();
+        sauceOptions.setCapability("username", sauceEnvironmentData.getUserName());
+        sauceOptions.setCapability("accessKey", sauceEnvironmentData.getAccessKey());
+        sauceOptions.setCapability("seleniumVersion", "3.141.59");
+        return sauceOptions;
+    }
+
+    private ChromeOptions getChromeOptions() {
         ChromeOptions caps = new ChromeOptions();
         caps.setCapability("version", currentBrowserVersion);
         caps.setCapability("platform", currentOS);
         caps.setExperimentalOption("w3c", true);
-
-        MutableCapabilities sauceOptions = new MutableCapabilities();
-        sauceOptions.setCapability("username", sauceEnvironmentData.getUserName());
-        sauceOptions.setCapability("accessKey", sauceEnvironmentData.accessKey);
-
-        caps.setCapability("sauce:options", sauceOptions);
-        return new RemoteWebDriver(new URL(SAUCE_REMOTE_URL), caps);
+        return caps;
     }
 }

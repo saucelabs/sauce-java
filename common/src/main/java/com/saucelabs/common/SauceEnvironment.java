@@ -13,8 +13,6 @@ public class SauceEnvironment {
         apiKeyEnvironmentVariableName = "SAUCE_ACCESS_KEY";
     }
 
-
-
     public String getUserName() throws SauceEnvironmentVariableNotSetException {
         String userName = System.getenv(userNameEnvironmentVariableKey);
         return checkIfEmpty(userName);
