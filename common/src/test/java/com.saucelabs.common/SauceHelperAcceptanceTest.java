@@ -29,12 +29,11 @@ public class SauceHelperAcceptanceTest
 
     @Before
     public void runBeforeEachTest() throws MalformedURLException {
-        ChromeOptions caps = getChromeOptions();
         MutableCapabilities sauceOptions = getMutableCapabilities();
-        caps.setCapability("sauce:options", sauceOptions);
-        driver = new RemoteWebDriver(new URL(SAUCE_REMOTE_URL), caps);
-        sessionId = ((RemoteWebDriver) driver).getSessionId();
+        ChromeOptions chromeOpts = getChromeOptions(sauceOptions);
 
+        driver = new RemoteWebDriver(new URL(SAUCE_REMOTE_URL), chromeOpts);
+        sessionId = ((RemoteWebDriver) driver).getSessionId();
         driver.navigate().to("https://www.saucedemo.com");
     }
 
@@ -76,8 +75,7 @@ public class SauceHelperAcceptanceTest
     }
 
     private MutableCapabilities getMutableCapabilities() {
-        MutableCapabilities sauceOptions;
-        sauceOptions = new MutableCapabilities();
+        MutableCapabilities sauceOptions = new MutableCapabilities();
         sauceOptions.setCapability("username", username);
         sauceOptions.setCapability("accessKey", accesskey);
         sauceOptions.setCapability("seleniumVersion", "3.141.59");
@@ -85,13 +83,14 @@ public class SauceHelperAcceptanceTest
         return sauceOptions;
     }
 
-    private ChromeOptions getChromeOptions() {
-        ChromeOptions caps;
-        caps = new ChromeOptions();
-        caps.setCapability("version", "72.0");
-        caps.setCapability("platform", "Windows 10");
-        caps.setExperimentalOption("w3c", true);
-        return caps;
+    private ChromeOptions getChromeOptions(MutableCapabilities sauceOptions) {
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.setExperimentalOption("w3c", true);
+        chromeOptions.setCapability("browserVersion", "70.0");
+        chromeOptions.setCapability("platformName", "windows 10");
+        chromeOptions.setCapability("sauce:options", sauceOptions);
+
+        return chromeOptions;
     }
     private Boolean checkIfTestPassed(String jobInfo) {
         Boolean isPassed;

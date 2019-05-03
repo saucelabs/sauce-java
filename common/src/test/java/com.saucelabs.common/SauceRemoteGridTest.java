@@ -1,18 +1,36 @@
 package com.saucelabs.common;
 
-import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.net.MalformedURLException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 public class SauceRemoteGridTest {
+    SauceRemoteGrid sauceGrid;
+    @Before
+    public void setupBeforeTest() throws SauceEnvironmentVariableNotSetException {
+        sauceGrid = new SauceRemoteGrid();
+    }
     @Test
-    public void shouldReturnRemoteWebDriverObject() throws SauceEnvironmentVariableNotSetException, MalformedURLException {
-        SauceRemoteGrid sauceGrid = new SauceRemoteGrid();
-        RemoteWebDriver driver = sauceGrid.startSession();
-        Assert.assertNotNull(driver.getSessionId());
-        driver.quit();
+    public void shouldReturnObject()
+    {
+        assertNotNull(sauceGrid);
+    }
+    @Test
+    public void shouldSetDefaultBrowserToChrome()
+    {
+        assertEquals(Browser.Chrome, sauceGrid.getBrowser());
+    }
+    @Test
+    public void shouldSetDefaultOSToLinux()
+    {
+        assertEquals(OperatingSystem.Windows10, sauceGrid.getOperatingSystem());
+    }
+    @Test
+    public void shouldSetDefaultBrowserVersionToLatest()
+    {
+        assertEquals("latest", sauceGrid.getBrowserVersion());
     }
 }
