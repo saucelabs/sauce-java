@@ -10,41 +10,28 @@ import java.net.URL;
 public class SauceRemoteGrid {
     private static final String SAUCE_REMOTE_URL = "https://ondemand.saucelabs.com/wd/hub";
     private SauceEnvironment sauceEnvironmentData;
-    private OperatingSystem currentOS;
+    private String currentOS;
     private String currentBrowserVersion;
     private SauceCapabilities sauceCapabilities;
 
     public SauceRemoteGrid() throws SauceEnvironmentVariableNotSetException {
-        currentBrowser = Browser.Chrome;
-        currentOS = OperatingSystem.Windows10;
-        currentBrowserVersion = "latest";
+        sauceCapabilities = new SauceCapabilities();
         sauceEnvironmentData = new SauceEnvironment();
+        currentBrowserVersion = sauceCapabilities.getBrowserVersion();
     }
 
     public SauceRemoteGrid(SauceCapabilities sauceCaps) {
         sauceCapabilities = sauceCaps;
+        currentBrowserVersion = sauceCapabilities.getBrowserVersion();
+        currentOS = sauceCapabilities.getOS();
     }
 
-    private String toOperatingSystemString(OperatingSystem operatingSystem) {
-        switch (operatingSystem)
-        {
-            case Windows10:
-                return "Windows 10";
-            case Linux:
-                return "Linux";
-            default:
-                return null;
-        }
+    public String getBrowser() {
+        return sauceCapabilities.getBrowser();
     }
 
-    private Browser currentBrowser;
-
-    public Browser getBrowser() {
-        return currentBrowser;
-    }
-
-    public OperatingSystem getOperatingSystem() {
-        return currentOS;
+    public String getOperatingSystem() {
+        return sauceCapabilities.getOS();
     }
 
     public String getBrowserVersion() {
@@ -67,8 +54,8 @@ public class SauceRemoteGrid {
 
     private ChromeOptions getChromeOptions() {
         ChromeOptions caps = new ChromeOptions();
-        caps.setCapability("version", currentBrowserVersion);
-        caps.setCapability("platform", toOperatingSystemString(currentOS));
+        caps.setCapability("version", sauceCapabilities.getBrowserVersion());
+        caps.setCapability("platform", sauceCapabilities.getOS());
         caps.setExperimentalOption("w3c", true);
         return caps;
     }
