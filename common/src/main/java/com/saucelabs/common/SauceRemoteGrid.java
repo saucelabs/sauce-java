@@ -8,7 +8,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class SauceRemoteGrid {
-    private static final String SAUCE_REMOTE_URL = "https://ondemand.saucelabs.com/wd/hub";
     private SauceEnvironment sauceEnvironmentData;
     private String currentOS;
     private String currentBrowserVersion;
@@ -42,7 +41,7 @@ public class SauceRemoteGrid {
         ChromeOptions caps = getChromeOptions();
         MutableCapabilities sauceOptions = getMutableCapabilities();
         caps.setCapability("sauce:options", sauceOptions);
-        return new RemoteWebDriver(new URL(SAUCE_REMOTE_URL), caps);
+        return new RemoteWebDriver(new URL(sauceEnvironmentData.SAUCE_REMOTE_URL), caps);
     }
     private MutableCapabilities getMutableCapabilities() throws SauceEnvironmentVariableNotSetException {
         MutableCapabilities sauceOptions = new MutableCapabilities();

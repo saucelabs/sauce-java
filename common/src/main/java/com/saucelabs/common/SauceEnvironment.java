@@ -1,14 +1,18 @@
 package com.saucelabs.common;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class SauceEnvironment {
     private String userNameEnvironmentVariableKey;
     private String apiKeyEnvironmentVariableName;
+    public static final String SAUCE_REMOTE_URL = "https://ondemand.saucelabs.com/wd/hub";
     //public String sauceUserName = getUserName();
     public String accessKey;
     private String userNameValue;
     private String apiKeyValue;
 
-    public SauceEnvironment() throws SauceEnvironmentVariableNotSetException {
+    public SauceEnvironment() {
         userNameEnvironmentVariableKey = "SAUCE_USERNAME";
         apiKeyEnvironmentVariableName = "SAUCE_ACCESS_KEY";
     }
@@ -43,5 +47,9 @@ public class SauceEnvironment {
 
     public String getEnvironmentVariableApiKeyName() {
         return apiKeyEnvironmentVariableName;
+    }
+
+    public URL getSauceUrl() throws MalformedURLException {
+        return new URL(SAUCE_REMOTE_URL);
     }
 }

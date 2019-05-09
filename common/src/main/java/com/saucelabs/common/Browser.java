@@ -1,5 +1,6 @@
 package com.saucelabs.common;
 
-public enum Browser {
-    Chrome
+import org.openqa.selenium.remote.BrowserType;
+
+public enum Browser implements BrowserType {
 }

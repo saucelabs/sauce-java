@@ -13,7 +13,7 @@ public class SauceCapabilities {
     private String os;
 
     public SauceCapabilities() {
-        browser = Browser.Chrome.toString();
+        browser = Browser.CHROME;
         os = toOperatingSystemString(OperatingSystem.Windows10);
         browserVersion = "latest";
     }
@@ -69,5 +69,9 @@ public class SauceCapabilities {
             default:
                 return new InternetExplorerOptions();
         }
+    }
+
+    public void setBrowser(String browser) {
+        this.browser = browser;
     }
 }

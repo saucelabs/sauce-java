@@ -21,7 +21,7 @@ public class SauceRemoteGridTest {
     @Test
     public void shouldSetDefaultBrowserToChrome()
     {
-        assertEquals(Browser.Chrome.toString(), sauceGrid.getBrowser());
+        assertEquals(Browser.CHROME, sauceGrid.getBrowser());
     }
     @Test
     public void shouldSetDefaultOSToWindows()

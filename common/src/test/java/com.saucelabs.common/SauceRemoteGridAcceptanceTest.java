@@ -18,7 +18,7 @@ public class SauceRemoteGridAcceptanceTest {
     @Test
     public void shouldReturnRemoteWebDriverFromSauceCaps() throws SauceEnvironmentVariableNotSetException, MalformedURLException {
         SauceCapabilities sauceCaps = new SauceCapabilities();
-        sauceCaps.setBrowser(Browser.Chrome);
+        //sauceCaps.setBrowser(Browser.CHROME);
         sauceCaps.setBrowserVersion("latest");
         sauceCaps.setOS(OperatingSystem.Windows10);
 
