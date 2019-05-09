@@ -17,16 +17,16 @@ public class SauceJavaScriptStringsTest {
     @Test
     public void shouldReturnPassedForTrueResult()
     {
-        assertStringsEqual("sauce:job-result=", true);
+        assertJobResult("sauce:job-result=", true);
     }
-    private void assertStringsEqual(String s, boolean b) {
+    private void assertJobResult(String s, boolean b) {
         assertEquals(s + b, sauceHelper.getTestResultString(b));
     }
 
     @Test
     public void shouldReturnFailedForFalseResult()
     {
-        assertStringsEqual("sauce:job-result=", false);
+        assertJobResult("sauce:job-result=", false);
     }
     @Test
     public void shouldBeCorrectTestNamePrefix()
