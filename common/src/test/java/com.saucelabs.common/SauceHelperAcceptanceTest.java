@@ -35,6 +35,8 @@ public class SauceHelperAcceptanceTest
         driver = new RemoteWebDriver(new URL(SAUCE_REMOTE_URL), chromeOpts);
         sessionId = ((RemoteWebDriver) driver).getSessionId();
         driver.navigate().to("https://www.saucedemo.com");
+
+        //change
     }
 
     @Test
