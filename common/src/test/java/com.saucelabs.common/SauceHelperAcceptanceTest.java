@@ -29,6 +29,7 @@ public class SauceHelperAcceptanceTest
 
     @Before
     public void runBeforeEachTest() throws MalformedURLException {
+        //
         ChromeOptions caps = getChromeOptions();
         MutableCapabilities sauceOptions = getMutableCapabilities();
         caps.setCapability("sauce:options", sauceOptions);
