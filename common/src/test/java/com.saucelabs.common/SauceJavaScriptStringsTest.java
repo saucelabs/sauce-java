@@ -1,6 +1,5 @@
 package com.saucelabs.common;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -8,25 +7,24 @@ import static org.junit.Assert.assertEquals;
 public class SauceJavaScriptStringsTest {
     private SauceHelper sauceHelper;
 
-    @Before
-    public void runBeforeEveryTest()
+    @Test
+    public void shouldReturnCorrectCommandForTrueResult()
     {
         sauceHelper = new SauceHelper();
+        Boolean testStatus = true;
+        String actualTestResultCommand = sauceHelper.getTestResultString(testStatus);
+
+        assertEquals("sauce:job-result=true", actualTestResultCommand);
     }
 
     @Test
-    public void shouldReturnPassedForTrueResult()
+    public void shouldReturnCorrectCommandForFalseResult()
     {
-        assertJobResult("sauce:job-result=", true);
-    }
-    private void assertJobResult(String s, boolean b) {
-        assertEquals(s + b, sauceHelper.getTestResultString(b));
-    }
+        sauceHelper = new SauceHelper();
+        Boolean testStatus = false;
 
-    @Test
-    public void shouldReturnFailedForFalseResult()
-    {
-        assertJobResult("sauce:job-result=", false);
+        String actualTestResultCommand = sauceHelper.getTestResultString(testStatus);
+        assertEquals("sauce:job-result=false", actualTestResultCommand);
     }
     @Test
     public void shouldBeCorrectTestNamePrefix()
