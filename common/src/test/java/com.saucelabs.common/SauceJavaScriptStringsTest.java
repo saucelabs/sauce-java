@@ -51,4 +51,10 @@ public class SauceJavaScriptStringsTest {
     {
         assertEquals("sauce: break", SauceJavaScriptStrings.breakStatement);
     }
+
+    @Test
+    public void itShouldBeCorrectJobResultPrefix()
+    {
+        assertEquals("sauce:job-result=", SauceJavaScriptStrings.testStatusPrefix);
+    }
 }
