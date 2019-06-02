@@ -1,5 +1,6 @@
 package com.saucelabs.common;
 
+import com.saucelabs.remotedriver.DriverFactory;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -8,12 +9,12 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.MalformedURLException;
 
 public class SauceSession {
-    private WebDriver driver;
+    private WebDriver webDriver;
     private SauceConfiguration sauceConfigurationData;
 
     public SauceSession(WebDriver driver)
     {
-        this.driver = driver;
+        this.webDriver = driver;
     }
 
     public SauceSession()
@@ -22,7 +23,7 @@ public class SauceSession {
     }
 
     public WebDriver getDriver() {
-        return driver;
+        return webDriver;
     }
 
     public String getBrowser() {
@@ -37,8 +38,8 @@ public class SauceSession {
         return "latest";
     }
 
-    public SauceSession start() throws MalformedURLException, SauceEnvironmentVariableNotSetException {
-        this.driver = getChromeEnvironment();
+    public SauceSession start() throws MalformedURLException {
+        this.webDriver = new DriverFactory().getInstance();
         return this;
     }
     private WebDriver getChromeEnvironment() throws MalformedURLException, SauceEnvironmentVariableNotSetException {
