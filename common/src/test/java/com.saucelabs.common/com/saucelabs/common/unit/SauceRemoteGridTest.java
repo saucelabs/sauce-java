@@ -1,5 +1,9 @@
-package com.saucelabs.common;
+package com.saucelabs.common.com.saucelabs.common.unit;
 
+import com.saucelabs.common.Browser;
+import com.saucelabs.common.SauceEnvironmentVariableNotSetException;
+import com.saucelabs.common.SauceRemoteGrid;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,7 +25,7 @@ public class SauceRemoteGridTest {
     @Test
     public void shouldSetDefaultBrowserToChrome()
     {
-        assertEquals(Browser.CHROME, sauceGrid.getBrowser());
+        Assert.assertEquals(Browser.CHROME, sauceGrid.getBrowser());
     }
     @Test
     public void shouldSetDefaultOSToWindows()

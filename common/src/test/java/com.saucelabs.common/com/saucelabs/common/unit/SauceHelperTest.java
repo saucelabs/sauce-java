@@ -1,5 +1,6 @@
-package com.saucelabs.common;
+package com.saucelabs.common.com.saucelabs.common.unit;
 
+import com.saucelabs.common.*;
 import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Mockito.*;

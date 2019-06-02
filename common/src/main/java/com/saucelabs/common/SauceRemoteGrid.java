@@ -13,7 +13,7 @@ public class SauceRemoteGrid {
     private String currentBrowserVersion;
     private SauceCapabilities sauceCapabilities;
 
-    public SauceRemoteGrid() throws SauceEnvironmentVariableNotSetException {
+    public SauceRemoteGrid() {
         sauceCapabilities = new SauceCapabilities();
         sauceConfigurationData = new SauceConfiguration();
         currentBrowserVersion = sauceCapabilities.getBrowserVersion();

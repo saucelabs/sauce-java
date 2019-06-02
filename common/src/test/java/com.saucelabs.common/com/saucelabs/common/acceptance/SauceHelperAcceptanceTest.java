@@ -1,5 +1,7 @@
-package com.saucelabs.common;
+package com.saucelabs.common.com.saucelabs.common.acceptance;
 
+import com.saucelabs.common.InvalidTestStatusException;
+import com.saucelabs.common.SauceHelper;
 import com.saucelabs.saucerest.DataCenter;
 import com.saucelabs.saucerest.SauceREST;
 import io.restassured.path.json.JsonPath;

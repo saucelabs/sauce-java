@@ -21,7 +21,7 @@ public class SauceHelper {
         return "sauce:job-result=" + testResult;
     }
 
-    public void setTestStatus(String testResult) throws InvalidTestStatusException {
+    public void setTestStatus(String testResult) {
         //TODO finish implementation
         //testResult = testResult.toLowerCase();
         //isValidTestStatus(testResult);

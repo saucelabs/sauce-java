@@ -1,5 +1,6 @@
-package com.saucelabs.common;
+package com.saucelabs.common.com.saucelabs.common.unit;
 
+import com.saucelabs.common.SauceSession;
 import org.hamcrest.text.IsEqualIgnoringCase;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -17,7 +18,7 @@ public class SauceSessionTest {
         assertNotNull(session);
     }
     @Test
-    public void getDriver_called_returnsWebDriver() throws MalformedURLException, SauceEnvironmentVariableNotSetException {
+    public void getDriver_called_returnsWebDriver() {
         WebDriver stubDriver = mock(WebDriver.class);
         SauceSession session = new SauceSession(stubDriver);
         assertTrue(session.getDriver() instanceof WebDriver);

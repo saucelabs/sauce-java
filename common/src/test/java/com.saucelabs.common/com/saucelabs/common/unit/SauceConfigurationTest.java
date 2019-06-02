@@ -1,5 +1,7 @@
-package com.saucelabs.common;
+package com.saucelabs.common.com.saucelabs.common.unit;
 
+import com.saucelabs.common.SauceConfiguration;
+import com.saucelabs.common.SauceEnvironmentVariableNotSetException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +10,7 @@ import org.junit.Test;
 public class SauceConfigurationTest {
     private SauceConfiguration mockSauceEnv;
     @Before
-    public void runBeforeTests() throws SauceEnvironmentVariableNotSetException {
+    public void runBeforeTests() {
         mockSauceEnv = new SauceConfiguration();
     }
     @Test

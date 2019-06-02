@@ -1,5 +1,8 @@
-package com.saucelabs.common;
+package com.saucelabs.common.com.saucelabs.common.unit;
 
+import com.saucelabs.common.SauceHelper;
+import com.saucelabs.common.SauceJavaScriptStrings;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,7 +34,7 @@ public class SauceJavaScriptStringsTest {
     @Test
     public void shouldBeCorrectTestNamePrefix()
     {
-        assertEquals("sauce:job-name=", SauceJavaScriptStrings.testNamePrefix);
+        Assert.assertEquals("sauce:job-name=", SauceJavaScriptStrings.testNamePrefix);
     }
     @Test
     public void shouldBeCorrectSauceContextPrefix()

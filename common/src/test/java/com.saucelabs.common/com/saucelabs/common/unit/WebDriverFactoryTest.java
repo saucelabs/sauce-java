@@ -1,5 +1,8 @@
-package com.saucelabs.common;
+package com.saucelabs.common.com.saucelabs.common.unit;
 
+import com.saucelabs.common.Browser;
+import com.saucelabs.common.SauceEnvironmentVariableNotSetException;
+import com.saucelabs.common.WebDriverFactory;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.MutableCapabilities;

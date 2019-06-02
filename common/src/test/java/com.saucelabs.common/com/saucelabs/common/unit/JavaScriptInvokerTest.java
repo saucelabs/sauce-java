@@ -1,5 +1,8 @@
-package com.saucelabs.common;
+package com.saucelabs.common.com.saucelabs.common.unit;
 
+import com.saucelabs.common.JavaScriptInvoker;
+import com.saucelabs.common.JavaScriptInvokerFactory;
+import com.saucelabs.common.JavaScriptInvokerImpl;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
