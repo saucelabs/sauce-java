@@ -21,4 +21,12 @@ public class SauceSession {
     public String getBrowser() {
         return "Chrome";
     }
+
+    public String getOs() {
+        return "Linux";
+    }
+
+    public String getBrowserVersion() {
+        return "latest";
+    }
 }

@@ -28,4 +28,18 @@ public class SauceSessionTests {
         String actualBrowser = session.getBrowser();
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("Chrome"));
     }
+    @Test
+    public void noSauceOptionsSet_instantiated_defaultLinux()
+    {
+        SauceSession session = new SauceSession();
+        String actualOperatingSystem = session.getOs();
+        assertThat(actualOperatingSystem, IsEqualIgnoringCase.equalToIgnoringCase("Linux"));
+    }
+    @Test
+    public void noSauceOptionsSet_instantiated_latestBrowserVersion()
+    {
+        SauceSession session = new SauceSession();
+        String actualOperatingSystem = session.getBrowserVersion();
+        assertThat(actualOperatingSystem, IsEqualIgnoringCase.equalToIgnoringCase("latest"));
+    }
 }
