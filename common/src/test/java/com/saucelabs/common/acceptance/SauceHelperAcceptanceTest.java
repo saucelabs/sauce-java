@@ -1,4 +1,4 @@
-package com.saucelabs.common.com.saucelabs.common.acceptance;
+package com.saucelabs.common.acceptance;
 
 import com.saucelabs.common.InvalidTestStatusException;
 import com.saucelabs.common.SauceHelper;
