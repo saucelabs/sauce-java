@@ -4,10 +4,12 @@ import org.hamcrest.text.IsEqualIgnoringCase;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 
+import java.net.MalformedURLException;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
-public class SauceSessionTests {
+public class SauceSessionTest {
     @Test
     public void defaultConstructor_called_returnsObject()
     {
@@ -15,8 +17,7 @@ public class SauceSessionTests {
         assertNotNull(session);
     }
     @Test
-    public void getDriver_called_returnsWebDriver()
-    {
+    public void getDriver_called_returnsWebDriver() throws MalformedURLException, SauceEnvironmentVariableNotSetException {
         WebDriver stubDriver = mock(WebDriver.class);
         SauceSession session = new SauceSession(stubDriver);
         assertTrue(session.getDriver() instanceof WebDriver);

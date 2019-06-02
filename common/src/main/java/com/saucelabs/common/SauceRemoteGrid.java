@@ -8,14 +8,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class SauceRemoteGrid {
-    private SauceEnvironment sauceEnvironmentData;
+    private SauceConfiguration sauceConfigurationData;
     private String currentOS;
     private String currentBrowserVersion;
     private SauceCapabilities sauceCapabilities;
 
     public SauceRemoteGrid() throws SauceEnvironmentVariableNotSetException {
         sauceCapabilities = new SauceCapabilities();
-        sauceEnvironmentData = new SauceEnvironment();
+        sauceConfigurationData = new SauceConfiguration();
         currentBrowserVersion = sauceCapabilities.getBrowserVersion();
     }
 
@@ -41,12 +41,12 @@ public class SauceRemoteGrid {
         ChromeOptions caps = getChromeOptions();
         MutableCapabilities sauceOptions = getMutableCapabilities();
         caps.setCapability("sauce:options", sauceOptions);
-        return new RemoteWebDriver(new URL(sauceEnvironmentData.SAUCE_REMOTE_URL), caps);
+        return new RemoteWebDriver(new URL(sauceConfigurationData.SAUCE_REMOTE_URL), caps);
     }
     private MutableCapabilities getMutableCapabilities() throws SauceEnvironmentVariableNotSetException {
         MutableCapabilities sauceOptions = new MutableCapabilities();
-        sauceOptions.setCapability("username", sauceEnvironmentData.getUserName());
-        sauceOptions.setCapability("accessKey", sauceEnvironmentData.getAccessKey());
+        sauceOptions.setCapability("username", sauceConfigurationData.getUserName());
+        sauceOptions.setCapability("accessKey", sauceConfigurationData.getAccessKey());
         sauceOptions.setCapability("seleniumVersion", "3.141.59");
         return sauceOptions;
     }

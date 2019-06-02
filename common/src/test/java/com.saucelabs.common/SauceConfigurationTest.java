@@ -5,11 +5,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class SauceEnvironmentTest {
-    private SauceEnvironment mockSauceEnv;
+public class SauceConfigurationTest {
+    private SauceConfiguration mockSauceEnv;
     @Before
     public void runBeforeTests() throws SauceEnvironmentVariableNotSetException {
-        mockSauceEnv = new SauceEnvironment();
+        mockSauceEnv = new SauceConfiguration();
     }
     @Test
     public void shouldReturnDefaultUserNameEnvironmentKey() {

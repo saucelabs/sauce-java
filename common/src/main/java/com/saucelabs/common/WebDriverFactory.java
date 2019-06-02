@@ -8,19 +8,19 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.MalformedURLException;
 
 public class WebDriverFactory {
-    private SauceEnvironment sauceEnvironmentData;
+    private SauceConfiguration sauceConfigurationData;
     public SauceCapabilities sauceCapabilities;
     private WebDriver driver;
 
     public WebDriverFactory(WebDriver driver) {
         this.driver = driver;
         this.sauceCapabilities = new SauceCapabilities();
-        this.sauceEnvironmentData = new SauceEnvironment();
+        this.sauceConfigurationData = new SauceConfiguration();
     }
 
     public WebDriverFactory() {
         this.sauceCapabilities = new SauceCapabilities();
-        this.sauceEnvironmentData = new SauceEnvironment();
+        this.sauceConfigurationData = new SauceConfiguration();
     }
 
     public WebDriver create(String browser) throws SauceEnvironmentVariableNotSetException, MalformedURLException {
@@ -39,13 +39,13 @@ public class WebDriverFactory {
         ChromeOptions caps = getChromeOptions();
         MutableCapabilities sauceOptions = getMutableCapabilities();
         caps.setCapability("sauce:options", sauceOptions);
-        return new RemoteWebDriver(sauceEnvironmentData.getSauceUrl(), caps);
+        return new RemoteWebDriver(sauceConfigurationData.getSauceUrl(), caps);
     }
 
     public MutableCapabilities getMutableCapabilities() throws SauceEnvironmentVariableNotSetException {
         MutableCapabilities sauceOptions = new MutableCapabilities();
-        sauceOptions.setCapability("username", sauceEnvironmentData.getUserName());
-        sauceOptions.setCapability("accessKey", sauceEnvironmentData.getAccessKey());
+        sauceOptions.setCapability("username", sauceConfigurationData.getUserName());
+        sauceOptions.setCapability("accessKey", sauceConfigurationData.getAccessKey());
         sauceOptions.setCapability("seleniumVersion", "3.141.59");
         return sauceOptions;
     }
