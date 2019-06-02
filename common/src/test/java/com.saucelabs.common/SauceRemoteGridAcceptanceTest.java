@@ -1,6 +1,7 @@
 package com.saucelabs.common;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -16,6 +17,7 @@ public class SauceRemoteGridAcceptanceTest {
         driver.quit();
     }
     @Test
+    @Ignore("Old implementation")
     public void shouldReturnRemoteWebDriverFromSauceCaps() throws SauceEnvironmentVariableNotSetException, MalformedURLException {
         SauceCapabilities sauceCaps = new SauceCapabilities();
         //sauceCaps.setBrowser(Browser.CHROME);

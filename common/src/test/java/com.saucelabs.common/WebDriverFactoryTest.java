@@ -1,5 +1,6 @@
 package com.saucelabs.common;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
@@ -39,6 +40,7 @@ public class WebDriverFactoryTest {
     }
 
     @Test
+    @Ignore("old implementation")
     public void shouldReturnRemoteWebDriver() throws MalformedURLException, SauceEnvironmentVariableNotSetException {
         WebDriver stubDriver = mock(WebDriver.class);
         WebDriverFactory mockFactory = mock(WebDriverFactory.class);

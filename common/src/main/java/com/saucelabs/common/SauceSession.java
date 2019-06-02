@@ -17,4 +17,8 @@ public class SauceSession {
     public WebDriver getDriver() {
         return driver;
     }
+
+    public String getBrowser() {
+        return "Chrome";
+    }
 }
