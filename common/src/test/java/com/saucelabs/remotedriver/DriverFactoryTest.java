@@ -1,5 +1,6 @@
 package com.saucelabs.remotedriver;
 
+import org.hamcrest.core.Is;
 import org.hamcrest.text.IsEqualIgnoringCase;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -67,6 +68,14 @@ public class DriverFactoryTest {
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("win10"));
     }
 
+    @Test
+    public void shouldHavePlatformCorrectlySet() {
+        String platformName = "Linux";
+        factory = new DriverFactory().withPlatform(platformName);
+
+        assertEquals(platformName, factory.capabilities.getCapability("platform"));
+    }
+
     private DriverFactory getFactoryWithStubRemoteManager() {
         RemoteDriverInterface stubRemoteManager = mock(RemoteDriverInterface.class);
         return new DriverFactory(stubRemoteManager);
@@ -88,5 +97,11 @@ public class DriverFactoryTest {
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("chrome"));
     }
 
+    @Test
+    public void shouldGetInstanceOfRemoteWebDriver() throws MalformedURLException
+    {
+        RemoteWebDriver driver = mock(RemoteWebDriver.class);
+        assertTrue(driver instanceof RemoteWebDriver);
+    }
 
 }
