@@ -12,6 +12,8 @@ public class SauceSession {
     private RemoteDriverInterface remoteDriverManager;
     private SauceOptions sauceOptions;
     private WebDriver webDriver;
+    private String browser;
+    private String version;
 
     public SauceSession(WebDriver driver)
     {
@@ -20,11 +22,6 @@ public class SauceSession {
 
     public SauceSession()
     {
-        driverFactory = new DriverFactory();
-    }
-
-    public SauceSession(SauceOptions options) {
-        this.sauceOptions = options;
         driverFactory = new DriverFactory();
     }
 
@@ -45,7 +42,7 @@ public class SauceSession {
 
     //TODO should probably return the driverfactory.capabilities value. Need to make that happen.
     public String getBrowser() {
-        return "Chrome";
+        return driverFactory.capabilities.getBrowserName();
     }
 
     public String getOs() {
@@ -53,11 +50,19 @@ public class SauceSession {
     }
 
     public String getBrowserVersion() {
-        return "latest";
+        return driverFactory.capabilities.getVersion();
     }
 
     public SauceSession start() throws MalformedURLException {
         this.webDriver = driverFactory.getInstance();
         return this;
+    }
+
+    public void setBrowser(String browser) {
+        this.browser = browser;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }
