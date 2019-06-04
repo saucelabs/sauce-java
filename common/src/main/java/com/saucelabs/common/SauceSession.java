@@ -1,11 +1,16 @@
 package com.saucelabs.common;
 
 import com.saucelabs.remotedriver.DriverFactory;
+import com.saucelabs.remotedriver.RemoteDriverInterface;
+import com.saucelabs.remotedriver.SauceOptions;
 import org.openqa.selenium.WebDriver;
 
 import java.net.MalformedURLException;
 
 public class SauceSession {
+    private DriverFactory driverFactory;
+    private RemoteDriverInterface remoteDriverManager;
+    private SauceOptions sauceOptions;
     private WebDriver webDriver;
 
     public SauceSession(WebDriver driver)
@@ -15,6 +20,23 @@ public class SauceSession {
 
     public SauceSession()
     {
+        driverFactory = new DriverFactory();
+    }
+
+    public SauceSession(SauceOptions options) {
+        this.sauceOptions = options;
+        driverFactory = new DriverFactory();
+    }
+
+    public SauceSession(SauceOptions options, RemoteDriverInterface remoteDriverManager) {
+        this.sauceOptions = options;
+        this.remoteDriverManager = remoteDriverManager;
+        this.driverFactory = new DriverFactory(remoteDriverManager);
+    }
+
+    public SauceSession(RemoteDriverInterface stubRemoteDriver) {
+        this.remoteDriverManager = stubRemoteDriver;
+        this.driverFactory = new DriverFactory(remoteDriverManager);
     }
 
     public WebDriver getDriver() {
@@ -27,7 +49,7 @@ public class SauceSession {
     }
 
     public String getOs() {
-        return "Linux";
+        return driverFactory.capabilities.getPlatform().name();
     }
 
     public String getBrowserVersion() {
@@ -35,7 +57,7 @@ public class SauceSession {
     }
 
     public SauceSession start() throws MalformedURLException {
-        this.webDriver = new DriverFactory().getInstance();
+        this.webDriver = driverFactory.getInstance();
         return this;
     }
 }
