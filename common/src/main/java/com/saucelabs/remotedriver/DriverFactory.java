@@ -4,13 +4,10 @@ import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 
-public class DriverFactory
-{
+public class DriverFactory {
 	static String sauceSeleniumServer = "https://ondemand.saucelabs.com/wd/hub";
 	static String localSeleniumServer = "http://localhost/wd/hub";
 
@@ -22,7 +19,7 @@ public class DriverFactory
 	String testName;
 	Boolean useSauce = true;
 
-	String seleniumServer;
+	public String seleniumServer;
 
 	ChromeOptions chromeOptions;
 	FirefoxOptions firefoxOptions;
@@ -30,8 +27,13 @@ public class DriverFactory
 	String browserVersion = "latest";
 
 	MutableCapabilities capabilities;
+    private RemoteDriverInterface remoteDriverManager;
 
-	public WebDriver getInstance() throws MalformedURLException
+    public DriverFactory(){
+        remoteDriverManager = new RemoteDriverManager();
+    }
+
+    public WebDriver getInstance() throws MalformedURLException
 	{
 		if (seleniumServer == null)
 		{
@@ -72,10 +74,12 @@ public class DriverFactory
 		capabilities.setCapability("platformName", platformName);
 		capabilities.setCapability("browserVersion", browserVersion);
 
-		return new RemoteWebDriver(new URL(seleniumServer), capabilities);
+		return remoteDriverManager.getRemoteWebDriver(seleniumServer, capabilities);
 	}
 
-	public DriverFactory withSeleniumServer(String url)
+
+
+    public DriverFactory withSeleniumServer(String url)
 	{
 		if (url != null)
 		{
@@ -123,4 +127,8 @@ public class DriverFactory
 
 		return this;
 	}
+
+    public RemoteDriverInterface getDriverManager() {
+        return remoteDriverManager;
+    }
 }
