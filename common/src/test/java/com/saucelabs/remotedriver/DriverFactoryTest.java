@@ -2,8 +2,11 @@ package com.saucelabs.remotedriver;
 
 import org.junit.Test;
 
+import java.net.MalformedURLException;
+
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 public class DriverFactoryTest {
 
@@ -28,5 +31,14 @@ public class DriverFactoryTest {
     {
         DriverFactory factory = new DriverFactory();
         assertThat(factory.getDriverManager(), instanceOf(RemoteDriverManager.class));
+    }
+
+    @Test
+    public void getInstance_serverNotSet_setsSauceSeleniumServer() throws MalformedURLException {
+        RemoteDriverInterface stubRemoteManager = mock(RemoteDriverInterface.class);
+        DriverFactory factory = new DriverFactory(stubRemoteManager);
+        factory.getInstance();
+        String expectedServer = "https://ondemand.saucelabs.com/wd/hub";
+        assertEquals(expectedServer, factory.seleniumServer);
     }
 }

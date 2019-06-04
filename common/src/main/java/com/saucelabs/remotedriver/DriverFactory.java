@@ -33,6 +33,10 @@ public class DriverFactory {
         remoteDriverManager = new RemoteDriverManager();
     }
 
+    public DriverFactory(RemoteDriverInterface remoteManager) {
+        remoteDriverManager = remoteManager;
+    }
+
     public WebDriver getInstance() throws MalformedURLException
 	{
 		if (seleniumServer == null)
