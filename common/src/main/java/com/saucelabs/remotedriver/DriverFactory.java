@@ -9,7 +9,6 @@ import java.net.MalformedURLException;
 
 public class DriverFactory {
 	static String sauceSeleniumServer = "https://ondemand.saucelabs.com/wd/hub";
-	static String localSeleniumServer = "http://localhost/wd/hub";
 
 	static String SAUCE_USERNAME = System.getenv("SAUCE_USERNAME");
 	static String SAUCE_ACCESS_KEY = System.getenv("SAUCE_ACCESS_KEY");
@@ -30,7 +29,7 @@ public class DriverFactory {
     private RemoteDriverInterface remoteDriverManager;
 
     public DriverFactory(){
-        remoteDriverManager = new RemoteDriverManager();
+        remoteDriverManager = new ConcreteRemoteDriverManager();
     }
 
     public DriverFactory(RemoteDriverInterface remoteManager) {
