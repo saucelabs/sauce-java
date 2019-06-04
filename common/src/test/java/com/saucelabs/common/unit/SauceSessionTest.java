@@ -13,14 +13,9 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
 public class SauceSessionTest {
-    private SauceSession session;
+    private SauceOptions sauceOptions;
+    private SauceSession sauceSession;
 
-    @Test
-    public void defaultConstructor_called_returnsObject()
-    {
-        session = new SauceSession();
-        assertNotNull(session);
-    }
     @Test
     public void getDriver_called_returnsWebDriver() {
         WebDriver stubDriver = mock(WebDriver.class);
@@ -30,32 +25,32 @@ public class SauceSessionTest {
     @Test
     public void noSauceOptionsSet_whenCreated_defaultChrome()
     {
-        SauceSession session = new SauceSession();
-        String actualBrowser = session.getBrowser();
+        sauceSession = new SauceSession();
+        String actualBrowser = sauceSession.getBrowser();
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("Chrome"));
     }
     @Test
     public void noSauceOptionsSet_instantiated_defaultOsWindows10() throws MalformedURLException {
         RemoteDriverInterface stubRemoteDriver = mock(RemoteDriverInterface.class);
-        SauceSession session = new SauceSession(stubRemoteDriver);
-        session.start();
-        String actualOperatingSystem = session.getOs();
+        sauceSession = new SauceSession(stubRemoteDriver);
+        sauceSession.start();
+        String actualOperatingSystem = sauceSession.getOs();
         assertThat(actualOperatingSystem, IsEqualIgnoringCase.equalToIgnoringCase("win10"));
     }
     @Test
     public void noSauceOptionsSet_instantiated_latestBrowserVersion()
     {
-        SauceSession session = new SauceSession();
-        String actualOperatingSystem = session.getBrowserVersion();
+        sauceSession = new SauceSession();
+        String actualOperatingSystem = sauceSession.getBrowserVersion();
         assertThat(actualOperatingSystem, IsEqualIgnoringCase.equalToIgnoringCase("latest"));
     }
     @Test
     public void sauceOptionsSet_withOnlyWindows10_returnsWindows10() throws MalformedURLException {
-        SauceOptions options = new SauceOptions();
-        options.setOs("Windows 10");
+        sauceOptions = new SauceOptions();
+        sauceOptions.setOs("Windows 10");
 
         RemoteDriverInterface stubRemoteDriver = mock(RemoteDriverInterface.class);
-        SauceSession session = new SauceSession(options, stubRemoteDriver);
+        SauceSession session = new SauceSession(sauceOptions, stubRemoteDriver);
         session.start();
         String actualOperatingSystem = session.getOs();
         assertThat(actualOperatingSystem, IsEqualIgnoringCase.equalToIgnoringCase("win10"));
