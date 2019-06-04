@@ -2,6 +2,7 @@ package com.saucelabs.common;
 
 import com.saucelabs.remotedriver.DriverFactory;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 
@@ -22,7 +23,7 @@ public class SauceSession {
     }
 
     public String getBrowser() {
-        return "Chrome";
+        return (((RemoteWebDriver) webDriver).getCapabilities()).getBrowserName();
     }
 
     public String getOs() {

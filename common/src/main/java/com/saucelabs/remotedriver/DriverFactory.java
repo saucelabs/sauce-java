@@ -13,7 +13,7 @@ public class DriverFactory {
 	static String SAUCE_USERNAME = System.getenv("SAUCE_USERNAME");
 	static String SAUCE_ACCESS_KEY = System.getenv("SAUCE_ACCESS_KEY");
 
-	String platformName = "Windows 10";
+	String platformName = "linux";
 	String browserName = "Chrome";
 	String testName;
 	Boolean useSauce = true;
@@ -25,7 +25,7 @@ public class DriverFactory {
 	MutableCapabilities sauceOptions;
 	String browserVersion = "latest";
 
-	MutableCapabilities capabilities;
+	public MutableCapabilities capabilities;
     private RemoteDriverInterface remoteDriverManager;
 
     public DriverFactory(){
