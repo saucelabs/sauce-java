@@ -2,7 +2,6 @@ package com.saucelabs.common;
 
 import com.saucelabs.remotedriver.DriverFactory;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 
@@ -22,8 +21,9 @@ public class SauceSession {
         return webDriver;
     }
 
+    //TODO should probably return the driverfactory.capabilities value. Need to make that happen.
     public String getBrowser() {
-        return (((RemoteWebDriver) webDriver).getCapabilities()).getBrowserName();
+        return "Chrome";
     }
 
     public String getOs() {

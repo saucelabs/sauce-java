@@ -6,9 +6,6 @@ import org.hamcrest.text.IsEqualIgnoringCase;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
-
-import java.net.MalformedURLException;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -48,14 +45,6 @@ public class SauceSessionTest {
         SauceSession session = new SauceSession();
         String actualOperatingSystem = session.getBrowserVersion();
         assertThat(actualOperatingSystem, IsEqualIgnoringCase.equalToIgnoringCase("latest"));
-    }
-    @Test
-    public void start_noSauceOptions_returnsChrome() throws MalformedURLException {
-        SauceSession session = new SauceSession();
-        session.start();
-        WebDriver driver = session.getDriver();
-        String actualBrowser = (((RemoteWebDriver) driver).getCapabilities()).getBrowserName();
-        assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("chrome"));
     }
     @Test
     @Ignore("need to implement")

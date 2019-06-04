@@ -64,7 +64,7 @@ public class DriverFactoryTest {
         factory.getInstance();
 
         String actualBrowser = factory.capabilities.getPlatform().name();
-        assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("linux"));
+        assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("windows 10"));
     }
 
     private DriverFactory getFactoryWithStubRemoteManager() {

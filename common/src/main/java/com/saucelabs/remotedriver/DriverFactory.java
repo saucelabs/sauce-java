@@ -13,7 +13,8 @@ public class DriverFactory {
 	static String SAUCE_USERNAME = System.getenv("SAUCE_USERNAME");
 	static String SAUCE_ACCESS_KEY = System.getenv("SAUCE_ACCESS_KEY");
 
-	String platformName = "linux";
+	//todo there is some weird bug when this is set to Linux, the session can't be started
+	String platformName = "Windows 10";
 	String browserName = "Chrome";
 	String testName;
 	Boolean useSauce = true;
