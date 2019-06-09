@@ -16,24 +16,6 @@ public class SauceSessionTest {
     private SauceSession sauceSession;
 
     @Test
-    public void noSauceOptionsSet_whenCreated_defaultChrome()
-    {
-        sauceSession = new SauceSession();
-        String actualBrowser = sauceSession.getBrowser();
-        assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("Chrome"));
-    }
-    @Test
-    public void noSauceOptionsSet_instantiated_defaultOsWindows10() throws MalformedURLException {
-        RemoteDriverInterface stubRemoteDriver = mock(RemoteDriverInterface.class);
-        sauceSession = new SauceSession(stubRemoteDriver);
-
-        sauceSession.start();
-
-        String actualOperatingSystem = sauceSession.getOs();
-        assertThat(actualOperatingSystem, IsEqualIgnoringCase.equalToIgnoringCase("win10"));
-    }
-
-    @Test
     public void sauceOptionsSet_withOnlyWindows10_returnsWindows10() throws MalformedURLException {
         sauceOptions = new SauceOptions();
         sauceOptions.setOs("Windows 10");

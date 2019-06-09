@@ -66,6 +66,7 @@ public class SauceSessionTest {
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("Chrome"));
     }
     @Test
+    @Ignore("old")
     public void getInstance_default_setsCapabilityToLinux() throws MalformedURLException {
         sauceSession = getFactoryWithStubRemoteManager();
 
@@ -74,7 +75,12 @@ public class SauceSessionTest {
         String actualBrowser = sauceSession.capabilities.getPlatform().name();
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("win10"));
     }
-
+    @Test
+    public void noSauceOptionsSet_whenCreated_defaultIsWindows10() {
+        sauceSession = new SauceSession();
+        String actualOs = sauceSession.capabilities.getPlatform().name();
+        assertThat(actualOs, IsEqualIgnoringCase.equalToIgnoringCase("win10"));
+    }
     private SauceSession getFactoryWithStubRemoteManager() {
         RemoteDriverInterface stubRemoteManager = mock(RemoteDriverInterface.class);
         return new SauceSession(stubRemoteManager);
