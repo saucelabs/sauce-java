@@ -1,9 +1,7 @@
 package com.saucelabs.common.unit;
 
-import com.saucelabs.common.SauceSession;
 import com.saucelabs.remotedriver.DriverFactory;
 import com.saucelabs.remotedriver.RemoteDriverInterface;
-import com.saucelabs.remotedriver.SauceOptions;
 import org.hamcrest.text.IsEqualIgnoringCase;
 import org.junit.Ignore;
 import org.junit.Test;

@@ -1,6 +1,5 @@
 package com.saucelabs.common.acceptance;
 
-import com.saucelabs.common.SauceSession;
 import com.saucelabs.remotedriver.DriverFactory;
 import org.hamcrest.text.IsEqualIgnoringCase;
 import org.junit.After;

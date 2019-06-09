@@ -33,7 +33,7 @@ public class DriverFactory {
     private MutableCapabilities browserOptions;
 
     public DriverFactory(){
-        remoteDriverManager = new ConcreteRemoteDriverManager();
+        capabilities = new MutableCapabilities();
     }
 
     public DriverFactory(RemoteDriverInterface remoteManager) {
@@ -109,11 +109,9 @@ public class DriverFactory {
 
 	public DriverFactory withChrome()
 	{
-		chromeOptions = new ChromeOptions();
+	    chromeOptions = new ChromeOptions();
 		chromeOptions.setExperimentalOption("w3c", true);
-
 		browserName = "Chrome";
-
 		return this;
 	}
 
@@ -147,10 +145,7 @@ public class DriverFactory {
         sauceOptions = getSauceOptions();
         browserOptions = getBrowserOptions(browserName);
 
-        capabilities = new MutableCapabilities();
-        if (useSauce) capabilities.setCapability(sauceOptionsTag, sauceOptions);
-        capabilities.setCapability(browserOptionsTag, browserOptions);
-
+        capabilities.setCapability(sauceOptionsTag, sauceOptions);
         capabilities.setCapability("browserName", browserName);
         capabilities.setCapability("platformName", platformName);
         capabilities.setCapability("browserVersion", browserVersion);
@@ -179,6 +174,7 @@ public class DriverFactory {
     }
     public MutableCapabilities getBrowserOptions(String browserName)
     {
+        //TODO what's the deal with this? just returning an instantiated object?
         browserOptions = new MutableCapabilities();
 
         if (browserName.equalsIgnoreCase("Chrome"))
@@ -195,8 +191,10 @@ public class DriverFactory {
             //...TODO: set other other browsers capabilities
         }
 
-
-
         return browserOptions;
+    }
+
+    public MutableCapabilities getSauceOptionsCapability(){
+        return ((MutableCapabilities) capabilities.getCapability(sauceOptionsTag));
     }
 }

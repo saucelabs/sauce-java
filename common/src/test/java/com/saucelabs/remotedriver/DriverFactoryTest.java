@@ -72,11 +72,19 @@ public class DriverFactoryTest {
         return new DriverFactory(stubRemoteManager);
     }
     @Test
-    public void getCapabilities_default_latestBrowserVersion()
+    public void sauceOptions_defaultConfiguration_latestBrowserVersion()
     {
         MutableCapabilities caps = new DriverFactory().getCapabilities();
         String actualOperatingSystem = caps.getCapability("browserVersion").toString();
         assertThat(actualOperatingSystem, IsEqualIgnoringCase.equalToIgnoringCase("latest"));
+    }
+    @Test
+    public void sauceOptions_defaultConfiguration_setsSauceOptions()
+    {
+        factory = new DriverFactory();
+        factory.getCapabilities();
+        boolean hasAccessKey = factory.getSauceOptionsCapability().asMap().containsKey("accessKey");
+        assertTrue(hasAccessKey);
     }
 
     @Test
@@ -94,6 +102,4 @@ public class DriverFactoryTest {
         String actualBrowser = (((RemoteWebDriver) driver).getCapabilities()).getBrowserName();
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("chrome"));
     }
-
-
 }
