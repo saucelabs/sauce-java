@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.safari.SafariOptions;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,7 +17,7 @@ public class SauceSession {
 	static String SAUCE_ACCESS_KEY = System.getenv("SAUCE_ACCESS_KEY");
 
 	//todo there is some weird bug when this is set to Linux, the session can't be started
-	String platformName = "Windows 10";
+	String operatingSystem = "Windows 10";
 	String browserName = "Chrome";
 	String testName;
 	Boolean useSauce = true;
@@ -33,6 +34,7 @@ public class SauceSession {
     private RemoteDriverInterface remoteDriverManager;
     private MutableCapabilities browserOptions;
     private WebDriver webDriver;
+    private SafariOptions safariOptions;
 
     public SauceSession(){
         capabilities = new MutableCapabilities();
@@ -44,7 +46,7 @@ public class SauceSession {
         capabilities = new MutableCapabilities();
     }
 
-    public RemoteWebDriver getInstance() throws MalformedURLException
+    public RemoteWebDriver getWebDriver() throws MalformedURLException
     {
         seleniumServer = getSeleniumServer();
         capabilities = getCapabilities();
@@ -105,7 +107,7 @@ public class SauceSession {
 
 	public SauceSession withPlatform(String platformName)
 	{
-		this.platformName = platformName;
+		this.operatingSystem = platformName;
 
 		return this;
 	}
@@ -127,7 +129,7 @@ public class SauceSession {
 
         capabilities.setCapability(sauceOptionsTag, sauceOptions);
         capabilities.setCapability("browserName", browserName);
-        capabilities.setCapability("platformName", platformName);
+        capabilities.setCapability("operatingSystem", operatingSystem);
         capabilities.setCapability("browserVersion", browserVersion);
 
         return capabilities;
@@ -179,11 +181,23 @@ public class SauceSession {
     }
 
     public SauceSession start() throws MalformedURLException {
-        webDriver = getInstance();
+        webDriver = getWebDriver();
         return this;
     }
 
     public WebDriver getDriver() {
         return webDriver;
+    }
+
+    //TODO How do we want to handle this?
+    //1. withSafari(OperatingSystem.MacOs1014), aka, force the user to pass in a mac version
+    //2. throw an exception for withSafari() used without withMac();
+    //3. this is the method I chose below
+    public SauceSession withSafari(String browserVersion) {
+        operatingSystem = "macOS 10.14";
+        browserName = "Safari";
+        this.browserVersion = browserVersion;
+        safariOptions = new SafariOptions();
+        return this;
     }
 }
