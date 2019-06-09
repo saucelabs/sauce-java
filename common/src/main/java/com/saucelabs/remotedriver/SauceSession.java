@@ -4,8 +4,10 @@ import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
+import java.net.URL;
 
 public class SauceSession {
 	static String sauceSeleniumServer = "https://ondemand.saucelabs.com/wd/hub";
@@ -34,49 +36,27 @@ public class SauceSession {
 
     public SauceSession(){
         capabilities = new MutableCapabilities();
+        remoteDriverManager = new ConcreteRemoteDriverManager();
     }
 
     public SauceSession(RemoteDriverInterface remoteManager) {
         remoteDriverManager = remoteManager;
+        capabilities = new MutableCapabilities();
     }
 
-    public WebDriver getInstance() throws MalformedURLException
+    public RemoteWebDriver getInstance() throws MalformedURLException
+    {
+        seleniumServer = getSeleniumServer();
+        capabilities = getCapabilities();
+
+        return new RemoteWebDriver(new URL(seleniumServer), capabilities);
+    }
+
+    public WebDriver getInstanceOld() throws MalformedURLException
 	{
 
         seleniumServer = getSeleniumServer();
-		capabilities = new MutableCapabilities();
-
-		if (useSauce)
-		{
-		    seleniumServer = sauceSeleniumServer;
-
-			sauceOptions = new MutableCapabilities();
-			sauceOptions.setCapability("username", SAUCE_USERNAME);
-			sauceOptions.setCapability("accessKey", SAUCE_ACCESS_KEY);
-			sauceOptions.setCapability("seleniumVersion", "3.141.59");
-
-		    if (testName != null)
-			{
-				sauceOptions.setCapability("name", testName);
-			}
-
-			capabilities.setCapability("sauce:options", sauceOptions);
-		}
-
-		if (browserName.equalsIgnoreCase("Chrome"))
-		{
-			withChrome();
-			capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-		}
-		else if (browserName.equalsIgnoreCase("Firefox"))
-		{
-			withFirefox();
-			capabilities.setCapability(FirefoxOptions.FIREFOX_OPTIONS, firefoxOptions);
-		}
-
-		capabilities.setCapability("browserName", browserName);
-		capabilities.setCapability("platformName", platformName);
-		capabilities.setCapability("browserVersion", browserVersion);
+        capabilities = getCapabilities();
 
 		return remoteDriverManager.getRemoteWebDriver(seleniumServer, capabilities);
 	}

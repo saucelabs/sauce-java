@@ -43,7 +43,7 @@ public class SauceSessionTest {
 
     @Test
     public void getInstance_serverNotSet_setsSauceSeleniumServer() throws MalformedURLException {
-        sauceSession = getFactoryWithStubRemoteManager();
+        sauceSession = getSessionWithFakeDriverInstance();
         sauceSession.getInstance();
         String expectedServer = "https://ondemand.saucelabs.com/wd/hub";
         assertEquals(expectedServer, sauceSession.seleniumServer);
@@ -51,7 +51,7 @@ public class SauceSessionTest {
     @Test
     @Ignore("old")
     public void getInstance_default_setsCapabilitiesToChrome() throws MalformedURLException {
-        sauceSession = getFactoryWithStubRemoteManager();
+        sauceSession = getSessionWithFakeDriverInstance();
 
         sauceSession.getInstance();
 
@@ -68,7 +68,7 @@ public class SauceSessionTest {
     @Test
     @Ignore("old")
     public void getInstance_default_setsCapabilityToLinux() throws MalformedURLException {
-        sauceSession = getFactoryWithStubRemoteManager();
+        sauceSession = getSessionWithFakeDriverInstance();
 
         sauceSession.getInstance();
 
@@ -76,12 +76,13 @@ public class SauceSessionTest {
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("win10"));
     }
     @Test
-    public void noSauceOptionsSet_whenCreated_defaultIsWindows10() {
-        sauceSession = new SauceSession();
+    public void noSauceOptionsSet_whenCreated_defaultIsWindows10() throws MalformedURLException {
+        sauceSession = getSessionWithFakeDriverInstance();
+        sauceSession.getInstanceOld();
         String actualOs = sauceSession.capabilities.getPlatform().name();
         assertThat(actualOs, IsEqualIgnoringCase.equalToIgnoringCase("win10"));
     }
-    private SauceSession getFactoryWithStubRemoteManager() {
+    private SauceSession getSessionWithFakeDriverInstance() {
         RemoteDriverInterface stubRemoteManager = mock(RemoteDriverInterface.class);
         return new SauceSession(stubRemoteManager);
     }
