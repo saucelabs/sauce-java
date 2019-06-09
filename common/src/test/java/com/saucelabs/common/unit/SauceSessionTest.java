@@ -1,6 +1,6 @@
 package com.saucelabs.common.unit;
 
-import com.saucelabs.remotedriver.DriverFactory;
+import com.saucelabs.remotedriver.SauceSession;
 import com.saucelabs.remotedriver.RemoteDriverInterface;
 import org.hamcrest.text.IsEqualIgnoringCase;
 import org.junit.Ignore;
@@ -13,15 +13,8 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
 public class SauceSessionTest {
-    private SauceOptions sauceOptions;
     private SauceSession sauceSession;
 
-    @Test
-    public void getDriver_called_returnsWebDriver() {
-        WebDriver stubDriver = mock(WebDriver.class);
-        SauceSession session = new SauceSession(stubDriver);
-        assertTrue(session.getDriver() instanceof WebDriver);
-    }
     @Test
     public void noSauceOptionsSet_whenCreated_defaultChrome()
     {
@@ -55,7 +48,7 @@ public class SauceSessionTest {
     @Test
     @Ignore("need to implement")
     public void sauceOptionsSet_withNewConfiguration_returnsCorrectConfiguration() throws MalformedURLException {
-        DriverFactory factory = new DriverFactory();
+        SauceSession factory = new SauceSession();
         factory.withFirefox();
         //factory.withChrome().withSauceLabs();
         //factory.withBrowser(new ChromeConfiguration().withVersion("latest").withPlatform("Windows 10"));

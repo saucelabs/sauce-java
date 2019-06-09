@@ -14,15 +14,15 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class DriverFactoryTest {
+public class SauceSessionTest {
 
-    private DriverFactory factory;
+    private SauceSession sauceSession;
 
     @Test
     public void defaultConstructor_instantiated_returnsFactory()
     {
-        factory = new DriverFactory();
-        assertNotNull(factory);
+        sauceSession = new SauceSession();
+        assertNotNull(sauceSession);
     }
 
     @Test
@@ -30,60 +30,68 @@ public class DriverFactoryTest {
     {
         //TODO is this okay to be like a property,
         //or should it be a getSeleniumServer()
-        factory = new DriverFactory();
-        assertNull(factory.seleniumServer);
+        sauceSession = new SauceSession();
+        assertNull(sauceSession.seleniumServer);
     }
 
     @Test
     public void defaultConstructor_instantiated_setsConcreteDriverManager()
     {
-        factory = new DriverFactory();
-        assertThat(factory.getDriverManager(), instanceOf(ConcreteRemoteDriverManager.class));
+        sauceSession = new SauceSession();
+        assertThat(sauceSession.getDriverManager(), instanceOf(ConcreteRemoteDriverManager.class));
     }
 
     @Test
     public void getInstance_serverNotSet_setsSauceSeleniumServer() throws MalformedURLException {
-        factory = getFactoryWithStubRemoteManager();
-        factory.getInstance();
+        sauceSession = getFactoryWithStubRemoteManager();
+        sauceSession.getInstance();
         String expectedServer = "https://ondemand.saucelabs.com/wd/hub";
-        assertEquals(expectedServer, factory.seleniumServer);
+        assertEquals(expectedServer, sauceSession.seleniumServer);
     }
     @Test
+    @Ignore("old")
     public void getInstance_default_setsCapabilitiesToChrome() throws MalformedURLException {
-        factory = getFactoryWithStubRemoteManager();
+        sauceSession = getFactoryWithStubRemoteManager();
 
-        factory.getInstance();
+        sauceSession.getInstance();
 
-        String actualBrowser = factory.capabilities.getBrowserName();
+        String actualBrowser = sauceSession.capabilities.getBrowserName();
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("chrome"));
     }
     @Test
+    public void noSauceOptionsSet_whenCreated_defaultIsChrome()
+    {
+        sauceSession = new SauceSession();
+        String actualBrowser = sauceSession.getCapabilities().getBrowserName();
+        assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("Chrome"));
+    }
+    @Test
     public void getInstance_default_setsCapabilityToLinux() throws MalformedURLException {
-        factory = getFactoryWithStubRemoteManager();
+        sauceSession = getFactoryWithStubRemoteManager();
 
-        factory.getInstance();
+        sauceSession.getInstance();
 
-        String actualBrowser = factory.capabilities.getPlatform().name();
+        String actualBrowser = sauceSession.capabilities.getPlatform().name();
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("win10"));
     }
 
-    private DriverFactory getFactoryWithStubRemoteManager() {
+    private SauceSession getFactoryWithStubRemoteManager() {
         RemoteDriverInterface stubRemoteManager = mock(RemoteDriverInterface.class);
-        return new DriverFactory(stubRemoteManager);
+        return new SauceSession(stubRemoteManager);
     }
     @Test
     public void sauceOptions_defaultConfiguration_latestBrowserVersion()
     {
-        MutableCapabilities caps = new DriverFactory().getCapabilities();
+        MutableCapabilities caps = new SauceSession().getCapabilities();
         String actualOperatingSystem = caps.getCapability("browserVersion").toString();
         assertThat(actualOperatingSystem, IsEqualIgnoringCase.equalToIgnoringCase("latest"));
     }
     @Test
     public void sauceOptions_defaultConfiguration_setsSauceOptions()
     {
-        factory = new DriverFactory();
-        factory.getCapabilities();
-        boolean hasAccessKey = factory.getSauceOptionsCapability().asMap().containsKey("accessKey");
+        sauceSession = new SauceSession();
+        sauceSession.getCapabilities();
+        boolean hasAccessKey = sauceSession.getSauceOptionsCapability().asMap().containsKey("accessKey");
         assertTrue(hasAccessKey);
     }
 
@@ -95,9 +103,9 @@ public class DriverFactoryTest {
         Capabilities stubCaps = mock(Capabilities.class);
         RemoteWebDriver remoteWebDriver = new RemoteWebDriver(stubCaps);
         when(stubRemoteManager.getRemoteWebDriver(anyString(),anyObject())).thenReturn(remoteWebDriver);
-        factory = new DriverFactory(stubRemoteManager);
+        sauceSession = new SauceSession(stubRemoteManager);
 
-        WebDriver driver = factory.getInstance();
+        WebDriver driver = sauceSession.getInstance();
 
         String actualBrowser = (((RemoteWebDriver) driver).getCapabilities()).getBrowserName();
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("chrome"));

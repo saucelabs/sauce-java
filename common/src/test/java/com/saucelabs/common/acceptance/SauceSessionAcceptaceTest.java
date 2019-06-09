@@ -1,6 +1,6 @@
 package com.saucelabs.common.acceptance;
 
-import com.saucelabs.remotedriver.DriverFactory;
+import com.saucelabs.remotedriver.SauceSession;
 import org.hamcrest.text.IsEqualIgnoringCase;
 import org.junit.After;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class SauceSessionAcceptaceTest {
 
     @Test
     public void getInstance_nonDefaultCapabilities_returnsCorrectDriver() throws MalformedURLException {
-        webDriver = new DriverFactory().withFirefox().getInstance();
+        webDriver = new SauceSession().withFirefox().getInstance();
         String actualBrowser = (((RemoteWebDriver) webDriver).getCapabilities()).getBrowserName();
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("firefox"));
     }

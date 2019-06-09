@@ -7,7 +7,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.net.MalformedURLException;
 
-public class DriverFactory {
+public class SauceSession {
 	static String sauceSeleniumServer = "https://ondemand.saucelabs.com/wd/hub";
 
 	static String SAUCE_USERNAME = System.getenv("SAUCE_USERNAME");
@@ -19,7 +19,6 @@ public class DriverFactory {
 	String testName;
 	Boolean useSauce = true;
     String sauceOptionsTag = "sauce:options";
-    String browserOptionsTag;
 
 	public String seleniumServer;
 
@@ -31,12 +30,13 @@ public class DriverFactory {
 	public MutableCapabilities capabilities;
     private RemoteDriverInterface remoteDriverManager;
     private MutableCapabilities browserOptions;
+    private WebDriver webDriver;
 
-    public DriverFactory(){
+    public SauceSession(){
         capabilities = new MutableCapabilities();
     }
 
-    public DriverFactory(RemoteDriverInterface remoteManager) {
+    public SauceSession(RemoteDriverInterface remoteManager) {
         remoteDriverManager = remoteManager;
     }
 
@@ -90,7 +90,7 @@ public class DriverFactory {
     }
 
 
-    public DriverFactory withSeleniumServer(String url)
+    public SauceSession withSeleniumServer(String url)
 	{
 		if (url != null)
 		{
@@ -100,14 +100,14 @@ public class DriverFactory {
 		return this;
 	}
 
-	public DriverFactory withSauceLabs(Boolean useSauce)
+	public SauceSession withSauceLabs(Boolean useSauce)
 	{
 		this.useSauce = useSauce;
 
 		return this;
 	}
 
-	public DriverFactory withChrome()
+	public SauceSession withChrome()
 	{
 	    chromeOptions = new ChromeOptions();
 		chromeOptions.setExperimentalOption("w3c", true);
@@ -115,7 +115,7 @@ public class DriverFactory {
 		return this;
 	}
 
-	public  DriverFactory withFirefox()
+	public SauceSession withFirefox()
 	{
 		firefoxOptions = new FirefoxOptions();
 		browserName = "Firefox";
@@ -123,14 +123,14 @@ public class DriverFactory {
 		return this;
 	}
 
-	public DriverFactory withPlatform(String platformName)
+	public SauceSession withPlatform(String platformName)
 	{
 		this.platformName = platformName;
 
 		return this;
 	}
 
-	public DriverFactory withTestName(String testName)
+	public SauceSession withTestName(String testName)
 	{
 		this.testName = testName;
 
@@ -196,5 +196,14 @@ public class DriverFactory {
 
     public MutableCapabilities getSauceOptionsCapability(){
         return ((MutableCapabilities) capabilities.getCapability(sauceOptionsTag));
+    }
+
+    public SauceSession start() throws MalformedURLException {
+        webDriver = getInstance();
+        return this;
+    }
+
+    public WebDriver getDriver() {
+        return webDriver;
     }
 }
