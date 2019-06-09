@@ -4,6 +4,7 @@ import org.hamcrest.text.IsEqualIgnoringCase;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -11,7 +12,6 @@ import java.net.MalformedURLException;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.*;
 
 public class DriverFactoryTest {
@@ -70,6 +70,13 @@ public class DriverFactoryTest {
     private DriverFactory getFactoryWithStubRemoteManager() {
         RemoteDriverInterface stubRemoteManager = mock(RemoteDriverInterface.class);
         return new DriverFactory(stubRemoteManager);
+    }
+    @Test
+    public void getCapabilities_default_latestBrowserVersion()
+    {
+        MutableCapabilities caps = new DriverFactory().getCapabilities();
+        String actualOperatingSystem = caps.getCapability("browserVersion").toString();
+        assertThat(actualOperatingSystem, IsEqualIgnoringCase.equalToIgnoringCase("latest"));
     }
 
     @Test

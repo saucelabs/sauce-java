@@ -54,7 +54,7 @@ public class SauceSession {
     }
 
     public SauceSession start() throws MalformedURLException {
-        this.webDriver = driverFactory.getInstance();
+        this.webDriver = driverFactory.withChrome().getInstance();
         return this;
     }
 

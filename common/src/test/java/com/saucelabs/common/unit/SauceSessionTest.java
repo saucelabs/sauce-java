@@ -1,6 +1,7 @@
 package com.saucelabs.common.unit;
 
 import com.saucelabs.common.SauceSession;
+import com.saucelabs.remotedriver.DriverFactory;
 import com.saucelabs.remotedriver.RemoteDriverInterface;
 import com.saucelabs.remotedriver.SauceOptions;
 import org.hamcrest.text.IsEqualIgnoringCase;
@@ -40,13 +41,7 @@ public class SauceSessionTest {
         String actualOperatingSystem = sauceSession.getOs();
         assertThat(actualOperatingSystem, IsEqualIgnoringCase.equalToIgnoringCase("win10"));
     }
-    @Test
-    public void noSauceOptionsSet_instantiated_latestBrowserVersion()
-    {
-        sauceSession = new SauceSession();
-        String actualOperatingSystem = sauceSession.getBrowserVersion();
-        assertThat(actualOperatingSystem, IsEqualIgnoringCase.equalToIgnoringCase("latest"));
-    }
+
     @Test
     public void sauceOptionsSet_withOnlyWindows10_returnsWindows10() throws MalformedURLException {
         sauceOptions = new SauceOptions();
@@ -61,11 +56,11 @@ public class SauceSessionTest {
 
     @Test
     @Ignore("need to implement")
-    public void sauceOptionsSet_withNewConfiguration_returnsCorrectConfinguration() throws MalformedURLException {
-        sauceOptions = new SauceOptions();
-        sauceOptions.setOs("macOS 10.14");
-        sauceSession.setBrowser("safari");
-        sauceSession.setVersion("12.0");
+    public void sauceOptionsSet_withNewConfiguration_returnsCorrectConfiguration() throws MalformedURLException {
+        DriverFactory factory = new DriverFactory();
+        factory.withFirefox();
+        //factory.withChrome().withSauceLabs();
+        //factory.withBrowser(new ChromeConfiguration().withVersion("latest").withPlatform("Windows 10"));
         RemoteDriverInterface stubRemoteDriver = mock(RemoteDriverInterface.class);
         SauceSession session = new SauceSession(sauceOptions, stubRemoteDriver);
 

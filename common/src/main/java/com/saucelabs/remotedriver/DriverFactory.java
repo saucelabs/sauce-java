@@ -18,6 +18,8 @@ public class DriverFactory {
 	String browserName = "Chrome";
 	String testName;
 	Boolean useSauce = true;
+    String sauceOptionsTag = "sauce:options";
+    String browserOptionsTag;
 
 	public String seleniumServer;
 
@@ -28,6 +30,7 @@ public class DriverFactory {
 
 	public MutableCapabilities capabilities;
     private RemoteDriverInterface remoteDriverManager;
+    private MutableCapabilities browserOptions;
 
     public DriverFactory(){
         remoteDriverManager = new ConcreteRemoteDriverManager();
@@ -39,11 +42,8 @@ public class DriverFactory {
 
     public WebDriver getInstance() throws MalformedURLException
 	{
-		if (seleniumServer == null)
-		{
-			seleniumServer = sauceSeleniumServer;
-		}
 
+        seleniumServer = getSeleniumServer();
 		capabilities = new MutableCapabilities();
 
 		if (useSauce)
@@ -81,6 +81,13 @@ public class DriverFactory {
 		return remoteDriverManager.getRemoteWebDriver(seleniumServer, capabilities);
 	}
 
+    public String getSeleniumServer() {
+        if (seleniumServer == null)
+        {
+            seleniumServer = sauceSeleniumServer;
+        }
+        return seleniumServer;
+    }
 
 
     public DriverFactory withSeleniumServer(String url)
@@ -134,5 +141,62 @@ public class DriverFactory {
 
     public RemoteDriverInterface getDriverManager() {
         return remoteDriverManager;
+    }
+
+    public MutableCapabilities getCapabilities() {
+        sauceOptions = getSauceOptions();
+        browserOptions = getBrowserOptions(browserName);
+
+        capabilities = new MutableCapabilities();
+        if (useSauce) capabilities.setCapability(sauceOptionsTag, sauceOptions);
+        capabilities.setCapability(browserOptionsTag, browserOptions);
+
+        capabilities.setCapability("browserName", browserName);
+        capabilities.setCapability("platformName", platformName);
+        capabilities.setCapability("browserVersion", browserVersion);
+
+        return capabilities;
+    }
+
+    public MutableCapabilities getSauceOptions()
+    {
+        if (useSauce)
+        {
+            seleniumServer = sauceSeleniumServer;
+
+            sauceOptions = new MutableCapabilities();
+            sauceOptions.setCapability("username", SAUCE_USERNAME);
+            sauceOptions.setCapability("accessKey", SAUCE_ACCESS_KEY);
+            sauceOptions.setCapability("seleniumVersion", "3.141.59");
+
+            if (testName != null)
+            {
+                sauceOptions.setCapability("name", testName);
+            }
+        }
+
+        return sauceOptions;
+    }
+    public MutableCapabilities getBrowserOptions(String browserName)
+    {
+        browserOptions = new MutableCapabilities();
+
+        if (browserName.equalsIgnoreCase("Chrome"))
+        {
+            withChrome();
+            capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+        }
+        else if (browserName.equalsIgnoreCase("Firefox"))
+        {
+            withFirefox();
+            capabilities.setCapability(FirefoxOptions.FIREFOX_OPTIONS, firefoxOptions);
+        }
+        else {
+            //...TODO: set other other browsers capabilities
+        }
+
+
+
+        return browserOptions;
     }
 }
