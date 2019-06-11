@@ -1,6 +1,5 @@
 package com.saucelabs.common.acceptance;
 
-import com.saucelabs.remotedriver.SafariVersion;
 import com.saucelabs.remotedriver.SauceSession;
 import org.hamcrest.text.IsEqualIgnoringCase;
 import org.junit.After;
@@ -30,13 +29,13 @@ public class SauceSessionAcceptaceTest {
 
     @Test
     public void getInstance_nonDefaultCapabilities_returnsCorrectDriver() throws MalformedURLException {
-        webDriver = new SauceSession().withFirefox().getWebDriver();
+        webDriver = new SauceSession().withFirefox().start().getDriver();
         String actualBrowser = (((RemoteWebDriver) webDriver).getCapabilities()).getBrowserName();
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("firefox"));
     }
     @Test
-    public void safari_osNotSet_returnsValidSafariSession() throws MalformedURLException {
-        webDriver = new SauceSession().withSafari(SafariVersion.elevenDotOne).getWebDriver();
+    public void withSafari_osNotSet_returnsValidSafariSession() throws MalformedURLException {
+        webDriver = new SauceSession().withSafari().start().getDriver();
         String actualBrowser = (((RemoteWebDriver) webDriver).getCapabilities()).getBrowserName();
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("safari"));
     }

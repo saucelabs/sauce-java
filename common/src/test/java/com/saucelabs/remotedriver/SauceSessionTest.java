@@ -1,7 +1,9 @@
 package com.saucelabs.remotedriver;
 
+import org.hamcrest.core.IsNot;
 import org.hamcrest.text.IsEqualIgnoringCase;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.MutableCapabilities;
 
@@ -43,6 +45,26 @@ public class SauceSessionTest {
         assertEquals(expectedServer, sauceSession.seleniumServer);
     }
     @Test
+    public void browserNameCapability_isSetToCorrectKey() throws MalformedURLException {
+        RemoteDriverInterface fakeRemoteDriver = mock(RemoteDriverInterface.class);
+        sauceSession = new SauceSession(fakeRemoteDriver);
+        sauceSession.getInstanceOld();
+        String expectedBrowserCapabilityKey = "browserName";
+        String actualBrowser = sauceSession.capabilities.getCapability(expectedBrowserCapabilityKey).toString();
+        assertThat(actualBrowser, IsNot.not(""));
+    }
+    @Test
+    @Ignore("The problem with this approach is that you need to know which method" +
+        "to call to get the desired behavior. However, if we move the logic out from" +
+        "the getCapabilities() method into another method, this test will no longer work." +
+        "So this test is implementation specific. The test above is not.")
+    public void getCapabilities_browserNameCapSet_validKeyExists2() {
+        sauceSession.getCapabilities();
+        String expectedBrowserCapabilityKey = "browserName";
+        String actualBrowser = sauceSession.capabilities.getCapability(expectedBrowserCapabilityKey).toString();
+        assertThat(actualBrowser, IsNot.not(""));
+    }
+    @Test
     public void noSauceOptionsSet_whenCreated_defaultIsChrome()
     {
         String actualBrowser = sauceSession.getCapabilities().getBrowserName();
@@ -73,7 +95,7 @@ public class SauceSessionTest {
     {
         RemoteDriverInterface fakeRemoteDriver = mock(RemoteDriverInterface.class);
         sauceSession = new SauceSession(fakeRemoteDriver);
-        sauceSession.withSafari(SafariVersion.elevenDotOne);
+        sauceSession.withSafari();
 
         String safariVersion = sauceSession.getCapabilities().getVersion();
 
@@ -82,14 +104,14 @@ public class SauceSessionTest {
     @Test
     public void withSafari_browserName_setToSafari()
     {
-        sauceSession.withSafari(SafariVersion.elevenDotOne);
+        sauceSession.withSafari();
         String actualBrowserName = sauceSession.getCapabilities().getBrowserName();
         assertThat(actualBrowserName, IsEqualIgnoringCase.equalToIgnoringCase("safari"));
     }
     @Test
-    public void safariVersion_changed_returnsCorrespondingVersion()
+    public void withSafari_versionChangedFromDefault_returnsCorrectVersion()
     {
-        sauceSession.withSafari(SafariVersion.elevenDotOne);
+        sauceSession.withSafari().withBrowserVersion(SafariVersion.elevenDotOne);
         String safariVersion = sauceSession.getCapabilities().getVersion();
         assertThat(safariVersion, IsEqualIgnoringCase.equalToIgnoringCase("11.1"));
     }
