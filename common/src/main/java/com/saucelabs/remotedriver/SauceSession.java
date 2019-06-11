@@ -3,7 +3,9 @@ package com.saucelabs.remotedriver;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariOptions;
@@ -35,6 +37,8 @@ public class SauceSession {
     private RemoteDriverInterface remoteDriverManager;
     private WebDriver webDriver;
     private SafariOptions safariOptions;
+    private EdgeOptions edgeOptions;
+    private InternetExplorerOptions ieOptions;
 
     public SauceSession(){
         capabilities = new MutableCapabilities();
@@ -99,6 +103,7 @@ public class SauceSession {
 
         return sauceOptions;
     }
+    //TODO this needs to be moved to it's own class because it keeps changing
     public void setBrowserOptions(String browserName)
     {
         if (browserName.equalsIgnoreCase("Chrome"))
@@ -116,8 +121,19 @@ public class SauceSession {
             withSafari();
             capabilities.setCapability(SafariOptions.CAPABILITY, safariOptions);
         }
+        else if(browserName.equalsIgnoreCase("Edge"))
+        {
+            withEdge();
+            capabilities.setCapability("Edge", edgeOptions);
+        }
+        else if(browserName.equalsIgnoreCase("IE"))
+        {
+            withIE();
+            capabilities.setCapability("IE", edgeOptions);
+        }
         else {
-            //...TODO: set other other browsers capabilities
+            //TODO why is this so annoying??
+            //throw new NoSuchBrowserExistsException();
         }
     }
 
@@ -164,6 +180,18 @@ public class SauceSession {
     }
     public SauceSession withBrowserVersion(String browserVersion){
         this.browserVersion = browserVersion;
+        return this;
+    }
+
+    public SauceSession withEdge() {
+        this.browserName = "Edge";
+        edgeOptions = new EdgeOptions();
+        return this;
+    }
+
+    public SauceSession withIE() {
+        this.browserName = "IE";
+        ieOptions = new InternetExplorerOptions();
         return this;
     }
 }
