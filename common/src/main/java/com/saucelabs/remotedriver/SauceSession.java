@@ -129,7 +129,7 @@ public class SauceSession {
         else if(browserName.equalsIgnoreCase("IE"))
         {
             withIE();
-            capabilities.setCapability("IE", edgeOptions);
+            capabilities.setCapability("se:ieOptions", ieOptions);
         }
         else {
             //TODO why is this so annoying??
@@ -192,6 +192,11 @@ public class SauceSession {
     public SauceSession withIE() {
         this.browserName = "IE";
         ieOptions = new InternetExplorerOptions();
+        return this;
+    }
+
+    public SauceSession withPlatform(String operatingSystem) {
+        this.operatingSystem = operatingSystem;
         return this;
     }
 }

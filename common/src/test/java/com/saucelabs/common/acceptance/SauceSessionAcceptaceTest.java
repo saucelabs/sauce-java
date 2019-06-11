@@ -59,4 +59,18 @@ public class SauceSessionAcceptaceTest {
         String actualBrowser = getBrowserNameFromCapabilities();
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("IE"));
     }
+    @Test
+    @Ignore("Invalid Use Case: I don't want the use to be able to do this")
+    public void withIE_nonDefaultOs_returnsValidIESession() throws MalformedURLException {
+        webDriver = new SauceSession().withIE().withPlatform("Linux").start().getDriver();
+        String actualBrowser = getBrowserNameFromCapabilities();
+        assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("IE"));
+    }
+    @Test
+    @Ignore("No clue why this doesn't work")
+    public void withIE_nonDefaultVersion_returnsValidIESession() throws MalformedURLException {
+        webDriver = new SauceSession().withIE().withBrowserVersion("11.285").start().getDriver();
+        String actualBrowser = getBrowserNameFromCapabilities();
+        assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("IE"));
+    }
 }

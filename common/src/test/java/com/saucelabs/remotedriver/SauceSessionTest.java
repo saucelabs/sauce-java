@@ -137,6 +137,22 @@ public class SauceSessionTest {
         assertThat(safariVersion, IsEqualIgnoringCase.equalToIgnoringCase("11.1"));
     }
     @Test
+    //TODO How to parameterize this?
+    public void withOs_changedFromDefault_returnsCorrectOs()
+    {
+        sauceSession.withPlatform("Windows 10");
+        String actualOs = sauceSession.getCapabilities().getPlatform().toString();
+        assertThat(actualOs, IsEqualIgnoringCase.equalToIgnoringCase("WIN10"));
+    }
+    @Test
+    @Ignore("Future enhancement")
+    public void withOs_linux_allowsOnlyChromeOrFirefox()
+    {
+        sauceSession.withPlatform("Linux");
+        String actualOs = sauceSession.getCapabilities().getPlatform().toString();
+        assertThat(actualOs, IsEqualIgnoringCase.equalToIgnoringCase("WIN10"));
+    }
+    @Test
     @Ignore("Future enhancement")
     public void withSafari_versionChangedToInvalid_shouldNotBePossible()
     {
