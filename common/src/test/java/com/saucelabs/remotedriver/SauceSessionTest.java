@@ -33,6 +33,13 @@ public class SauceSessionTest {
         assertNotNull(sauceSession.test);
     }
     @Test
+    public void withChrome_invoked_setsBrowserNameToChrome() throws MalformedURLException
+    {
+        sauceSession = new SauceSession().withChrome();
+        assertThat(sauceSession.browserName,
+            IsEqualIgnoringCase.equalToIgnoringCase("chrome"));
+    }
+    @Test
     public void seleniumServer_notSet_returnsNull()
     {
         //TODO is this okay to be like a property,
