@@ -19,7 +19,8 @@ public class SauceSessionAcceptaceTest {
     @After
     public void cleanUp()
     {
-        webDriver.quit();
+        if(webDriver != null)
+            webDriver.quit();
     }
     @Test
     public void startSession_noSauceOptionsSet_returnsDriver() throws MalformedURLException {
@@ -39,6 +40,16 @@ public class SauceSessionAcceptaceTest {
         webDriver = new SauceSession().withSafari().start().getDriver();
         String actualBrowser = getBrowserNameFromCapabilities();
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("safari"));
+    }
+    @Test
+    public void newSession_default_canUseSauceApi() throws MalformedURLException {
+        SauceSession sauceLabs = new SauceSession().start();
+
+        sauceLabs.test.comment("sample test comment");
+        sauceLabs.test.setTestStatus("true");
+        sauceLabs.test.setTestName("MyTestName");
+
+        sauceLabs.stop();
     }
 
     private String getBrowserNameFromCapabilities() {

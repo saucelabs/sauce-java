@@ -1,5 +1,6 @@
 package com.saucelabs.remotedriver;
 
+import com.saucelabs.common.SauceApi;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -16,8 +17,9 @@ public class SauceSession {
 
 	static String SAUCE_USERNAME = System.getenv("SAUCE_USERNAME");
 	static String SAUCE_ACCESS_KEY = System.getenv("SAUCE_ACCESS_KEY");
+    public SauceApi test;
 
-	//todo there is some weird bug when this is set to Linux, the session can't be started
+    //todo there is some weird bug when this is set to Linux, the session can't be started
 	String operatingSystem = "Windows 10";
 	String browserName = "Chrome";
 	String testName;
@@ -53,7 +55,8 @@ public class SauceSession {
         seleniumServer = getSeleniumServer();
         capabilities = getCapabilities();
         webDriver = remoteDriverManager.getRemoteWebDriver(seleniumServer, capabilities);
-		return this;
+        test = new SauceApi(webDriver);
+        return this;
 	}
     public String getSeleniumServer() {
         if (seleniumServer == null)
@@ -188,5 +191,11 @@ public class SauceSession {
     public SauceSession withPlatform(String operatingSystem) {
         this.operatingSystem = operatingSystem;
         return this;
+    }
+
+    public void stop()
+    {
+        if(webDriver != null)
+            webDriver.quit();
     }
 }

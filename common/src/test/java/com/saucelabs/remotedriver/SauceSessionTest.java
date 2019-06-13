@@ -25,6 +25,14 @@ public class SauceSessionTest {
         sauceSession = new SauceSession();
     }
     @Test
+    public void startSession_invoked_setsNewSauceApiOjbect() throws MalformedURLException
+    {
+        RemoteDriverInterface fakeRemoteDriver = mock(RemoteDriverInterface.class);
+        sauceSession = new SauceSession(fakeRemoteDriver);
+        sauceSession.start();
+        assertNotNull(sauceSession.test);
+    }
+    @Test
     public void seleniumServer_notSet_returnsNull()
     {
         //TODO is this okay to be like a property,
