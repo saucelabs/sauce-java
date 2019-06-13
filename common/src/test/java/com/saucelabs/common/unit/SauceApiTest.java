@@ -81,7 +81,7 @@ public class SauceApiTest extends BaseUnitTest {
         verifyTestStatus(testStatus);
     }
     @Test
-    public void shouldSetTestStatusWithFalse() throws InvalidTestStatusException {
+    public void shouldSetTestStatusWithFalse() {
         String testStatus = "false";
         sauceApi.setTestStatus(testStatus);
         verifyTestStatus(testStatus);
