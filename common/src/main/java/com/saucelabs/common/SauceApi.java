@@ -13,19 +13,12 @@ public class SauceApi {
     public SauceApi() {
     }
 
-    //TODO duplication of 'sauce:jobresult' string and concatenation
-    public String getTestResultString(boolean testResult) {
-        return "sauce:job-result=" + testResult;
-    }
-    private String getTestResultString(String testResult) {
-        return "sauce:job-result=" + testResult;
-    }
-
     public void setTestStatus(String testResult) {
         //TODO finish implementation
         //testResult = testResult.toLowerCase();
         //isValidTestStatus(testResult);
-        new JavaScriptInvoker(webDriver).executeScript(getTestResultString(testResult));
+        new JavaScriptInvoker(webDriver).
+            executeScript(SauceJavaScriptStrings.testStatusPrefix + testResult);
     }
 
 //    private void isValidTestStatus(String testResult) throws InvalidTestStatusException {

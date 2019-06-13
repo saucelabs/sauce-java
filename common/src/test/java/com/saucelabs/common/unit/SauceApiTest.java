@@ -63,19 +63,19 @@ public class SauceApiTest extends BaseUnitTest {
             executeScript(SauceJavaScriptStrings.breakStatement);
     }
     @Test
-    public void shouldSetTestStatusWithPass() throws InvalidTestStatusException {
+    public void shouldSetTestStatusWithPass() {
         String testStatus = "pass";
         sauceApi.setTestStatus(testStatus);
         verifyTestStatus(testStatus);
     }
     @Test
-    public void shouldSetTestStatusWithTrue() throws InvalidTestStatusException {
+    public void shouldSetTestStatusWithTrue() {
         String testStatus = "true";
         sauceApi.setTestStatus(testStatus);
         verifyTestStatus(testStatus);
     }
     @Test
-    public void shouldSetTestStatusWithFailed() throws InvalidTestStatusException {
+    public void shouldSetTestStatusWithFailed() {
         String testStatus = "failed";
         sauceApi.setTestStatus(testStatus);
         verifyTestStatus(testStatus);
