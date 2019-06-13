@@ -20,7 +20,7 @@ public class TestWithSauceSession
 	@Test
 	public void withSauceSessionDefaults() throws MalformedURLException
 	{
-		SauceSession session = new SauceSession().start();
+		SauceSession session = new SauceSession(getTestName()).start();
 		WebDriver driver = session.getDriver();
 
 		driver.get("https://saucelabs.com");
