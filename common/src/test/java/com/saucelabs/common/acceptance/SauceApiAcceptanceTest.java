@@ -1,7 +1,7 @@
 package com.saucelabs.common.acceptance;
 
 import com.saucelabs.common.InvalidTestStatusException;
-import com.saucelabs.common.SauceHelper;
+import com.saucelabs.common.SauceApi;
 import com.saucelabs.saucerest.DataCenter;
 import com.saucelabs.saucerest.SauceREST;
 import io.restassured.path.json.JsonPath;
@@ -18,7 +18,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class SauceHelperAcceptanceTest
+public class SauceApiAcceptanceTest
 {
     private String username = System.getenv("SAUCE_USERNAME");
     private String accesskey = System.getenv("SAUCE_ACCESS_KEY");
@@ -41,8 +41,8 @@ public class SauceHelperAcceptanceTest
 
     @Test
     public void shouldSetTestStatusToPassed() throws InvalidTestStatusException {
-        SauceHelper sauceHelper = new SauceHelper(driver);
-        sauceHelper.setTestStatus("passed");
+        SauceApi sauceApi = new SauceApi(driver);
+        sauceApi.setTestStatus("passed");
         driver.quit();
 
         String jobInfo = getSauceJobInformation();

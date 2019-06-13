@@ -1,6 +1,6 @@
 package com.saucelabs.common.unit;
 
-import com.saucelabs.common.SauceHelper;
+import com.saucelabs.common.SauceApi;
 import com.saucelabs.common.SauceJavaScriptStrings;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,12 +9,12 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class SauceJavaScriptStringsTest {
-    private SauceHelper sauceHelper;
+    private SauceApi sauceApi;
 
     @Before
     public void runBeforeEveryTest()
     {
-        sauceHelper = new SauceHelper();
+        sauceApi = new SauceApi();
     }
 
     @Test
@@ -23,7 +23,7 @@ public class SauceJavaScriptStringsTest {
         assertStringsEqual("sauce:job-result=", true);
     }
     private void assertStringsEqual(String s, boolean b) {
-        assertEquals(s + b, sauceHelper.getTestResultString(b));
+        assertEquals(s + b, sauceApi.getTestResultString(b));
     }
 
     @Test

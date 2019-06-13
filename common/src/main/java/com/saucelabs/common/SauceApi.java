@@ -2,15 +2,15 @@ package com.saucelabs.common;
 
 import org.openqa.selenium.WebDriver;
 
-public class SauceHelper {
+public class SauceApi {
 
     private WebDriver webDriver;
 
-    public SauceHelper(WebDriver webDriver) {
+    public SauceApi(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
-    public SauceHelper() {
+    public SauceApi() {
     }
 
     //TODO duplication of 'sauce:jobresult' string and concatenation

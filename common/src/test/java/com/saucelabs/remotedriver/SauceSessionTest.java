@@ -152,8 +152,7 @@ public class SauceSessionTest {
     }
     @Test
     @Ignore("Future enhancement")
-    public void withOs_windows10_doesntAllowSafari()
-    {
+    public void withOs_windows10_doesntAllowSafari() throws MalformedURLException {
         sauceSession.withPlatform("Windows 10");
     }
     @Test
