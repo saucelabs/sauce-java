@@ -111,7 +111,6 @@ public class SauceSession {
         }
         else if(browserName.equalsIgnoreCase("Safari"))
         {
-            withSafari();
             capabilities.setCapability(SafariOptions.CAPABILITY, safariOptions);
         }
         else if(browserName.equalsIgnoreCase("Edge"))
@@ -162,10 +161,10 @@ public class SauceSession {
     }
 
     //TODO How do we want to handle this?
-    //1. withSafari(OperatingSystem.MacOs1014), aka, force the user to pass in a mac version
-    //2. throw an exception for withSafari() used without withMac();
-    //3. this is the method I chose below: withSafari(String browserVersion)
-    public SauceSession withSafari() {
+    //1. withMacOsMojave(OperatingSystem.MacOs1014), aka, force the user to pass in a mac version
+    //2. throw an exception for withMacOsMojave() used without withMac();
+    //3. this is the method I chose below: withMacOsMojave(String browserVersion)
+    public SauceSession withMacOsMojave() {
         operatingSystem = "macOS 10.14";
         browserName = "Safari";
         safariOptions = new SafariOptions();
@@ -197,5 +196,13 @@ public class SauceSession {
     {
         if(webDriver != null)
             webDriver.quit();
+    }
+
+    public SauceSession withMacOsHighSierra()
+    {
+        this.operatingSystem = "macOS 10.13";
+        browserName = "Safari";
+        safariOptions = new SafariOptions();
+        return this;
     }
 }

@@ -124,7 +124,7 @@ public class SauceSessionTest {
     {
         RemoteDriverInterface fakeRemoteDriver = mock(RemoteDriverInterface.class);
         sauceSession = new SauceSession(fakeRemoteDriver);
-        sauceSession.withSafari();
+        sauceSession.withMacOsMojave();
 
         String safariVersion = sauceSession.getCapabilities().getVersion();
 
@@ -133,14 +133,14 @@ public class SauceSessionTest {
     @Test
     public void withSafari_browserName_setToSafari()
     {
-        sauceSession.withSafari();
+        sauceSession.withMacOsMojave();
         String actualBrowserName = sauceSession.getCapabilities().getBrowserName();
         assertThat(actualBrowserName, IsEqualIgnoringCase.equalToIgnoringCase("safari"));
     }
     @Test
     public void withSafari_versionChangedFromDefault_returnsCorrectVersion()
     {
-        sauceSession.withSafari().withBrowserVersion(SafariVersion.elevenDotOne);
+        sauceSession.withMacOsMojave().withBrowserVersion(SafariVersion.elevenDotOne);
         String safariVersion = sauceSession.getCapabilities().getVersion();
         assertThat(safariVersion, IsEqualIgnoringCase.equalToIgnoringCase("11.1"));
     }
@@ -186,6 +186,6 @@ public class SauceSessionTest {
     public void withSafari_versionChangedToInvalid_shouldNotBePossible()
     {
         //TODO it should not be possible to set an invalid version
-        sauceSession.withSafari().withBrowserVersion("1234");
+        sauceSession.withMacOsMojave().withBrowserVersion("1234");
     }
 }
