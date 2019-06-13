@@ -23,12 +23,12 @@ public class SauceConfigurationTest {
     }
     @Test(expected = SauceEnvironmentVariableNotSetException.class)
     public void shouldThrowExceptionForNullUserName() throws SauceEnvironmentVariableNotSetException {
-        mockSauceEnv.setUserNameEnvironmentVariable("FAKE", "FAKEVAL");
+        mockSauceEnv.setUserNameEnvironmentVariable("FAKE");
         String key = mockSauceEnv.getUserName();
     }
     @Test(expected = SauceEnvironmentVariableNotSetException.class)
     public void shouldThrowExceptionForNullAccessKey() throws SauceEnvironmentVariableNotSetException {
-        mockSauceEnv.setAccessKeyEnvironmentVariable("FAKE", "FAKEVAL");
+        mockSauceEnv.setAccessKeyEnvironmentVariable("FAKE");
         String key = mockSauceEnv.getAccessKey();
     }
 }
