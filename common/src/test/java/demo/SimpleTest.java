@@ -1,6 +1,5 @@
 package demo;
 
-import com.saucelabs.remotedriver.SafariVersion;
 import com.saucelabs.remotedriver.SauceSession;
 import org.junit.Rule;
 import org.junit.Test;
@@ -83,6 +82,19 @@ public class SimpleTest
 		((RemoteWebDriver)driver).executeScript("sauce:job-result=" + (testStatus ? "passed" : "failed"));
 
 		driver.quit();
+	}
+
+	@Test
+	public void withSauceSessionDefaults() throws MalformedURLException
+	{
+		SauceSession session = new SauceSession(getTestName()).start();
+		WebDriver driver = session.getDriver();
+
+		driver.get("https://saucelabs.com");
+		assertThat(driver.getTitle().contains("Sauce Labs"));
+
+		session.passed();
+		session.stop();
 	}
 
 	public String getTestName()
