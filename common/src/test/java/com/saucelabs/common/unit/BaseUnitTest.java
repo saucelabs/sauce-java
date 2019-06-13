@@ -1,5 +1,6 @@
-package com.saucelabs.common;
+package com.saucelabs.common.unit;
 
+import com.saucelabs.common.JavaScriptInvokerFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;

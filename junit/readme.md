@@ -31,10 +31,10 @@ public void setUp() throws Exception {
     capabilities.setCapability("platform", Platform.XP);
     capabilities.setCapability("name", "xxTest : "+testName.getMethodName());
 
-    this.driver = new RemoteWebDriver(
+    this.webDriver = new RemoteWebDriver(
             new URL("http://" + sauceLabAccount + ":" + sauceLabAccessKey + "@ondemand.saucelabs.com:80/wd/hub"),
             capabilities);
-    sessionId=((RemoteWebDriver)driver).getSessionId();
+    sessionId=((RemoteWebDriver)webDriver).getSessionId();
 }
 
 

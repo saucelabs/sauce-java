@@ -1,5 +1,7 @@
-package com.saucelabs.common;
+package com.saucelabs.common.acceptance;
 
+import com.saucelabs.common.InvalidTestStatusException;
+import com.saucelabs.common.SauceApi;
 import com.saucelabs.saucerest.DataCenter;
 import com.saucelabs.saucerest.SauceREST;
 import io.restassured.path.json.JsonPath;
@@ -16,7 +18,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class SauceHelperAcceptanceTest
+public class SauceApiAcceptanceTest
 {
     private String username = System.getenv("SAUCE_USERNAME");
     private String accesskey = System.getenv("SAUCE_ACCESS_KEY");
@@ -29,19 +31,18 @@ public class SauceHelperAcceptanceTest
 
     @Before
     public void runBeforeEachTest() throws MalformedURLException {
-        ChromeOptions caps = getChromeOptions();
         MutableCapabilities sauceOptions = getMutableCapabilities();
-        caps.setCapability("sauce:options", sauceOptions);
-        driver = new RemoteWebDriver(new URL(SAUCE_REMOTE_URL), caps);
-        sessionId = ((RemoteWebDriver) driver).getSessionId();
+        ChromeOptions chromeOpts = getChromeOptions(sauceOptions);
 
+        driver = new RemoteWebDriver(new URL(SAUCE_REMOTE_URL), chromeOpts);
+        sessionId = ((RemoteWebDriver) driver).getSessionId();
         driver.navigate().to("https://www.saucedemo.com");
     }
 
     @Test
     public void shouldSetTestStatusToPassed() throws InvalidTestStatusException {
-        SauceHelper sauceHelper = new SauceHelper(driver);
-        sauceHelper.setTestStatus("passed");
+        SauceApi sauceApi = new SauceApi(driver);
+        sauceApi.setTestStatus("passed");
         driver.quit();
 
         String jobInfo = getSauceJobInformation();
@@ -76,8 +77,7 @@ public class SauceHelperAcceptanceTest
     }
 
     private MutableCapabilities getMutableCapabilities() {
-        MutableCapabilities sauceOptions;
-        sauceOptions = new MutableCapabilities();
+        MutableCapabilities sauceOptions = new MutableCapabilities();
         sauceOptions.setCapability("username", username);
         sauceOptions.setCapability("accessKey", accesskey);
         sauceOptions.setCapability("seleniumVersion", "3.141.59");
@@ -85,13 +85,14 @@ public class SauceHelperAcceptanceTest
         return sauceOptions;
     }
 
-    private ChromeOptions getChromeOptions() {
-        ChromeOptions caps;
-        caps = new ChromeOptions();
-        caps.setCapability("version", "72.0");
-        caps.setCapability("platform", "Windows 10");
-        caps.setExperimentalOption("w3c", true);
-        return caps;
+    private ChromeOptions getChromeOptions(MutableCapabilities sauceOptions) {
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.setExperimentalOption("w3c", true);
+        chromeOptions.setCapability("browserVersion", "70.0");
+        chromeOptions.setCapability("platformName", "windows 10");
+        chromeOptions.setCapability("sauce:options", sauceOptions);
+
+        return chromeOptions;
     }
     private Boolean checkIfTestPassed(String jobInfo) {
         Boolean isPassed;

@@ -1,37 +1,17 @@
-package com.saucelabs.common;
+package com.saucelabs.common.unit;
 
-import org.junit.Before;
+import com.saucelabs.common.SauceJavaScriptStrings;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class SauceJavaScriptStringsTest {
-    private SauceHelper sauceHelper;
 
-    @Before
-    public void runBeforeEveryTest()
-    {
-        sauceHelper = new SauceHelper();
-    }
-
-    @Test
-    public void shouldReturnPassedForTrueResult()
-    {
-        assertJobResult("sauce:job-result=", true);
-    }
-    private void assertJobResult(String s, boolean b) {
-        assertEquals(s + b, sauceHelper.getTestResultString(b));
-    }
-
-    @Test
-    public void shouldReturnFailedForFalseResult()
-    {
-        assertJobResult("sauce:job-result=", false);
-    }
     @Test
     public void shouldBeCorrectTestNamePrefix()
     {
-        assertEquals("sauce:job-name=", SauceJavaScriptStrings.testNamePrefix);
+        Assert.assertEquals("sauce:job-name=", SauceJavaScriptStrings.testNamePrefix);
     }
     @Test
     public void shouldBeCorrectSauceContextPrefix()

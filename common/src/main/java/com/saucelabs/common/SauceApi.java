@@ -2,30 +2,23 @@ package com.saucelabs.common;
 
 import org.openqa.selenium.WebDriver;
 
-public class SauceHelper {
+public class SauceApi {
 
     private WebDriver webDriver;
 
-    public SauceHelper(WebDriver webDriver) {
+    public SauceApi(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
-    public SauceHelper() {
+    public SauceApi() {
     }
 
-    //TODO duplication of 'sauce:jobresult' string and concatenation
-    public String getTestResultString(boolean testResult) {
-        return "sauce:job-result=" + testResult;
-    }
-    private String getTestResultString(String testResult) {
-        return "sauce:job-result=" + testResult;
-    }
-
-    public void setTestStatus(String testResult) throws InvalidTestStatusException {
+    public void setTestStatus(String testResult) {
         //TODO finish implementation
         //testResult = testResult.toLowerCase();
         //isValidTestStatus(testResult);
-        new JavaScriptInvoker(webDriver).executeScript(getTestResultString(testResult));
+        new JavaScriptInvoker(webDriver).
+            executeScript(SauceJavaScriptStrings.testStatusPrefix + testResult);
     }
 
 //    private void isValidTestStatus(String testResult) throws InvalidTestStatusException {

@@ -1,31 +1,32 @@
-package com.saucelabs.common;
+package com.saucelabs.common.unit;
 
+import com.saucelabs.common.*;
 import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
 
 
-public class SauceHelperTest extends BaseUnitTest {
-    private SauceHelper sauceHelper;
+public class SauceApiTest extends BaseUnitTest {
+    private SauceApi sauceApi;
     private JavaScriptExecutor mockJSExecutor;
   
     @Before
     public void runBeforeEveryTest()
     {
-        sauceHelper = new SauceHelper();
+        sauceApi = new SauceApi();
         mockJSExecutor = mock(JavaScriptExecutor.class);
         JavaScriptInvokerFactory.setJavaScriptExecutor(mockJSExecutor);
     }
     @Test
     public void shouldRunExecuteStringMethodWithoutDefaultManagerSet() throws InvalidTestStatusException {
-        sauceHelper.setTestStatus("pass");
+        sauceApi.setTestStatus("pass");
         verify(mockJSExecutor, times(1)).executeScript("sauce:job-result=pass");
     }
     @Test
     public void shouldSetTestName()
     {
         String testName = "testName";
-        sauceHelper.setTestName("testName");
+        sauceApi.setTestName("testName");
         verify(mockJSExecutor, times(1)).
             executeScript(SauceJavaScriptStrings.testNamePrefix + testName);
     }
@@ -33,7 +34,7 @@ public class SauceHelperTest extends BaseUnitTest {
     public void shouldSetTags()
     {
         String tags = "tag1,tag2,tag3";
-        sauceHelper.setTestTags(tags);
+        sauceApi.setTestTags(tags);
         verify(mockJSExecutor, times(1)).
             executeScript(SauceJavaScriptStrings.tagsPrefix + tags);
     }
@@ -41,7 +42,7 @@ public class SauceHelperTest extends BaseUnitTest {
     public void shouldComment()
     {
         String comment = "a comment";
-        sauceHelper.comment(comment);
+        sauceApi.comment(comment);
         verify(mockJSExecutor, times(1)).
             executeScript(SauceJavaScriptStrings.sauceContextPrefix + comment);
     }
@@ -50,43 +51,43 @@ public class SauceHelperTest extends BaseUnitTest {
     public void shouldSetBuildName()
     {
         String buildName = "myBuild";
-        sauceHelper.setBuildName(buildName);
+        sauceApi.setBuildName(buildName);
         verify(mockJSExecutor, times(1)).
             executeScript(SauceJavaScriptStrings.buildPrefix + buildName);
     }
     @Test
     public void shouldSetBreakpoint()
     {
-        sauceHelper.setBreakpoint();
+        sauceApi.setBreakpoint();
         verify(mockJSExecutor, times(1)).
             executeScript(SauceJavaScriptStrings.breakStatement);
     }
     @Test
-    public void shouldSetTestStatusWithPass() throws InvalidTestStatusException {
+    public void shouldSetTestStatusWithPass() {
         String testStatus = "pass";
-        sauceHelper.setTestStatus(testStatus);
+        sauceApi.setTestStatus(testStatus);
         verifyTestStatus(testStatus);
     }
     @Test
-    public void shouldSetTestStatusWithTrue() throws InvalidTestStatusException {
+    public void shouldSetTestStatusWithTrue() {
         String testStatus = "true";
-        sauceHelper.setTestStatus(testStatus);
+        sauceApi.setTestStatus(testStatus);
         verifyTestStatus(testStatus);
     }
     @Test
-    public void shouldSetTestStatusWithFailed() throws InvalidTestStatusException {
+    public void shouldSetTestStatusWithFailed() {
         String testStatus = "failed";
-        sauceHelper.setTestStatus(testStatus);
+        sauceApi.setTestStatus(testStatus);
         verifyTestStatus(testStatus);
     }
     @Test
     public void shouldSetTestStatusWithFalse() throws InvalidTestStatusException {
         String testStatus = "false";
-        sauceHelper.setTestStatus(testStatus);
+        sauceApi.setTestStatus(testStatus);
         verifyTestStatus(testStatus);
     }
 
-    //TODO add this test after we finish implementation of SauceHelper.isValidTestStatus()
+    //TODO add this test after we finish implementation of SauceApi.isValidTestStatus()
 //    @Test
 //    public void shouldThrowExceptionForInvalidTestStatus()
 //    {
