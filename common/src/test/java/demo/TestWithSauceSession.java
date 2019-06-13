@@ -2,7 +2,6 @@ package demo;
 
 import com.saucelabs.remotedriver.SafariVersion;
 import com.saucelabs.remotedriver.SauceSession;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
