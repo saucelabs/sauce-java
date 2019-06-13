@@ -149,8 +149,30 @@ public class SauceSessionTest {
     public void withOs_linux_allowsOnlyChromeOrFirefox()
     {
         sauceSession.withPlatform("Linux");
-        String actualOs = sauceSession.getCapabilities().getPlatform().toString();
-        assertThat(actualOs, IsEqualIgnoringCase.equalToIgnoringCase("WIN10"));
+    }
+    @Test
+    @Ignore("Future enhancement")
+    public void withOs_windows10_doesntAllowSafari()
+    {
+        sauceSession.withPlatform("Windows 10");
+    }
+    @Test
+    @Ignore("Future enhancement")
+    public void withOs_windows8_1_allowsOnlyChromeOrFfOrIe()
+    {
+        sauceSession.withPlatform("Windows 8.1");
+    }
+    @Test
+    @Ignore("Future enhancement")
+    public void withOs_windows8_allowsOnlyChromeOrFfOrIe()
+    {
+        sauceSession.withPlatform("Windows 8");
+    }
+    @Test
+    @Ignore("Future enhancement")
+    public void withOs_mac_allowsOnlyChromeOrFfOrSafari()
+    {
+        sauceSession.withPlatform("Windows 8");
     }
     @Test
     @Ignore("Future enhancement")
