@@ -42,7 +42,7 @@ public class SauceSessionTest {
     public void getInstance_serverNotSet_setsSauceSeleniumServer() throws MalformedURLException {
         RemoteDriverInterface fakeRemoteDriver = mock(RemoteDriverInterface.class);
         sauceSession = new SauceSession(fakeRemoteDriver);
-        sauceSession.getInstanceOld();
+        sauceSession.start();
         String expectedServer = "https://ondemand.saucelabs.com/wd/hub";
         assertEquals(expectedServer, sauceSession.seleniumServer);
     }
@@ -51,7 +51,7 @@ public class SauceSessionTest {
     public void browserNameCapability_isSetToCorrectKey() throws MalformedURLException {
         RemoteDriverInterface fakeRemoteDriver = mock(RemoteDriverInterface.class);
         sauceSession = new SauceSession(fakeRemoteDriver);
-        sauceSession.getInstanceOld();
+        sauceSession.start();
         String expectedBrowserCapabilityKey = "browserName";
         String actualBrowser = sauceSession.capabilities.getCapability(expectedBrowserCapabilityKey).toString();
         assertThat(actualBrowser, CoreMatchers.not(isEmptyOrNullString()));
@@ -71,7 +71,7 @@ public class SauceSessionTest {
     public void setCapability_platformName_returnsCorrectOs() throws MalformedURLException {
         RemoteDriverInterface fakeRemoteDriver = mock(RemoteDriverInterface.class);
         sauceSession = new SauceSession(fakeRemoteDriver);
-        sauceSession.getInstanceOld();
+        sauceSession.start();
         String correctPlatformKey = "platformName";
         String actualBrowser = sauceSession.capabilities.getCapability(correctPlatformKey).toString();
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("Windows 10"));
@@ -80,7 +80,7 @@ public class SauceSessionTest {
     public void setCapability_browserVersion_returnsCorrectVersion() throws MalformedURLException {
         RemoteDriverInterface fakeRemoteDriver = mock(RemoteDriverInterface.class);
         sauceSession = new SauceSession(fakeRemoteDriver);
-        sauceSession.getInstanceOld();
+        sauceSession.start();
         String correctKey = "browserVersion";
         String actualBrowser = sauceSession.capabilities.getCapability(correctKey).toString();
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("latest"));
