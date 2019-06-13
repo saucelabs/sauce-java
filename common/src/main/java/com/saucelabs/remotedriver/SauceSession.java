@@ -101,26 +101,23 @@ public class SauceSession {
     {
         if (browserName.equalsIgnoreCase("Chrome"))
         {
-            withChrome();
             capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         }
         else if (browserName.equalsIgnoreCase("Firefox"))
         {
-            withFirefox();
             capabilities.setCapability(FirefoxOptions.FIREFOX_OPTIONS, firefoxOptions);
         }
         else if(browserName.equalsIgnoreCase("Safari"))
         {
+            safariOptions = new SafariOptions();
             capabilities.setCapability(SafariOptions.CAPABILITY, safariOptions);
         }
         else if(browserName.equalsIgnoreCase("Edge"))
         {
-            withEdge();
             capabilities.setCapability("Edge", edgeOptions);
         }
         else if(browserName.equalsIgnoreCase("IE"))
         {
-            withIE();
             capabilities.setCapability("se:ieOptions", ieOptions);
         }
         else {
@@ -167,7 +164,12 @@ public class SauceSession {
     public SauceSession withMacOsMojave() {
         operatingSystem = "macOS 10.14";
         browserName = "Safari";
-        safariOptions = new SafariOptions();
+        return this;
+    }
+    public SauceSession withMacOsHighSierra()
+    {
+        this.operatingSystem = "macOS 10.13";
+        browserName = "Safari";
         return this;
     }
     public SauceSession withBrowserVersion(String browserVersion){
@@ -196,13 +198,5 @@ public class SauceSession {
     {
         if(webDriver != null)
             webDriver.quit();
-    }
-
-    public SauceSession withMacOsHighSierra()
-    {
-        this.operatingSystem = "macOS 10.13";
-        browserName = "Safari";
-        safariOptions = new SafariOptions();
-        return this;
     }
 }
