@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 public class JavaScriptInvokerImpl implements JavaScriptExecutor {
     private final WebDriver webDriver;
 
-
     public JavaScriptInvokerImpl(WebDriver driver)
     {
         webDriver = driver;
