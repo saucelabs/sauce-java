@@ -23,7 +23,7 @@ public class SimpleTest
 	Boolean FAILED = false;
 
 	@Test
-	public void withoutSauceSession() throws MalformedURLException
+	public void theOldAndSuckyWay() throws MalformedURLException
 	{
 		String SAUCE_URL = "https://ondemand.saucelabs.com/wd/hub";
 		URL url = new URL(SAUCE_URL);
@@ -85,7 +85,7 @@ public class SimpleTest
 	}
 
 	@Test
-	public void withSauceSessionDefaults() throws MalformedURLException
+	public void withSimpleSauceDefaults() throws MalformedURLException
 	{
 		SauceSession session = new SauceSession(getTestName()).start();
 		WebDriver driver = session.getDriver();
