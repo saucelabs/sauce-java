@@ -25,11 +25,19 @@ public class SauceSessionTest {
         sauceSession = new SauceSession();
     }
     @Test
-    public void seleniumServer_notSet_returnsNull()
+    public void startSession_invoked_setsNewSauceApiObject() throws MalformedURLException
     {
-        //TODO is this okay to be like a property,
-        //or should it be a getSeleniumServer()
-        assertNull(sauceSession.seleniumServer);
+        RemoteDriverInterface fakeRemoteDriver = mock(RemoteDriverInterface.class);
+        sauceSession = new SauceSession(fakeRemoteDriver);
+        sauceSession.start();
+        assertNotNull(sauceSession.test);
+    }
+    @Test
+    public void withChrome_invoked_setsBrowserNameToChrome() throws MalformedURLException
+    {
+        sauceSession = new SauceSession().withChrome();
+        assertThat(sauceSession.browserName,
+            IsEqualIgnoringCase.equalToIgnoringCase("chrome"));
     }
 
     @Test
@@ -39,16 +47,7 @@ public class SauceSessionTest {
     }
 
     @Test
-    public void getInstance_serverNotSet_setsSauceSeleniumServer() throws MalformedURLException {
-        RemoteDriverInterface fakeRemoteDriver = mock(RemoteDriverInterface.class);
-        sauceSession = new SauceSession(fakeRemoteDriver);
-        sauceSession.start();
-        String expectedServer = "https://ondemand.saucelabs.com/wd/hub";
-        assertEquals(expectedServer, sauceSession.seleniumServer);
-    }
-    @Test
-    //TODO rename and refactor into logic similar to here: setCapability_platformName_returnsCorrectOs
-    public void browserNameCapability_isSetToCorrectKey() throws MalformedURLException {
+    public void startSession_browserCapabilityKey_isCorrect() throws MalformedURLException {
         RemoteDriverInterface fakeRemoteDriver = mock(RemoteDriverInterface.class);
         sauceSession = new SauceSession(fakeRemoteDriver);
         sauceSession.start();
@@ -116,7 +115,7 @@ public class SauceSessionTest {
     {
         RemoteDriverInterface fakeRemoteDriver = mock(RemoteDriverInterface.class);
         sauceSession = new SauceSession(fakeRemoteDriver);
-        sauceSession.withSafari();
+        sauceSession.withMacOsMojave();
 
         String safariVersion = sauceSession.getCapabilities().getVersion();
 
@@ -125,14 +124,14 @@ public class SauceSessionTest {
     @Test
     public void withSafari_browserName_setToSafari()
     {
-        sauceSession.withSafari();
+        sauceSession.withMacOsMojave();
         String actualBrowserName = sauceSession.getCapabilities().getBrowserName();
         assertThat(actualBrowserName, IsEqualIgnoringCase.equalToIgnoringCase("safari"));
     }
     @Test
     public void withSafari_versionChangedFromDefault_returnsCorrectVersion()
     {
-        sauceSession.withSafari().withBrowserVersion(SafariVersion.elevenDotOne);
+        sauceSession.withMacOsMojave().withBrowserVersion(SafariVersion.elevenDotOne);
         String safariVersion = sauceSession.getCapabilities().getVersion();
         assertThat(safariVersion, IsEqualIgnoringCase.equalToIgnoringCase("11.1"));
     }
@@ -178,6 +177,6 @@ public class SauceSessionTest {
     public void withSafari_versionChangedToInvalid_shouldNotBePossible()
     {
         //TODO it should not be possible to set an invalid version
-        sauceSession.withSafari().withBrowserVersion("1234");
+        sauceSession.withMacOsMojave().withBrowserVersion("1234");
     }
 }

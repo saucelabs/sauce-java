@@ -1,5 +1,6 @@
 package com.saucelabs.common.acceptance;
 
+import com.saucelabs.remotedriver.SafariVersion;
 import com.saucelabs.remotedriver.SauceSession;
 import org.hamcrest.text.IsEqualIgnoringCase;
 import org.junit.After;
@@ -19,7 +20,8 @@ public class SauceSessionAcceptaceTest {
     @After
     public void cleanUp()
     {
-        webDriver.quit();
+        if(webDriver != null)
+            webDriver.quit();
     }
     @Test
     public void startSession_noSauceOptionsSet_returnsDriver() throws MalformedURLException {
@@ -36,9 +38,32 @@ public class SauceSessionAcceptaceTest {
     }
     @Test
     public void withSafari_osNotSet_returnsValidSafariSession() throws MalformedURLException {
-        webDriver = new SauceSession().withSafari().start().getDriver();
+        webDriver = new SauceSession().withMacOsMojave().start().getDriver();
         String actualBrowser = getBrowserNameFromCapabilities();
         assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("safari"));
+    }
+    @Test
+    public void newSession_default_canUseSauceApi() throws MalformedURLException {
+        SauceSession sauceLabs = new SauceSession().start();
+
+        sauceLabs.test.comment("sample test comment");
+        sauceLabs.test.setTestStatus("true");
+        sauceLabs.test.setTestName("MyTestName");
+
+        sauceLabs.stop();
+    }
+    @Test
+    public void withSafari_differentVersion_returnsValidSession() throws MalformedURLException {
+        webDriver = new SauceSession().
+            withBrowserVersion(SafariVersion.elevenDotOne).
+            withMacOsHighSierra().
+            start().
+            getDriver();
+
+        String actualBrowser = getBrowserNameFromCapabilities();
+        String actualBrowserVersion = (((RemoteWebDriver) webDriver).getCapabilities()).getVersion();
+        assertThat(actualBrowser, IsEqualIgnoringCase.equalToIgnoringCase("safari"));
+        assertThat(actualBrowserVersion, IsEqualIgnoringCase.equalToIgnoringCase("13605.3.8"));
     }
 
     private String getBrowserNameFromCapabilities() {
