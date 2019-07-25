@@ -31,8 +31,6 @@ public class SauceSession {
 	Boolean useSauce = true;
     String sauceOptionsTag = "sauce:options";
 
-	public String seleniumServer;
-
 	ChromeOptions chromeOptions;
 	FirefoxOptions firefoxOptions;
 	MutableCapabilities sauceOptions;
@@ -58,31 +56,16 @@ public class SauceSession {
         capabilities = new MutableCapabilities();
     }
 
-    public SauceSession(String testName)
-    {
-        capabilities = new MutableCapabilities();
-        remoteDriverManager = new ConcreteRemoteDriverManager();
-        this.testName = testName;
-    }
-
     public SauceSession start() throws MalformedURLException
 	{
-        seleniumServer = getSeleniumServer();
         capabilities = getCapabilities();
-        webDriver = remoteDriverManager.getRemoteWebDriver(seleniumServer, capabilities);
+        webDriver = remoteDriverManager.getRemoteWebDriver(sauceSeleniumServer, capabilities);
         sessionId = ((RemoteWebDriver) webDriver).getSessionId().toString();
         test = new SauceApi(webDriver);
         api = new SauceREST(SAUCE_USERNAME, SAUCE_ACCESS_KEY);
 
         return this;
 	}
-    public String getSeleniumServer() {
-        if (seleniumServer == null)
-        {
-            seleniumServer = sauceSeleniumServer;
-        }
-        return seleniumServer;
-    }
     public MutableCapabilities getCapabilities() {
         sauceOptions = getSauceOptions();
         setBrowserOptions(browserName);
@@ -99,12 +82,9 @@ public class SauceSession {
     {
         if (useSauce)
         {
-            seleniumServer = sauceSeleniumServer;
-
             sauceOptions = new MutableCapabilities();
             sauceOptions.setCapability("username", SAUCE_USERNAME);
             sauceOptions.setCapability("accessKey", SAUCE_ACCESS_KEY);
-            sauceOptions.setCapability("seleniumVersion", "3.141.59");
 
             if (testName != null)
             {

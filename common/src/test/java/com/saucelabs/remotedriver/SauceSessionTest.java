@@ -39,13 +39,6 @@ public class SauceSessionTest {
         assertThat(sauceSession.browserName,
             IsEqualIgnoringCase.equalToIgnoringCase("chrome"));
     }
-    @Test
-    public void seleniumServer_notSet_returnsNull()
-    {
-        //TODO is this okay to be like a property,
-        //or should it be a getSeleniumServer()
-        assertNull(sauceSession.seleniumServer);
-    }
 
     @Test
     public void defaultConstructor_instantiated_setsConcreteDriverManager()
@@ -54,16 +47,7 @@ public class SauceSessionTest {
     }
 
     @Test
-    public void getInstance_serverNotSet_setsSauceSeleniumServer() throws MalformedURLException {
-        RemoteDriverInterface fakeRemoteDriver = mock(RemoteDriverInterface.class);
-        sauceSession = new SauceSession(fakeRemoteDriver);
-        sauceSession.start();
-        String expectedServer = "https://ondemand.saucelabs.com/wd/hub";
-        assertEquals(expectedServer, sauceSession.seleniumServer);
-    }
-    @Test
-    //TODO rename and refactor into logic similar to here: setCapability_platformName_returnsCorrectOs
-    public void browserNameCapability_isSetToCorrectKey() throws MalformedURLException {
+    public void startSession_browserCapabilityKey_isCorrect() throws MalformedURLException {
         RemoteDriverInterface fakeRemoteDriver = mock(RemoteDriverInterface.class);
         sauceSession = new SauceSession(fakeRemoteDriver);
         sauceSession.start();
