@@ -50,8 +50,7 @@ public class TestWithSauceSession
 	@Test
 	public void withSafariOnMac() throws MalformedURLException
 	{
-
-		SauceSession session = new SauceSession(getTestName())
+	    SauceSession session = new SauceSession(getTestName())
 				.withMacOsHighSierra()
 				.withBrowserVersion(SafariVersion.elevenDotOne)
 				.start();

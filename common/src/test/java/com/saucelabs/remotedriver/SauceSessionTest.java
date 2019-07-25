@@ -25,7 +25,7 @@ public class SauceSessionTest {
         sauceSession = new SauceSession();
     }
     @Test
-    public void startSession_invoked_setsNewSauceApiOjbect() throws MalformedURLException
+    public void startSession_invoked_setsNewSauceApiObject() throws MalformedURLException
     {
         RemoteDriverInterface fakeRemoteDriver = mock(RemoteDriverInterface.class);
         sauceSession = new SauceSession(fakeRemoteDriver);
