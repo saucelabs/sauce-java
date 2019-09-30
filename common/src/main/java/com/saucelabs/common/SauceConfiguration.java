@@ -3,7 +3,7 @@ package com.saucelabs.common;
 public class SauceConfiguration {
     private String userNameEnvironmentVariableKey;
     private String apiKeyEnvironmentVariableName;
-    public String accessKey;
+    private String accessKey;
 
     public SauceConfiguration() {
         userNameEnvironmentVariableKey = "SAUCE_USERNAME";
@@ -40,4 +40,7 @@ public class SauceConfiguration {
         return apiKeyEnvironmentVariableName;
     }
 
+    public void setAccessKey(String accessKey) {
+        this.accessKey = accessKey;
+    }
 }
