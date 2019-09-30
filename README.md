@@ -4,18 +4,11 @@ Sauce Java Helper libraries
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4655f1e8e1fa4c3bae6487e8cc09b23e)](https://app.codacy.com/app/nikolay.advolodkin/sauce-java?utm_source=github.com&utm_medium=referral&utm_content=saucelabs/sauce-java&utm_campaign=Badge_Grade_Dashboard)
 [![codecov.io](https://codecov.io/github/saucelabs/sauce-java/coverage.svg?branch=master)](https://codecov.io/github/saucelabs/sauce-java?branch=master)
 
-This project contains helper libraries for consuming Sauce Labs services from Java using [TestNG](http://www.testng.org)
-and/or [JUnit](http://www.junit.org).
+This project contains helper libraries for consuming Sauce Labs services from Java:
 
-The helper libraries provide the following functionality:
-* Invoke the Sauce REST API to mark a Sauce Job as passed/failed, based on the test result
-* Output the Sauce Session Id to the stdout, so that the Sauce Continuous Integration plugins (for Bamboo/Jenkins/Hudson)
-can parse the output)
-* Provide a com.saucelabs.common.SauceOnDemandAuthentication class, which handles obtaining the Sauce OnDemand user name
-and access key from environment variables and/or the filesystem.
-
-For JUnit projects, the library can be added to a project by including the following dependency:
-
+How to use
+------
+1. Import the dependency into your pom.xml
 ```xml
 <dependency>
     <groupId>com.saucelabs</groupId>
@@ -24,17 +17,23 @@ For JUnit projects, the library can be added to a project by including the follo
     <scope>test</scope>
 </dependency>
 ```
+2. Create object
 
-For TestNG projects, the library can be added to a project by including the following dependency:
+RemoteWebDriver driver = new RemoteWebDriver(new URL(SAUCE_REMOTE_URL), caps);
+SauceHelper sauce = new SauceHelper(driver);
 
-```xml
-<dependency>
-    <groupId>com.saucelabs</groupId>
-    <artifactId>sauce_testng</artifactId>
-    <version>2.1.21</version>
-    <scope>test</scope>
-</dependency>
-```
+add an informational comment to your test
+
+```sauce.comment("Open the Google page");```
+
+tell Sauce Labs the status of your test
+
+```sauce.setTestStatus("pass");  //pass,fail,true,false```
+
+set the name of your test case in Sauce Labs
+
+```sauce.setTestName("shouldOpenGooglePage");```
+
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/saucelabs/sauce-java/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
