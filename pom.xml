@@ -14,7 +14,6 @@
     <modules>
         <module>common</module>
         <module>junit</module>
-        <module>quickstart-archetype</module>
     </modules>
     <licenses>
         <license>
